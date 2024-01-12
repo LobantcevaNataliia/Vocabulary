@@ -1,0 +1,43 @@
+﻿<Window x:Class="Vocabulary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Vocabulary"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Button Grid.Row="0" x:Name="List" Content="Full list" MinHeight="100" Click="List_Click" Foreground="#FF10263C" FontFamily="Algerian" FontSize="22">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF3399FF" Offset="1"/>
+                    <GradientStop Color="#FF246EBB" Offset="0.279"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button Grid.Row="1" x:Name="Learn" Content="Learning new words" MinHeight="100" Click="Learn_Click" Foreground="#FF246EBB" FontSize="22" FontFamily="Broadway">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF4DA1F5" Offset="0"/>
+                    <GradientStop Color="#FF94C6F7" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+
+        <Button Grid.Row="2" x:Name="Repeat" Content="Repeat learned words" MinHeight="100" Click="Repeat_Click" Foreground="#FF4DA1F5" FontSize="22" FontFamily="Engravers MT">
+            <Button.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF94C6F7" Offset="0"/>
+                    <GradientStop Color="#FFE5FDFC" Offset="1"/>
+                </LinearGradientBrush>
+            </Button.Background>
+        </Button>
+    </Grid>
+</Window>

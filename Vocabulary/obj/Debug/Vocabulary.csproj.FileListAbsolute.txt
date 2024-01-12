@@ -1,0 +1,45 @@
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\bin\Debug\Vocabulary.exe.config
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\bin\Debug\Vocabulary.exe
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\bin\Debug\Vocabulary.pdb
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Exercise.g.cs
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\LearningWords.g.cs
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\ListOfWords.g.cs
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\MainWindow.g.cs
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\App.g.cs
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary_MarkupCompile.cache
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary_MarkupCompile.lref
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Exercise.baml
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\LearningWords.baml
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\ListOfWords.baml
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\MainWindow.baml
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary.g.resources
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary.Properties.Resources.resources
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csproj.GenerateResource.Cache
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary.exe
+c:\users\user\documents\visual studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Vocabulary.pdb
+C:\Users\user\Documents\Visual Studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Settings.g.cs
+C:\Users\user\Documents\Visual Studio 2015\Projects\Vocabulary\Vocabulary\obj\Debug\Settings.baml
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\bin\Debug\Vocabulary.exe.config
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\bin\Debug\Vocabulary.exe
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\bin\Debug\Vocabulary.pdb
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csproj.AssemblyReference.cache
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Exercise.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\LearningWords.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\ListOfWords.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\MainWindow.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Settings.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\App.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary_MarkupCompile.cache
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary_MarkupCompile.lref
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Exercise.baml
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\LearningWords.baml
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\ListOfWords.baml
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\MainWindow.baml
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Settings.baml
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.g.resources
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.Properties.Resources.resources
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csproj.GenerateResource.cache
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csproj.CoreCompileInputs.cache
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.exe
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.pdb
