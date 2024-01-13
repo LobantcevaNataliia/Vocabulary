@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.ComponentModel;
 
 namespace Vocabulary
 {
@@ -23,31 +24,19 @@ namespace Vocabulary
         public MainWindow()
         {
             InitializeComponent();
+            Work();
         }
 
         public List<Word> listWords = new List<Word>();
         string FilePath;
         static string currDir = Environment.CurrentDirectory.ToString();
 
-        private void Learn_Click(object sender, RoutedEventArgs e)
-        {
-            Window learn = new LearningWords(listWords, FilePath);
-            learn.Show();
-        }
-
-        private void List_Click(object sender, RoutedEventArgs e)
-        {
-            Window fullList = new ListOfWords(listWords, FilePath);
-            fullList.Show();
-        }
-
-        private void Repeat_Click(object sender, RoutedEventArgs e)
-        {
-            Window exercise = new Exercise(listWords, FilePath);
-            exercise.Show();
-        }
-
         private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            Work();
+        }
+
+        public void Work()
         {
             //OpenFileDialog openFileDialog = new OpenFileDialog();
             //if (openFileDialog.ShowDialog() == true)
@@ -73,6 +62,24 @@ namespace Vocabulary
                 MessageBox.Show("Произошла ошибка считывания. Будет загружен документ \"test1.txt\" ");
                 //DownloadTest();
             }
+        }
+        private void Auto_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void List_Click(object sender, RoutedEventArgs e)
+        {
+            Window fullList = new ListOfWords(listWords, FilePath);
+            fullList.Show();
+            MainWindowWindow.Hide();
+        }
+
+        private void Exercise_Click(object sender, RoutedEventArgs e)
+        {
+            Window exercise = new Exercise(listWords, FilePath);
+            exercise.Show();
+            MainWindowWindow.Hide();
         }
     }
 }

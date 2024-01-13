@@ -1,12 +1,16 @@
-﻿<Window x:Class="Vocabulary.LearningWords"
+﻿<Window x:Name="LearningWordsWindow"  x:Class="Vocabulary.LearningWords"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        Title="LearningWords" Height="400" Width="500" Loaded="Window_Loaded">
+        Title="LearningWords" Height="400" Width="500" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="13*"/>
+            <ColumnDefinition Width="237*"/>
+        </Grid.ColumnDefinitions>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FFFDCC4A" Offset="0"/>
@@ -17,7 +21,7 @@
             <RowDefinition Height="5*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Grid.Row="0" Margin="50,20"  >
+        <Grid Grid.Row="0" Margin="24,20,50,20" Grid.Column="1"  >
             <Grid.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FFEE9617" Offset="0"/>
@@ -32,7 +36,7 @@
             </TextBlock>
             <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50" FontFamily="Perpetua Titling MT" FontSize="18"/>
         </Grid>
-        <Grid Grid.Row="1">
+        <Grid Grid.ColumnSpan="2" Margin="0,320,0,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />

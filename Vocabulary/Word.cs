@@ -9,13 +9,13 @@ namespace Vocabulary
     public class Word
     {
         public string english { get; set; }
-        public string russian { get; set; }
+        public string ukrainian { get; set; }
         public bool status { get; set; }
 
-        public Word(string english, string russian, bool status)
+        public Word(string english, string ukrainian, bool status)
         {
             this.english = english;
-            this.russian = russian;
+            this.ukrainian = ukrainian;
             this.status = status;
         }
     }

@@ -43,3 +43,5 @@ D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\
 D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csproj.CoreCompileInputs.cache
 D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.exe
 D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.pdb
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Translation.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Translation.baml

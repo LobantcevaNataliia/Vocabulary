@@ -62,7 +62,7 @@ namespace Vocabulary
 
             list = SortForABC();
             for (int i = 0; i < list.Count; i++)
-                CreateItem(i, list[i].english, list[i].russian, list[i].status);
+                CreateItem(i, list[i].english, list[i].ukrainian, list[i].status);
         }
 
 
@@ -255,6 +255,13 @@ namespace Vocabulary
                 }
             }
             return sorted;
+        }
+
+        private void ListOfWordsWindow_Closed(object sender, EventArgs e)
+        {
+            Window mainWindow = new MainWindow();
+            mainWindow.Show();
+            ListOfWordsWindow.Close();
         }
     }
 }

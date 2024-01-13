@@ -63,6 +63,9 @@
     <Compile Include="Settings.xaml.cs">
       <DependentUpon>Settings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Translation.xaml.cs">
+      <DependentUpon>Translation.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Word.cs" />
     <Page Include="Exercise.xaml">
       <SubType>Designer</SubType>
@@ -98,6 +101,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Settings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Translation.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

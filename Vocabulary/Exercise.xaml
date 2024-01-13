@@ -1,50 +1,70 @@
-﻿<Window x:Class="Vocabulary.Exercise"
+﻿<Window x:Name="ExerciseWindow" x:Class="Vocabulary.Exercise"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        Title="Exercise" Height="400" Width="500" Loaded="Window_Loaded">
+        Title="Exercise" Height="400" Width="500" Loaded="Window_Loaded" Closed="ExerciseWindow_Closed">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFCAAFE4" Offset="1"/>
-                <GradientStop Color="#FFA86CDB" Offset="0"/>
-            </LinearGradientBrush>
-        </Grid.Background>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*"></RowDefinition>
-            <RowDefinition Height="*" ></RowDefinition>
-            <RowDefinition Height="0.25*"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" ></ColumnDefinition>
-            <ColumnDefinition Width="*" ></ColumnDefinition>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Label x:Name="NameOfExercise" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Choose right English translation" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Rockwell"/>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
-            <Label x:Name="Task" Grid.Row="0" Content="Word" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Elephant" />
+        <WrapPanel Grid.RowSpan="2" Grid.ColumnSpan="2">
+            <WrapPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF4DA1F5" Offset="0"/>
+                    <GradientStop Color="#FF94C6F7" Offset="1"/>
+                </LinearGradientBrush>
+            </WrapPanel.Background>
+        </WrapPanel>
 
-            <Button Grid.Row="1" x:Name="Var2"   Content="Var2" Click="Var2_Click" Margin="0,0,30,0" HorizontalAlignment="Right" Width="200" Background="#FF7D64BF" FontSize="16" FontFamily="Rockwell"/>
-            <Button Grid.Row="1" x:Name="Var1"   Content="Var1" Click="Var1_Click" HorizontalAlignment="Left" Margin="30,0,0,0" Width="200" Background="#FF7D64BF" FontSize="16" FontFamily="Rockwell"/>
-            <Button Grid.Row="2" x:Name="Var4"   Content="Var4" Click="Var4_Click"  Background="#FF7D64BF" HorizontalAlignment="Right" Margin="0,0,30,0" Width="200" FontSize="16" FontFamily="Rockwell"/>
-            <Button Grid.Row="2" x:Name="Var3"   Content="Var3" Click="Var3_Click"  Background="#FF7D64BF" HorizontalAlignment="Left" Margin="30,0,0,0" Width="200" FontSize="16" FontFamily="Rockwell" />
+        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2">
+            <WrapPanel.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF94C6F7" Offset="0"/>
+                    <GradientStop Color="#FFE5FDFC" Offset="1"/>
+                </LinearGradientBrush>
+            </WrapPanel.Background>
+        </WrapPanel>
 
+        <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Choose an exercise" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="40" FontFamily="Engravers MT" Foreground="#FF1B25C0"/>
 
-            <Label x:Name="RightAnswer" Grid.Row="1" Content="Word" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" IsHitTestVisible="True" Visibility="Hidden" FontSize="18" FontFamily="Verdana"/>
-            <Button Grid.Row="1" x:Name="MarkR" Width="90" Height="30" Content="Define as lerned" Click="MarkR_Click" Background="#FFA86CDB" HorizontalAlignment="Right" Margin="0,0,60,0" Visibility="Hidden" FontSize="16" FontFamily="Rockwell" />
-            <Button Grid.Row="1" x:Name="MarkW" Width="90" Height="30" Content="Learn" Click="MarkW_Click" Background="#FFA86CDB" HorizontalAlignment="Left" Margin="60,0,0,0" Visibility="Hidden" FontFamily="Rockwell" FontSize="16"/>
-            <TextBox x:Name="Answer" Grid.Row="2"  Height="40" TextWrapping="Wrap" Margin="40,22,40,9" MouseDoubleClick="Answer_MouseDoubleClick" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden" />
-        </Grid>
-        <Button Grid.Column="1" Grid.Row="3" x:Name="NextEx" Width="80" Height="30" Content="Next" Click="NextEx_Click"  Background="#FFA86CDB" FontFamily="Rockwell" FontSize="16"/>
-        <Button Grid.Column="0" Grid.Row="3" x:Name="PrivEx" Width="80" Height="30" Content="Privious" Click="PrivEx_Click"  Background="#FFA86CDB" FontFamily="Rockwell" FontSize="16"/>
+        <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="Learn" Content="Learning new words"  Click="Learn_Click" HorizontalAlignment="Center"
+            VerticalAlignment="Center"  FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" BorderThickness="0,0,0,0">
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF116FF3" Offset="0.818"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="0" x:Name="Translation" Content="Translation"  Click="Translation_Click" HorizontalAlignment="Center"
+             VerticalAlignment="Center"  FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" BorderThickness="0,0,0,0">
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF116FF3" Offset="0.818"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
+
+        <Button Grid.Row="2" Grid.Column="1" x:Name="Repeat" Content="Repetition"  Click="Repeat_Click"  FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button.Foreground>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="Black" Offset="1"/>
+                    <GradientStop Color="#FF116FF3" Offset="0.818"/>
+                </LinearGradientBrush>
+            </Button.Foreground>
+        </Button>
 
     </Grid>
 </Window>

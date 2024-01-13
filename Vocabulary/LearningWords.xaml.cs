@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -36,7 +37,7 @@ namespace Vocabulary
             if(iCurrent > 0)
             {
                 textBlock1.Text = listLearnWords[iCurrent - 1].english;
-                textBlock2.Text = listLearnWords[iCurrent - 1].russian;
+                textBlock2.Text = listLearnWords[iCurrent - 1].ukrainian;
                 iCurrent--;
             }
 
@@ -47,7 +48,7 @@ namespace Vocabulary
             if (iCurrent < listLearnWords.Count - 1)
             {
                 textBlock1.Text = listLearnWords[iCurrent + 1].english;
-                textBlock2.Text = listLearnWords[iCurrent + 1].russian;
+                textBlock2.Text = listLearnWords[iCurrent + 1].ukrainian;
                 iCurrent++; 
             }
         }
@@ -61,7 +62,14 @@ namespace Vocabulary
 
             iCurrent = 0;
             textBlock1.Text = listLearnWords[0].english;
-            textBlock2.Text = listLearnWords[0].russian;
+            textBlock2.Text = listLearnWords[0].ukrainian;
+        }
+
+        private void Window_Closed(object sender, EventArgs e)
+        {            
+            Window exerciseWindow = new Exercise(listAllWords, FilePath);
+            exerciseWindow.Show();
+            LearningWordsWindow.Close();
         }
     }
 }

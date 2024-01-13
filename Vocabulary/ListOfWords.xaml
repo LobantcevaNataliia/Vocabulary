@@ -1,11 +1,11 @@
-﻿<Window x:Class="Vocabulary.ListOfWords"
+﻿<Window x:Name="ListOfWordsWindow" x:Class="Vocabulary.ListOfWords"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        Title="ListOfWords" Height="400" Width="500" Loaded="Window_Loaded">
+        Title="ListOfWords" Height="400" Width="500" Loaded="Window_Loaded" Closed="ListOfWordsWindow_Closed">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
@@ -91,7 +91,7 @@
                             <RowDefinition Height="*" />
                         </Grid.RowDefinitions>
                         <TextBlock x:Name="w" Grid.Row="0" Text="Way" FontFamily="Stencil" FontSize="16"/>
-                        <TextBlock x:Name="t" Grid.Row="1" Text="Дорога,путь, магистраль" FontFamily="Century" FontSize="14"/>
+                        <TextBlock x:Name="t" Grid.Row="1" Text="Дорога,шлях, магістраль" FontFamily="Century" FontSize="14"/>
                     </Grid>
                     <TextBlock x:Name="n" Grid.Column="0" Text="1" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10
                                " FontFamily="Stencil"/>
