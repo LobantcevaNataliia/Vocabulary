@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -15,34 +16,26 @@ using System.Windows.Shapes;
 
 namespace Vocabulary
 {
-    /// <summary>
-    /// Interaction logic for Translation.xaml
-    /// </summary>
     public partial class Translation : Window
     {
-        public List<Word> list = new List<Word>();
-        //public List<string> list2 = new List<string>();
-        //public List<bool> list3 = new List<bool>();
+        ObservableCollection<Word> words;
 
-        static string currDir = Environment.CurrentDirectory.ToString();
-        string FilePath;
         int maxCount = 3, minCount = 0, countEx, iEx, amountEx;
         int[] indexArray = new int[4];
         int[] varArray = new int[4];
 
-        public Translation(List<Word> list, string FilePath)
+        public Translation(ObservableCollection<Word> words)
         {
             InitializeComponent();
-            this.list = list;
-            this.FilePath = FilePath;
+            this.words = words;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             Random ran = new Random();
-            iEx = ran.Next(list.Count);
+            iEx = ran.Next(words.Count);
             indexArray[0] = iEx;
-            Task.Content = list[iEx].english;
+            Task.Content = words[iEx].english;
 
             bool repeat = false;
             int num = 0;
@@ -52,7 +45,7 @@ namespace Vocabulary
                 {
                     repeat = false;
                     ran = new Random();
-                    num = ran.Next(list.Count);
+                    num = ran.Next(words.Count);
                     for (int i = 0; i < indexArray.Length; i++)
                         if (indexArray[i] == num)
                             repeat = true;
@@ -79,10 +72,10 @@ namespace Vocabulary
                 varArray[k] = num;
             }
 
-            Var1.Content = list[indexArray[varArray[0] - 1]].ukrainian;
-            Var2.Content = list[indexArray[varArray[1] - 1]].ukrainian;
-            Var3.Content = list[indexArray[varArray[2] - 1]].ukrainian;
-            Var4.Content = list[indexArray[varArray[3] - 1]].ukrainian;
+            Var1.Content = words[indexArray[varArray[0] - 1]].ukrainian;
+            Var2.Content = words[indexArray[varArray[1] - 1]].ukrainian;
+            Var3.Content = words[indexArray[varArray[2] - 1]].ukrainian;
+            Var4.Content = words[indexArray[varArray[3] - 1]].ukrainian;
 
         }
 
@@ -94,7 +87,7 @@ namespace Vocabulary
             if (countEx == 2)
             {
                 RightAnswer.Visibility = Visibility.Visible;
-                RightAnswer.Content = list[iEx].english;
+                RightAnswer.Content = words[iEx].english;
 
                 if (Equels(iEx, Answer.Text))
                     Answer.Foreground = Brushes.Green;
@@ -103,7 +96,7 @@ namespace Vocabulary
             if (countEx == 3)
             {
                 RightAnswer.Visibility = Visibility.Visible;
-                RightAnswer.Content = list[iEx].ukrainian;
+                RightAnswer.Content = words[iEx].ukrainian;
 
                 if (Equels(iEx, Answer.Text))
                     Answer.Foreground = Brushes.Green;
@@ -125,11 +118,11 @@ namespace Vocabulary
 
         public void ChancheStatus(int i, bool status)
         {
-            list[i].status = status;
+            //list[i].status = status;
 
-            using (StreamWriter sw = new StreamWriter(FilePath, false, System.Text.Encoding.Default))
-                for (int k = 0; k < list.Count; k++)
-                    sw.WriteLine(list[k].english + "-" + list[k].ukrainian + "-" + Convert.ToInt16(list[k].status));
+            //using (StreamWriter sw = new StreamWriter(FilePath, false, System.Text.Encoding.Default))
+            //    for (int k = 0; k < list.Count; k++)
+            //        sw.WriteLine(list[k].english + "-" + list[k].ukrainian + "-" + Convert.ToInt16(list[k].status));
         }
 
         private void NewTask()
@@ -150,9 +143,9 @@ namespace Vocabulary
                 RightAnswer.Visibility = Visibility.Hidden;
 
                 Random ran = new Random();
-                iEx = ran.Next(list.Count);
+                iEx = ran.Next(words.Count);
                 indexArray[0] = iEx;
-                Task.Content = list[iEx].english;
+                Task.Content = words[iEx].english;
 
                 bool repeat = false;
                 int num = 0;
@@ -162,7 +155,7 @@ namespace Vocabulary
                     {
                         repeat = false;
                         ran = new Random();
-                        num = ran.Next(list.Count);
+                        num = ran.Next(words.Count);
                         for (int i = 0; i < indexArray.Length; i++)
                             if (indexArray[i] == num)
                                 repeat = true;
@@ -189,10 +182,10 @@ namespace Vocabulary
                     varArray[k] = num;
                 }
 
-                Var1.Content = list[indexArray[varArray[0] - 1]].ukrainian;
-                Var2.Content = list[indexArray[varArray[1] - 1]].ukrainian;
-                Var3.Content = list[indexArray[varArray[2] - 1]].ukrainian;
-                Var4.Content = list[indexArray[varArray[3] - 1]].ukrainian;
+                Var1.Content = words[indexArray[varArray[0] - 1]].ukrainian;
+                Var2.Content = words[indexArray[varArray[1] - 1]].ukrainian;
+                Var3.Content = words[indexArray[varArray[2] - 1]].ukrainian;
+                Var4.Content = words[indexArray[varArray[3] - 1]].ukrainian;
             }
             if (countEx == 1)
             {
@@ -207,9 +200,9 @@ namespace Vocabulary
                 RightAnswer.Visibility = Visibility.Hidden;
 
                 Random ran = new Random();
-                iEx = ran.Next(list.Count);
+                iEx = ran.Next(words.Count);
                 indexArray[0] = iEx;
-                Task.Content = list[iEx].ukrainian;
+                Task.Content = words[iEx].ukrainian;
 
                 bool repeat = false;
                 int num = 0;
@@ -219,7 +212,7 @@ namespace Vocabulary
                     {
                         repeat = false;
                         ran = new Random();
-                        num = ran.Next(list.Count);
+                        num = ran.Next(words.Count);
                         for (int i = 0; i < indexArray.Length; i++)
                             if (indexArray[i] == num)
                                 repeat = true;
@@ -246,10 +239,10 @@ namespace Vocabulary
                     varArray[k] = num;
                 }
 
-                Var1.Content = list[indexArray[varArray[0] - 1]].english;
-                Var2.Content = list[indexArray[varArray[1] - 1]].english;
-                Var3.Content = list[indexArray[varArray[2] - 1]].english;
-                Var4.Content = list[indexArray[varArray[3] - 1]].english;
+                Var1.Content = words[indexArray[varArray[0] - 1]].english;
+                Var2.Content = words[indexArray[varArray[1] - 1]].english;
+                Var3.Content = words[indexArray[varArray[2] - 1]].english;
+                Var4.Content = words[indexArray[varArray[3] - 1]].english;
             }
             if (countEx == 2)
             {
@@ -267,9 +260,9 @@ namespace Vocabulary
                 Answer.Foreground = Brushes.Black;
 
                 Random ran = new Random();
-                iEx = ran.Next(list.Count);
+                iEx = ran.Next(words.Count);
 
-                Task.Content = list[iEx].ukrainian;
+                Task.Content = words[iEx].ukrainian;
             }
             if (countEx == 3)
             {
@@ -287,9 +280,9 @@ namespace Vocabulary
                 Answer.Foreground = Brushes.Black;
 
                 Random ran = new Random();
-                iEx = ran.Next(list.Count);
+                iEx = ran.Next(words.Count);
 
-                Task.Content = list[iEx].english;
+                Task.Content = words[iEx].english;
 
             }
 
@@ -329,7 +322,7 @@ namespace Vocabulary
 
         private void TranslationWindow_Closed(object sender, EventArgs e)
         {
-            Window exerciseWindow = new Exercise(list, FilePath);
+            Window exerciseWindow = new Exercise(words);
             exerciseWindow.Show();
             TranslationWindow.Close();
         }
@@ -349,9 +342,9 @@ namespace Vocabulary
             string[] w1 = str.Split(' ', '-');
             string[] t1 = new string[1];
             if (countEx == 1 || countEx == 2)
-                t1 = list[i].english.Split(' ', '-');
+                t1 = words[i].english.Split(' ', '-');
             if (countEx == 0 || countEx == 3)
-                t1 = list[i].ukrainian.Split(' ', '-');
+                t1 = words[i].ukrainian.Split(' ', '-');
 
             List<string> answ = new List<string>();
             List<string> rightAnsw = new List<string>();
@@ -380,11 +373,11 @@ namespace Vocabulary
             if (countEx == 0)
                 NameOfExercise.Content = "Choose right English translation";
             if (countEx == 1)
-                NameOfExercise.Content = "Choose right Russion translation";
+                NameOfExercise.Content = "Choose right Ukrainian translation";
             if (countEx == 2)
                 NameOfExercise.Content = "Translate to English";
             if (countEx == 3)
-                NameOfExercise.Content = "Translate to Russian";
+                NameOfExercise.Content = "Translate to Ukrainian";
 
             NewTask();
         }
@@ -398,11 +391,11 @@ namespace Vocabulary
             if (countEx == 0)
                 NameOfExercise.Content = "Choose right English translation";
             if (countEx == 1)
-                NameOfExercise.Content = "Choose right Russion translation";
+                NameOfExercise.Content = "Choose right Ukrainian translation";
             if (countEx == 2)
                 NameOfExercise.Content = "Translate to English";
             if (countEx == 3)
-                NameOfExercise.Content = "Translate to Russian";
+                NameOfExercise.Content = "Translate to Ukrainian";
 
             NewTask();
         }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Input;
@@ -13,15 +14,12 @@ namespace Vocabulary
     /// </summary>
     public partial class Exercise : Window
     {
-        public List<Word> list = new List<Word>();
-        static string currDir = Environment.CurrentDirectory.ToString();
-        string FilePath;
+        ObservableCollection<Word> words;
 
-        public Exercise(List<Word> list, string FilePath)
+        public Exercise(ObservableCollection<Word> words)
         {
             InitializeComponent();
-            this.list = list;
-            this.FilePath = FilePath;
+            this.words = words;
         }
         private void Window_Loaded(object sender, RoutedEventArgs e)
         { 
@@ -29,14 +27,14 @@ namespace Vocabulary
 
         private void Translation_Click(object sender, RoutedEventArgs e)
         {
-            Window translation = new Translation(list, FilePath);
+            Window translation = new Translation(words);
             translation.Show();
             ExerciseWindow.Hide();
         }
 
         private void Learn_Click(object sender, RoutedEventArgs e)
         {
-            Window learn = new LearningWords(list, FilePath);
+            Window learn = new LearningWords(words);
             learn.Show();
             ExerciseWindow.Hide();
         }

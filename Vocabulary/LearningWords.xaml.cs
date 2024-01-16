@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -15,29 +16,25 @@ using System.Windows.Shapes;
 
 namespace Vocabulary
 {
-    /// <summary>
-    /// Логика взаимодействия для LearningWords.xaml
-    /// </summary>
     public partial class LearningWords : Window
     {
-        public List<Word> listAllWords = new List<Word>();
+        ObservableCollection<Word> words;
         public List<Word> listLearnWords;
-        string FilePath;
         int iCurrent;
 
-        public LearningWords(List<Word> listAllWords, string FilePath)
+        public LearningWords(ObservableCollection<Word> words)
         {
             InitializeComponent();
-            this.listAllWords = listAllWords;
-            this.FilePath = FilePath;
+            this.words = words;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             if(iCurrent > 0)
             {
-                textBlock1.Text = listLearnWords[iCurrent - 1].english;
-                textBlock2.Text = listLearnWords[iCurrent - 1].ukrainian;
+                textBlockEnglish.Text = listLearnWords[iCurrent - 1].english;
+                textBlockTranscription.Text = listLearnWords[iCurrent - 1].transcription;
+                textBlockUkrainian.Text = listLearnWords[iCurrent - 1].ukrainian;
                 iCurrent--;
             }
 
@@ -47,8 +44,9 @@ namespace Vocabulary
         {
             if (iCurrent < listLearnWords.Count - 1)
             {
-                textBlock1.Text = listLearnWords[iCurrent + 1].english;
-                textBlock2.Text = listLearnWords[iCurrent + 1].ukrainian;
+                textBlockEnglish.Text = listLearnWords[iCurrent + 1].english;
+                textBlockTranscription.Text = listLearnWords[iCurrent + 1].transcription;
+                textBlockUkrainian.Text = listLearnWords[iCurrent + 1].ukrainian;
                 iCurrent++; 
             }
         }
@@ -56,18 +54,19 @@ namespace Vocabulary
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             listLearnWords = new List<Word>();
-            for (int i = 0; i < listAllWords.Count; i++)
-                if (!listAllWords[i].status)
-                    listLearnWords.Add(listAllWords[i]);
+            for (int i = 0; i < words.Count; i++)
+                if (!words[i].status)
+                    listLearnWords.Add(words[i]);
 
             iCurrent = 0;
-            textBlock1.Text = listLearnWords[0].english;
-            textBlock2.Text = listLearnWords[0].ukrainian;
+            textBlockEnglish.Text = listLearnWords[0].english;
+            textBlockTranscription.Text = listLearnWords[0].transcription;
+            textBlockUkrainian.Text = listLearnWords[0].ukrainian;
         }
 
         private void Window_Closed(object sender, EventArgs e)
         {            
-            Window exerciseWindow = new Exercise(listAllWords, FilePath);
+            Window exerciseWindow = new Exercise(words);
             exerciseWindow.Show();
             LearningWordsWindow.Close();
         }

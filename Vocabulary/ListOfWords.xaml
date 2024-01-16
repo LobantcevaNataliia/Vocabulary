@@ -14,7 +14,7 @@
             </LinearGradientBrush>
         </Grid.Background>
         
-            <Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="0.25*"></RowDefinition>
             <RowDefinition Height="*" ></RowDefinition>
         </Grid.RowDefinitions>
@@ -32,22 +32,19 @@
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="*" />
+                    <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*" />
                     <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="0.25*" />
-                    <ColumnDefinition Width="0.25*" />
-                    </Grid.ColumnDefinitions>
+                </Grid.ColumnDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Content="New word - " HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Label Grid.Row="1" Grid.Column="0" Content="Translation - " HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <TextBox Grid.Row="0" Grid.Column="1" x:Name="newWord" Height="23" TextWrapping="Wrap" Text="" Margin="5,5"/>
-                <TextBox Grid.Row="1" Grid.Column="1" x:Name="newTr" Height="23" TextWrapping="Wrap" Text="" Margin="5,5"/>
-                <RadioButton Grid.Row="0" Grid.Column="2" x:Name="radioButtonKnown" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <RadioButton Grid.Row="1" Grid.Column="2" x:Name="radioButtonUnknow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                <Image Source="C:/Users/user/Desktop/K.png" Grid.Row="0" Grid.Column="3" />
-                <Image Source="C:/Users/user/Desktop/K2.bmp" Grid.Row="1" Grid.Column="3" />
-
+                <Label Grid.Row="1" Grid.Column="0" Content="Transcription - " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Label Grid.Row="2" Grid.Column="0" Content="Translation - " HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <TextBox Grid.Row="0" Grid.Column="1" x:Name="newEnglishTb" Height="23" TextWrapping="Wrap" Text="" Margin="5,5"/>
+                <TextBox Grid.Row="1" Grid.Column="1" x:Name="newTranscriptionTb" Height="23" TextWrapping="Wrap" Text="" Margin="5,5"/>
+                <TextBox Grid.Row="2" Grid.Column="1" x:Name="newUkrainianTb" Height="23" TextWrapping="Wrap" Text="" Margin="5,5"/>
+ 
             </Grid>
             
             <Button  Grid.Column="1" x:Name="AddWord" Content="Add Word"  Click="AddWord_Click" Margin="15,15">
@@ -57,18 +54,37 @@
                             <GradientStop Color="#FF99FAFF" Offset="1"/>
                         </LinearGradientBrush>
                     </Button.Background>
-                </Button>
-                <Button Grid.Column="2" x:Name="Settings" Content="Settings"  Click="Settings_Click"  Margin="15,15">
+            </Button>
+            <Button Grid.Column="2" x:Name="Settings" Content="Settings"  Click="Settings_Click"  Margin="15,15">
                     <Button.Background>
                         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                             <GradientStop Color="#FF44D3DA" Offset="0"/>
                             <GradientStop Color="#FF99FAFF" Offset="1"/>
                         </LinearGradientBrush>
                     </Button.Background>
-                </Button>
+           </Button>
         </Grid>
 
-        <ListView Grid.Row="1" Grid.Column="0" x:Name="ListWords" FontSize="18">
+        <DataGrid Grid.Row="1" Name="ListWords" AutoGenerateColumns="False" AlternatingRowBackground="#E6E6E6" RowBackground="#FFFFFF"
+          HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="True">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Номер" Binding="{Binding id}" Width="*"/>
+                <DataGridTextColumn Header="Слово" Binding="{Binding english}" Width="*"/>
+                <DataGridTextColumn Header="Транскрипція" Binding="{Binding transcription}" Width="*"/>
+                <DataGridTextColumn Header="Переклад" Binding="{Binding ukrainian}" Width="*"/>
+                <DataGridTextColumn Header="Статус вивчення" Binding="{Binding status}" Width="Auto"/>
+            </DataGrid.Columns>
+
+            <DataGrid.Background>
+                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                    <GradientStop Color="#FF93F5DB" Offset="0"/>
+                    <GradientStop Color="#FFDBF9F1" Offset="1"/>
+                </LinearGradientBrush>
+            </DataGrid.Background>
+
+        </DataGrid>
+
+        <!--<ListView Grid.Row="1" Grid.Column="0" x:Name="ListWords" FontSize="18">
             <ListView.Background>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="#FF93F5DB" Offset="0"/>
@@ -99,6 +115,8 @@
                            "/>
                 </Grid>
             </ListViewItem>
-        </ListView>
+        </ListView>-->
+    
+    
     </Grid>
 </Window>

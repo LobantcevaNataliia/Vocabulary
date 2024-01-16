@@ -12,6 +12,9 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using System.Text;
+using System.Collections.ObjectModel;
+using MySql.Data;
+using MySql.Data.MySqlClient;
 
 namespace Vocabulary
 {
@@ -20,167 +23,59 @@ namespace Vocabulary
     /// </summary>
     public partial class ListOfWords : Window
     {
-        //public List<string> list, list2;
-        //public List<bool> list3;
-        public List<Word> list = new List<Word>();
-        static string currDir = Environment.CurrentDirectory.ToString();
-        string FilePath;
+        ObservableCollection<Word> words;
 
-        public ListOfWords(List<Word> list, string FilePath)
+        public ListOfWords(ObservableCollection<Word> words)
         {
             InitializeComponent();
-            this.list = list;
-            this.FilePath = FilePath;
+            this.words = words;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            list = new List<Word>();
-            //OpenFileDialog openFileDialog = new OpenFileDialog();
-            //if (openFileDialog.ShowDialog() == true)
-            //    FilePath = openFileDialog.FileName;
-            //else FilePath = currDir + @"\test1.txt";
+            ListWords.ItemsSource = words;
 
-            try
-            {
-                using (StreamReader sr = new StreamReader(FilePath, Encoding.Default))
-                {
-                    while (sr.Peek() >= 0)
-                    {
-                        string lineCurrent = sr.ReadLine();
-                        if (lineCurrent == "") continue;
-                        string[] words = lineCurrent.Split('-');
-                        list.Add(new Word(words[0], words[1], Convert.ToBoolean(Convert.ToInt32(words[2]))));
-                    }
-                }
-            }
-            catch
-            {
-                MessageBox.Show("Произошла ошибка считывания. Будет загружен документ \"test1.txt\" ");
-                //DownloadTest();
-            }
-
-            list = SortForABC();
-            for (int i = 0; i < list.Count; i++)
-                CreateItem(i, list[i].english, list[i].ukrainian, list[i].status);
         }
-
 
         private void AddWord_Click(object sender, RoutedEventArgs e)
         {
-            string newW = newWord.Text;
-            string newT = newTr.Text;
+            string newEnglish = newEnglishTb.Text;
+            string newTranscription = newTranscriptionTb.Text;
+            string newUkrainian = newUkrainianTb.Text;
             bool newStatus = false;
 
-            if ((bool)radioButtonKnown.IsChecked)
-                newStatus = true;
-
-
-            using (StreamWriter sw = new StreamWriter(FilePath, true, System.Text.Encoding.Default))
-                 sw.WriteLine(newW + "-" + newT + "-" + Convert.ToInt16(newStatus));
-
-            CreateItem(ListWords.Items.Count, newW, newT, newStatus);
-            //Gr = new Grid();
-            //Gr.ColumnDefinitions.Add(new ColumnDefinition());
-            //Gr.ColumnDefinitions.Add(new ColumnDefinition());
-            //Gr.RowDefinitions.Add(new RowDefinition());
-            //Gr.RowDefinitions.Add(new RowDefinition());
-            //n = new TextBlock() { Text = (ListWords.Items.Count + 1).ToString() };
-            //w = new TextBlock() { Text = word[0].ToString() };
-            //t = new TextBlock() { Text = word[1].ToString() };
-
-            //Image imRight = new Image();
-            //Image imWrong = new Image();
-            //imRight.Source = new BitmapImage(new Uri("C:/Users/user/Desktop/K.bmp"));
-            //imWrong.Source = new BitmapImage(new Uri("C:/Users/user/Desktop/K2.bmp"));
-            //if (word[2] == "1")
-            //{
-            //    Grid.SetRow(imRight, 1);
-            //    Grid.SetColumn(imRight, 0);
-            //    Gr.Children.Add(imRight);
-            //}
-            //else
-            //{
-            //    Grid.SetRow(imWrong, 1);
-            //    Grid.SetColumn(imWrong, 0);
-            //    Gr.Children.Add(imWrong);
-            //}
-
-            //Grid.SetRow(n, 0);
-            //Grid.SetColumn(n, 0);
-            //Grid.SetRow(w, 0);
-            //Grid.SetColumn(w, 1);
-            //Grid.SetRow(t, 1);
-            //Grid.SetColumn(t, 1);
-            //Gr.Children.Add(n);
-            //Gr.Children.Add(w);
-            //Gr.Children.Add(t);
-            //ListWords.Items.Add(Gr);
+            InsertDataIntoDatabase(newEnglish, newTranscription, newUkrainian, newStatus);
         }
 
-        public void CreateItem(int i, string str1, string str2,bool status)
+        private void InsertDataIntoDatabase(string newEnglish,string newTranscription,string newUkrainian,bool newStatus)
         {
-            Gr = new Grid();
-            Gr.ColumnDefinitions.Add(new ColumnDefinition());
-            Gr.ColumnDefinitions.Add(new ColumnDefinition());
-            Gr.ColumnDefinitions.Add(new ColumnDefinition());
+            string connectionString = "server=localhost;user=NataliiaLobantseva;database=myVocabDB;port=3306;password=!23Asdfgh";
 
-            Grid gr1 = new Grid();
-            gr1.RowDefinitions.Add(new RowDefinition());
-            gr1.RowDefinitions.Add(new RowDefinition());
-
-            n = new TextBlock()
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
-                Text = (i + 1).ToString(),
-                Margin = new Thickness(10),
-                FontFamily = new FontFamily("Stencil"),
-                FontSize = 18
-            };
+                try
+                {
+                    connection.Open();
 
-            w = new TextBlock()
-            {
-                Text = str1.ToString(),
-                Margin = new Thickness(10, 5, 20, 0),
-                FontFamily = new FontFamily("Stencil"),
-                FontSize = 16
-            };
+                    // Приклад вставки даних
+                    string query = "INSERT INTO myVocabDB.words (EnglishWord, Transcription, UkrainianWord, Status) VALUES (@Value1, @Value2, @Value3, @Value4)";
+                    using (MySqlCommand command = new MySqlCommand(query, connection))
+                    {                    
+                        command.Parameters.AddWithValue("@Value1", newEnglish);
+                        command.Parameters.AddWithValue("@Value2", newTranscription);
+                        command.Parameters.AddWithValue("@Value3", newUkrainian);
+                        command.Parameters.AddWithValue("@Value4", newStatus);
 
-            t = new TextBlock()
-            {
-                Text = str2.ToString(),
-                Margin = new Thickness(10, 0, 40, 5),
-                FontFamily = new FontFamily("Century"),
-                FontSize = 14
-            };
+                        command.ExecuteNonQuery();
+                    }
 
-            Image imRight = new Image() { Margin = new Thickness(10) };
-            Image imWrong = new Image() { Margin = new Thickness(10) };
-            imRight.Source = new BitmapImage(new Uri("D:/Киця/My phone_09_11_2023/Файли/Проги/Vocabulary/K.bmp"));
-            imWrong.Source = new BitmapImage(new Uri("D:/Киця/My phone_09_11_2023/Файли/Проги/Vocabulary/K2.bmp"));
-            if (status)
-            {
-                Grid.SetColumn(imRight, 2);
-                Gr.Children.Add(imRight);
+                    MessageBox.Show("Дані успішно вставлені в базу даних.");
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show($"Помилка при вставці даних: {ex.Message}");
+                }
             }
-            else
-            {
-                Grid.SetColumn(imWrong, 2);
-                Gr.Children.Add(imWrong);
-            }
-
-            Grid.SetColumn(n, 0);
-            Gr.Children.Add(n);
-
-            Grid.SetRow(w, 0);
-            Grid.SetRow(t, 1);
-            gr1.Children.Add(t);
-            gr1.Children.Add(w);
-            Grid.SetColumn(gr1, 1);
-            Gr.Children.Add(gr1);
-
-            gr1.Width = ListWords.ActualWidth - n.ActualWidth - imRight.ActualWidth - 100;
-
-            ListWords.Items.Add(Gr);
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -188,73 +83,6 @@ namespace Vocabulary
             //Window settings = new Window();
            // Grid gridSet = new Grid();
 
-        }
-
-        public List<Word> SortForRight()
-        {
-            List<Word> sorted = list;
-            Word tmp;
-            for (int k = 0; k < sorted.Count; k++)
-            {
-                for (int i = 0; i < sorted.Count - 1; i++)
-                {
-                    if (!sorted[i].status)
-                    {
-                        tmp = sorted[i];
-                        sorted[i] = sorted[i + 1];
-                        sorted[i + 1] = tmp;
-                    }
-                }
-            }
-
-            return sorted;
-        }
-
-        public List<Word> SortForWrong()
-        {
-            List<Word> sorted = list;
-            Word tmp;
-            for (int k = 0; k < sorted.Count; k++)
-            {
-                for (int i = 0; i < sorted.Count - 1; i++)
-                {
-                    if (sorted[i].status)
-                    {
-                        tmp = sorted[i];
-                        sorted[i] = sorted[i + 1];
-                        sorted[i + 1] = tmp;
-                    }
-                }
-            }
-
-            return sorted;
-        }
-
-        public List<Word> SortForABC()
-        {
-            List<Word> sorted = list; ;
-            Word tmp;
-            char[] ch1, ch2;
-            for (int k = 0; k < sorted.Count; k++)
-            {
-                for (int i = 0; i < sorted.Count - 1; i++)
-                {
-                    ch1 = sorted[i].english.ToCharArray();
-                    ch2 = sorted[i + 1].english.ToCharArray();
-
-                    for (int t = 0; t < ch1.Length; t++)
-                    {
-                        if (ch1[t] > ch2[t])
-                        {
-                            tmp = sorted[i];
-                            sorted[i] = sorted[i + 1];
-                            sorted[i + 1] = tmp;
-                        }
-                        break;
-                    }
-                }
-            }
-            return sorted;
         }
 
         private void ListOfWordsWindow_Closed(object sender, EventArgs e)

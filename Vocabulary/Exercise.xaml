@@ -38,7 +38,7 @@
         <Label Grid.Row="0" Grid.ColumnSpan="2" Content="Choose an exercise" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="40" FontFamily="Engravers MT" Foreground="#FF1B25C0"/>
 
         <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="Learn" Content="Learning new words"  Click="Learn_Click" HorizontalAlignment="Center"
-            VerticalAlignment="Center"  FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" BorderThickness="0,0,0,0">
+            VerticalAlignment="Bottom"  FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" BorderThickness="0,0,0,0">
             <Button.Foreground>
                 <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                     <GradientStop Color="Black" Offset="1"/>

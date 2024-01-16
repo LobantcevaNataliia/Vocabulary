@@ -29,12 +29,14 @@
                 </LinearGradientBrush>
             </Grid.Background>
 
-            <TextBlock x:Name="textBlock1" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="20" FontFamily="Showcard Gothic">
+            <TextBlock x:Name="textBlockEnglish" TextWrapping="Wrap" Text="Get ready" VerticalAlignment="Top" HorizontalAlignment="Center" Margin="0,50,0,0" FontSize="24" FontFamily="Showcard Gothic">
                 <TextBlock.Foreground>
                     <SolidColorBrush Color="#FFCB6C0E"/>
                 </TextBlock.Foreground>
             </TextBlock>
-            <TextBlock x:Name="textBlock2" TextWrapping="Wrap" Text="TextBlock" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50" FontFamily="Perpetua Titling MT" FontSize="18"/>
+            <TextBlock x:Name="textBlockUkrainian" TextWrapping="Wrap" Text="5 new words are waiting for you" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="0,0,0,50" FontFamily="Perpetua Titling MT" FontSize="22"/>
+            <TextBlock x:Name="textBlockTranscription" TextWrapping="Wrap" Text="Press 'Next' and start learning" VerticalAlignment="Bottom" HorizontalAlignment="Center" Margin="0,0,0,50" FontFamily="Perpetua Titling MT" FontSize="18"/>
+
         </Grid>
         <Grid Grid.ColumnSpan="2" Margin="0,320,0,0" Grid.RowSpan="2">
             <Grid.ColumnDefinitions>

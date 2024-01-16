@@ -13,56 +13,62 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.ComponentModel;
+using MySql.Data.MySqlClient;
+using System.Collections.ObjectModel;
 
 namespace Vocabulary
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
-            Work();
         }
 
-        public List<Word> listWords = new List<Word>();
-        string FilePath;
-        static string currDir = Environment.CurrentDirectory.ToString();
+        ObservableCollection<Word> words;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Work();
+            LoadDataFromDatabase();
         }
 
-        public void Work()
+        private void LoadDataFromDatabase()
         {
-            //OpenFileDialog openFileDialog = new OpenFileDialog();
-            //if (openFileDialog.ShowDialog() == true)
-            //    FilePath = openFileDialog.FileName;
-            //else FilePath = currDir + @"\test1.txt";
-            FilePath = currDir + @"\v.txt";
-            try
-            {
-                using (StreamReader sr = new StreamReader(FilePath, Encoding.Default))
-                {
-                    while (sr.Peek() >= 0)
-                    {
-                        string lineCurrent = sr.ReadLine();
-                        if (lineCurrent == "") continue;
-                        string[] words = lineCurrent.Split('-');
-                        listWords.Add(new Word(words[0], words[1], Convert.ToBoolean(Convert.ToInt32(words[2]))));
+            words = new ObservableCollection<Word>();
 
+            // Рядок підключення до бази даних MySQL
+            string connectionString = "server=localhost;user=NataliiaLobantseva;database=myVocabDB;port=3306;password=!23Asdfgh";
+
+            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            {
+                connection.Open();
+
+                // SQL-запит для вибору всіх записів з таблиці Words
+                string query = "SELECT * FROM myVocabDB.words";
+
+                using (MySqlCommand command = new MySqlCommand(query, connection))
+                {
+                    using (MySqlDataReader reader = command.ExecuteReader())
+                    {
+                        while (reader.Read())
+                        {
+                            Word word = new Word
+                            (
+                                Convert.ToInt32(reader["WordID"]),
+                                reader["EnglishWord"].ToString(),
+                                reader["Transcription"].ToString(),
+                                reader["UkrainianWord"].ToString(),
+                                Convert.ToBoolean(reader["Status"])
+                            );
+
+                            words.Add(word);
+                        }
                     }
                 }
             }
-            catch
-            {
-                MessageBox.Show("Произошла ошибка считывания. Будет загружен документ \"test1.txt\" ");
-                //DownloadTest();
-            }
+          
         }
+        
         private void Auto_Click(object sender, RoutedEventArgs e)
         {
 
@@ -70,14 +76,14 @@ namespace Vocabulary
 
         private void List_Click(object sender, RoutedEventArgs e)
         {
-            Window fullList = new ListOfWords(listWords, FilePath);
+            Window fullList = new ListOfWords(words);
             fullList.Show();
             MainWindowWindow.Hide();
         }
 
         private void Exercise_Click(object sender, RoutedEventArgs e)
         {
-            Window exercise = new Exercise(listWords, FilePath);
+            Window exercise = new Exercise(words);
             exercise.Show();
             MainWindowWindow.Hide();
         }
