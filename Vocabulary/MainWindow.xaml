@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="350" Width="525" Loaded="Window_Loaded">
     <Grid>
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#FF94C6F7" Offset="0"/>
+                <GradientStop Color="#FFE5FDFC" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="0.3*"/>
             <RowDefinition Height="3*"/>
@@ -16,33 +23,6 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-
-        <WrapPanel Grid.Row="0"  Grid.ColumnSpan="2">
-            <WrapPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF3399FF" Offset="1"/>
-                    <GradientStop Color="#FF246EBB" Offset="0.279"/>
-                </LinearGradientBrush>
-            </WrapPanel.Background>
-        </WrapPanel>
-
-        <WrapPanel Grid.Row="1" Grid.ColumnSpan="2">
-            <WrapPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF4DA1F5" Offset="0"/>
-                    <GradientStop Color="#FF94C6F7" Offset="1"/>
-                </LinearGradientBrush>
-            </WrapPanel.Background>
-        </WrapPanel>
-
-        <WrapPanel Grid.Row="2" Grid.ColumnSpan="2">
-            <WrapPanel.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF94C6F7" Offset="0"/>
-                    <GradientStop Color="#FFE5FDFC" Offset="1"/>
-                </LinearGradientBrush>
-            </WrapPanel.Background>
-        </WrapPanel>
 
         <Label Grid.Row="1" Grid.ColumnSpan="2" Content="My Vocabulary" HorizontalAlignment="Center" VerticalAlignment="Center"  FontSize="40" FontFamily="Engravers MT" Foreground="#FF1B25C0"/>
         <Button Grid.Row="0" Grid.Column="1" x:Name="Auto" Content="Auto" Click="Auto_Click" HorizontalAlignment="Left"

@@ -1,29 +1,23 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
+using System.Linq;
+using System.Windows.Threading;
+using static Org.BouncyCastle.Asn1.Cmp.Challenge;
 
 namespace Vocabulary
 {
     public partial class Translation : Window
     {
         ObservableCollection<Word> words;
+        DispatcherTimer timer;
+        Random random;
 
-        int maxCount = 3, minCount = 0, countEx, iEx, amountEx;
-        int[] indexArray = new int[4];
-        int[] varArray = new int[4];
-
+        int maxExercise = 3, minExercise = 0, currentExercise = 0, indexOfTaskWord;     
+        string rightAnswer;
+        
         public Translation(ObservableCollection<Word> words)
         {
             InitializeComponent();
@@ -32,292 +26,7 @@ namespace Vocabulary
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            Random ran = new Random();
-            iEx = ran.Next(words.Count);
-            indexArray[0] = iEx;
-            Task.Content = words[iEx].english;
-
-            bool repeat = false;
-            int num = 0;
-            for (int k = 1; k < indexArray.Length; k++)
-            {
-                do
-                {
-                    repeat = false;
-                    ran = new Random();
-                    num = ran.Next(words.Count);
-                    for (int i = 0; i < indexArray.Length; i++)
-                        if (indexArray[i] == num)
-                            repeat = true;
-                }
-                while (repeat);
-
-                indexArray[k] = num;
-            }
-
-            num = 0;
-            for (int k = 0; k < indexArray.Length; k++)
-            {
-                do
-                {
-                    repeat = false;
-                    ran = new Random();
-                    num = ran.Next(indexArray.Length + 1);
-                    for (int i = 0; i < indexArray.Length; i++)
-                        if (varArray[i] == num)
-                            repeat = true;
-                }
-                while (repeat);
-
-                varArray[k] = num;
-            }
-
-            Var1.Content = words[indexArray[varArray[0] - 1]].ukrainian;
-            Var2.Content = words[indexArray[varArray[1] - 1]].ukrainian;
-            Var3.Content = words[indexArray[varArray[2] - 1]].ukrainian;
-            Var4.Content = words[indexArray[varArray[3] - 1]].ukrainian;
-
-        }
-
-        private void Answer_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            MarkR.Visibility = Visibility.Visible;
-            MarkW.Visibility = Visibility.Visible;
-
-            if (countEx == 2)
-            {
-                RightAnswer.Visibility = Visibility.Visible;
-                RightAnswer.Content = words[iEx].english;
-
-                if (Equels(iEx, Answer.Text))
-                    Answer.Foreground = Brushes.Green;
-                else Answer.Foreground = Brushes.Red;
-            }
-            if (countEx == 3)
-            {
-                RightAnswer.Visibility = Visibility.Visible;
-                RightAnswer.Content = words[iEx].ukrainian;
-
-                if (Equels(iEx, Answer.Text))
-                    Answer.Foreground = Brushes.Green;
-                else Answer.Foreground = Brushes.Red;
-            }
-        }
-
-        private void MarkW_Click(object sender, RoutedEventArgs e)
-        {
-            ChancheStatus(iEx, false);
             NewTask();
-        }
-
-        private void MarkR_Click(object sender, RoutedEventArgs e)
-        {
-            ChancheStatus(iEx, true);
-            NewTask();
-        }
-
-        public void ChancheStatus(int i, bool status)
-        {
-            //list[i].status = status;
-
-            //using (StreamWriter sw = new StreamWriter(FilePath, false, System.Text.Encoding.Default))
-            //    for (int k = 0; k < list.Count; k++)
-            //        sw.WriteLine(list[k].english + "-" + list[k].ukrainian + "-" + Convert.ToInt16(list[k].status));
-        }
-
-        private void NewTask()
-        {
-            indexArray = new int[4];
-            varArray = new int[4];
-
-            if (countEx == 0)
-            {
-                Var1.Visibility = Visibility.Visible;
-                Var2.Visibility = Visibility.Visible;
-                Var3.Visibility = Visibility.Visible;
-                Var4.Visibility = Visibility.Visible;
-
-                Answer.Visibility = Visibility.Hidden;
-                MarkR.Visibility = Visibility.Hidden;
-                MarkW.Visibility = Visibility.Hidden;
-                RightAnswer.Visibility = Visibility.Hidden;
-
-                Random ran = new Random();
-                iEx = ran.Next(words.Count);
-                indexArray[0] = iEx;
-                Task.Content = words[iEx].english;
-
-                bool repeat = false;
-                int num = 0;
-                for (int k = 1; k < indexArray.Length; k++)
-                {
-                    do
-                    {
-                        repeat = false;
-                        ran = new Random();
-                        num = ran.Next(words.Count);
-                        for (int i = 0; i < indexArray.Length; i++)
-                            if (indexArray[i] == num)
-                                repeat = true;
-                    }
-                    while (repeat);
-
-                    indexArray[k] = num;
-                }
-
-                num = 0;
-                for (int k = 0; k < indexArray.Length; k++)
-                {
-                    do
-                    {
-                        repeat = false;
-                        ran = new Random();
-                        num = ran.Next(indexArray.Length + 1);
-                        for (int i = 0; i < indexArray.Length; i++)
-                            if (varArray[i] == num)
-                                repeat = true;
-                    }
-                    while (repeat);
-
-                    varArray[k] = num;
-                }
-
-                Var1.Content = words[indexArray[varArray[0] - 1]].ukrainian;
-                Var2.Content = words[indexArray[varArray[1] - 1]].ukrainian;
-                Var3.Content = words[indexArray[varArray[2] - 1]].ukrainian;
-                Var4.Content = words[indexArray[varArray[3] - 1]].ukrainian;
-            }
-            if (countEx == 1)
-            {
-                Var1.Visibility = Visibility.Visible;
-                Var2.Visibility = Visibility.Visible;
-                Var3.Visibility = Visibility.Visible;
-                Var4.Visibility = Visibility.Visible;
-
-                Answer.Visibility = Visibility.Hidden;
-                MarkR.Visibility = Visibility.Hidden;
-                MarkW.Visibility = Visibility.Hidden;
-                RightAnswer.Visibility = Visibility.Hidden;
-
-                Random ran = new Random();
-                iEx = ran.Next(words.Count);
-                indexArray[0] = iEx;
-                Task.Content = words[iEx].ukrainian;
-
-                bool repeat = false;
-                int num = 0;
-                for (int k = 1; k < indexArray.Length; k++)
-                {
-                    do
-                    {
-                        repeat = false;
-                        ran = new Random();
-                        num = ran.Next(words.Count);
-                        for (int i = 0; i < indexArray.Length; i++)
-                            if (indexArray[i] == num)
-                                repeat = true;
-                    }
-                    while (repeat);
-
-                    indexArray[k] = num;
-                }
-
-                num = 0;
-                for (int k = 0; k < indexArray.Length; k++)
-                {
-                    do
-                    {
-                        repeat = false;
-                        ran = new Random();
-                        num = ran.Next(indexArray.Length + 1);
-                        for (int i = 0; i < indexArray.Length; i++)
-                            if (varArray[i] == num)
-                                repeat = true;
-                    }
-                    while (repeat);
-
-                    varArray[k] = num;
-                }
-
-                Var1.Content = words[indexArray[varArray[0] - 1]].english;
-                Var2.Content = words[indexArray[varArray[1] - 1]].english;
-                Var3.Content = words[indexArray[varArray[2] - 1]].english;
-                Var4.Content = words[indexArray[varArray[3] - 1]].english;
-            }
-            if (countEx == 2)
-            {
-                NameOfExercise.Foreground = Brushes.Black;
-                Var1.Visibility = Visibility.Hidden;
-                Var2.Visibility = Visibility.Hidden;
-                Var3.Visibility = Visibility.Hidden;
-                Var4.Visibility = Visibility.Hidden;
-
-                Answer.Visibility = Visibility.Visible;
-                MarkR.Visibility = Visibility.Hidden;
-                MarkW.Visibility = Visibility.Hidden;
-                RightAnswer.Visibility = Visibility.Hidden;
-                Answer.Text = "";
-                Answer.Foreground = Brushes.Black;
-
-                Random ran = new Random();
-                iEx = ran.Next(words.Count);
-
-                Task.Content = words[iEx].ukrainian;
-            }
-            if (countEx == 3)
-            {
-                NameOfExercise.Foreground = Brushes.Black;
-                Var1.Visibility = Visibility.Hidden;
-                Var2.Visibility = Visibility.Hidden;
-                Var3.Visibility = Visibility.Hidden;
-                Var4.Visibility = Visibility.Hidden;
-
-                Answer.Visibility = Visibility.Visible;
-                MarkR.Visibility = Visibility.Hidden;
-                MarkW.Visibility = Visibility.Hidden;
-                RightAnswer.Visibility = Visibility.Hidden;
-                Answer.Text = "";
-                Answer.Foreground = Brushes.Black;
-
-                Random ran = new Random();
-                iEx = ran.Next(words.Count);
-
-                Task.Content = words[iEx].english;
-
-            }
-
-        }
-
-        private void Var1_Click(object sender, RoutedEventArgs e)
-        {
-            if (Equels(iEx, Var1.Content.ToString()))
-                NameOfExercise.Foreground = Brushes.Green;
-            else NameOfExercise.Foreground = Brushes.Red;
-
-            NewTask();
-        }
-
-        private void Var2_Click(object sender, RoutedEventArgs e)
-        {
-            if (Equels(iEx, Var2.Content.ToString()))
-                NameOfExercise.Foreground = Brushes.Green;
-            else NameOfExercise.Foreground = Brushes.Red;
-
-            NewTask();
-        }
-
-        private void Var3_Click(object sender, RoutedEventArgs e)
-        {
-            if (Equels(iEx, Var3.Content.ToString()))
-                NameOfExercise.Foreground = Brushes.Green;
-            else NameOfExercise.Foreground = Brushes.Red;
-
-            NewTask();
-        }
-
-        private void Learn_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void TranslationWindow_Closed(object sender, EventArgs e)
@@ -327,77 +36,230 @@ namespace Vocabulary
             TranslationWindow.Close();
         }
 
-        private void Var4_Click(object sender, RoutedEventArgs e)
+        private void NewTask()
         {
-            if (Equels(iEx, Var4.Content.ToString()))
-                NameOfExercise.Foreground = Brushes.Green;
-            else NameOfExercise.Foreground = Brushes.Red;
+            int[] indexOfWords;
+            random = new Random();
+            indexOfTaskWord = random.Next(words.Count);
 
-            NewTask();
+            if (currentExercise == 0)
+            {
+                VisibilityFirstTypeExercise();
+                indexOfWords = CreateArrayOfWords();
+
+                Task.Content = words[indexOfTaskWord].english;
+                Var1.Content = words[indexOfWords[0]].ukrainian;
+                Var2.Content = words[indexOfWords[1]].ukrainian;
+                Var3.Content = words[indexOfWords[2]].ukrainian;
+                Var4.Content = words[indexOfWords[3]].ukrainian;
+            }
+            if (currentExercise == 1)
+            {
+                VisibilityFirstTypeExercise();
+                indexOfWords = CreateArrayOfWords();
+
+                Task.Content = words[indexOfTaskWord].ukrainian;
+                Var1.Content = words[indexOfWords[0]].english;
+                Var2.Content = words[indexOfWords[1]].english;
+                Var3.Content = words[indexOfWords[2]].english;
+                Var4.Content = words[indexOfWords[3]].english;
+            }
+            if (currentExercise == 2)
+            {
+                VisibilitySecondTypeExercise();
+                Task.Content = words[indexOfTaskWord].ukrainian;
+            }
+            if (currentExercise == 3)
+            {
+                VisibilitySecondTypeExercise();
+                Task.Content = words[indexOfTaskWord].english;
+            }
+
         }
 
-        public bool Equels(int i, string str)
+        private int[] CreateArrayOfWords() 
         {
-            bool eq = false;
-            string[] w1 = str.Split(' ', '-');
-            string[] t1 = new string[1];
-            if (countEx == 1 || countEx == 2)
-                t1 = words[i].english.Split(' ', '-');
-            if (countEx == 0 || countEx == 3)
-                t1 = words[i].ukrainian.Split(' ', '-');
+            int num;
+            int[] indexOfWords = new int[4];
+            indexOfWords[0] = indexOfTaskWord;
 
-            List<string> answ = new List<string>();
-            List<string> rightAnsw = new List<string>();
+            for (int i = 1; i < indexOfWords.Length; i++)
+            {
+                do
+                {
+                    num = random.Next(words.Count);
+                }
+                while (indexOfWords.Contains(num));
 
-            for (int k = 0; k < w1.Length; k++)
-                if (w1[k] != " " && w1[k] != "" && w1[k] != "-")
-                    answ.Add(w1[k]);
-            for (int k = 0; k < t1.Length; k++)
-                if (t1[k] != " " && t1[k] != "" && t1[k] != "-")
-                    rightAnsw.Add(t1[k]);
+                indexOfWords[i] = num;
+            }
 
-            for (int k = 0; k < answ.Count; k++)
-                if (answ[k] == rightAnsw[k])
-                    eq = true;
-                else eq = false;
+            random = new Random();
+            int[] newOrder = indexOfWords.OrderBy(x => random.Next()).ToArray();
+
+            return newOrder;
+        }
+
+        private void VisibilityFirstTypeExercise() 
+        {
+            Var1.Visibility = Visibility.Visible;
+            Var2.Visibility = Visibility.Visible;
+            Var3.Visibility = Visibility.Visible;
+            Var4.Visibility = Visibility.Visible;
+
+            Answer.Visibility = Visibility.Hidden;
+            ResultSmile.Visibility = Visibility.Hidden;
+            ResultAnswer.Visibility = Visibility.Hidden;
+            CheckAnswer.Visibility = Visibility.Hidden;
+            RightAnswer.Visibility = Visibility.Hidden;
+
+        }
+        
+        private void VisibilitySecondTypeExercise()
+        {
+            Var1.Visibility = Visibility.Hidden;
+            Var2.Visibility = Visibility.Hidden;
+            Var3.Visibility = Visibility.Hidden;
+            Var4.Visibility = Visibility.Hidden;
+
+            Answer.Visibility = Visibility.Visible;
+            ResultSmile.Visibility = Visibility.Hidden;
+            ResultAnswer.Visibility = Visibility.Hidden;
+            CheckAnswer.Visibility = Visibility.Visible;
+            RightAnswer.Visibility = Visibility.Hidden;
+            Answer.Text = "";
+        }
+
+        private void Var1_Click(object sender, RoutedEventArgs e)
+        {
+            ShowResult(Var1.Content.ToString());
+        }
+
+        private void Var2_Click(object sender, RoutedEventArgs e)
+        {
+            ShowResult(Var2.Content.ToString());
+        }
+
+        private void Var3_Click(object sender, RoutedEventArgs e)
+        {
+            ShowResult(Var3.Content.ToString());
+        }
+
+        private void Var4_Click(object sender, RoutedEventArgs e)
+        {
+            ShowResult(Var4.Content.ToString());
+        }
+
+        private void CheckAnswer_Click(object sender, RoutedEventArgs e)
+        {
+            CheckAnswer.Visibility = Visibility.Hidden;
+            ShowResult(Answer.Text);
+            
+        }
+
+        public void ShowResult(string userAnswer)
+        {
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Tick += Timer_Tick;
+
+            if (Equels(indexOfTaskWord, userAnswer))
+            {
+                //ResultSmile.Foreground = new SolidColorBrush((Color)ColorConverter.ConvertFromString("#FFF3EE07"));
+                ResultSmile.Content = "😊";
+                ResultAnswer.Content = "Good job!";
+            }
+            else
+            {
+                ResultSmile.Content = "😞";
+                ResultAnswer.Content = "You've got this! Mistakes happen.";              
+            }
+
+            RightAnswer.Content = Task.Content + " - " + words[indexOfTaskWord].transcription + " - " + rightAnswer;
+            VisibilityOfResult();
+            timer.Start();
+        }
+
+        private void VisibilityOfResult()
+        {
+
+            Var1.Visibility = Visibility.Hidden;
+            Var2.Visibility = Visibility.Hidden;
+            Var3.Visibility = Visibility.Hidden;
+            Var4.Visibility = Visibility.Hidden;
+
+            Answer.Visibility = Visibility.Hidden;
+            ResultSmile.Visibility = Visibility.Hidden;
+            Answer.Text = "";
+
+            Task.Visibility = Visibility.Hidden;
+
+            ResultSmile.Visibility = Visibility.Visible;
+            ResultAnswer.Visibility = Visibility.Visible;
+            RightAnswer.Visibility = Visibility.Visible;
+        }
+
+        private void Timer_Tick(object sender, EventArgs e)
+        {
+            Task.Visibility = Visibility.Visible;
+            NewTask();
+            timer.Stop();
+        }
+
+        private bool Equels(int i, string str)
+        {
+            bool eq;
+
+            if (currentExercise == 1 || currentExercise == 2)
+                rightAnswer = words[i].english;
+            if (currentExercise == 0 || currentExercise == 3)
+                rightAnswer = words[i].ukrainian;
+
+            if (rightAnswer == str)
+                eq = true;
+            else eq = false;
 
             return eq;
         }
 
         private void NextEx_Click(object sender, RoutedEventArgs e)
         {
-            if (maxCount != countEx)
-                countEx++;
-            else countEx = 0;
+            if (maxExercise != currentExercise)
+                currentExercise++;
+            else currentExercise = minExercise;
 
-            if (countEx == 0)
-                NameOfExercise.Content = "Choose right English translation";
-            if (countEx == 1)
-                NameOfExercise.Content = "Choose right Ukrainian translation";
-            if (countEx == 2)
-                NameOfExercise.Content = "Translate to English";
-            if (countEx == 3)
-                NameOfExercise.Content = "Translate to Ukrainian";
-
+            ChangeNameOfExercise();
             NewTask();
         }
 
         private void PrivEx_Click(object sender, RoutedEventArgs e)
         {
-            if (minCount != countEx)
-                countEx--;
-            else countEx = 3;
+            if (minExercise != currentExercise)
+                currentExercise--;
+            else currentExercise = maxExercise;
 
-            if (countEx == 0)
-                NameOfExercise.Content = "Choose right English translation";
-            if (countEx == 1)
-                NameOfExercise.Content = "Choose right Ukrainian translation";
-            if (countEx == 2)
-                NameOfExercise.Content = "Translate to English";
-            if (countEx == 3)
-                NameOfExercise.Content = "Translate to Ukrainian";
-
+            ChangeNameOfExercise();
             NewTask();
         }
+
+        private void ChangeNameOfExercise()
+        {
+            switch (currentExercise)
+            {
+                case 0:
+                    NameOfExercise.Content = "Choose right English translation";
+                    break;
+                case 1:
+                    NameOfExercise.Content = "Choose right Ukrainian translation";
+                    break;
+                case 2:
+                    NameOfExercise.Content = "Translate to English";
+                    break;
+                case 3:
+                    NameOfExercise.Content = "Translate to Ukrainian";
+                    break;
+            }
+        }
+
     }
 }

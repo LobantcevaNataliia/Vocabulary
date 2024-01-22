@@ -77,3 +77,5 @@ D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\bin\
 D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\bin\Debug\System.Threading.Tasks.Extensions.xml
 D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Vocabulary.csproj.CopyComplete
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\RepeatWords.g.cs
+D:\Киця\My phone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\RepeatWords.baml

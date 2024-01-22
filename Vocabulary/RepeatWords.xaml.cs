@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
@@ -17,63 +16,65 @@ using MySql.Data.MySqlClient;
 
 namespace Vocabulary
 {
-    public partial class LearningWords : Window
+    /// <summary>
+    /// Interaction logic for RepeatWords.xaml
+    /// </summary>
+    public partial class RepeatWords : Window
     {
         ObservableCollection<Word> words;
-        public List<Word> listLearnWords;
+        public List<Word> listRepeatWords;
         int iCurrent;
 
-        public LearningWords(ObservableCollection<Word> words)
+        public RepeatWords(ObservableCollection<Word> words)
         {
             InitializeComponent();
             this.words = words;
-        }     
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            listLearnWords = new List<Word>();
+            listRepeatWords = new List<Word>();
             for (int i = 0; i < words.Count; i++)
-                if (!words[i].status)
-                    listLearnWords.Add(words[i]);
+                if (words[i].status)
+                    listRepeatWords.Add(words[i]);
 
-            if (listLearnWords.Count() != 0)
+            if (listRepeatWords.Count() != 0)
             {
                 iCurrent = 0;
-                textBlockEnglish.Text = listLearnWords[0].english;
-                textBlockTranscription.Text = listLearnWords[0].transcription;
-                textBlockUkrainian.Text = listLearnWords[0].ukrainian;
+                textBlockEnglish.Text = listRepeatWords[0].english;
+                textBlockTranscription.Text = listRepeatWords[0].transcription;
+                textBlockUkrainian.Text = listRepeatWords[0].ukrainian;
             }
-            else MessageBox.Show("Congratulations! You learned all the words on the list.");
+            else MessageBox.Show("Unfortunately, you don't have learned words yet!");
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             if (iCurrent > 0)
             {
-                textBlockEnglish.Text = listLearnWords[iCurrent - 1].english;
-                textBlockTranscription.Text = listLearnWords[iCurrent - 1].transcription;
-                textBlockUkrainian.Text = listLearnWords[iCurrent - 1].ukrainian;
+                textBlockEnglish.Text = listRepeatWords[iCurrent - 1].english;
+                textBlockTranscription.Text = listRepeatWords[iCurrent - 1].transcription;
+                textBlockUkrainian.Text = listRepeatWords[iCurrent - 1].ukrainian;
                 iCurrent--;
             }
-
         }
 
         private void Next_Click(object sender, RoutedEventArgs e)
         {
-            if (iCurrent < listLearnWords.Count - 1)
+            if (iCurrent < listRepeatWords.Count - 1)
             {
-                textBlockEnglish.Text = listLearnWords[iCurrent + 1].english;
-                textBlockTranscription.Text = listLearnWords[iCurrent + 1].transcription;
-                textBlockUkrainian.Text = listLearnWords[iCurrent + 1].ukrainian;
+                textBlockEnglish.Text = listRepeatWords[iCurrent + 1].english;
+                textBlockTranscription.Text = listRepeatWords[iCurrent + 1].transcription;
+                textBlockUkrainian.Text = listRepeatWords[iCurrent + 1].ukrainian;
                 iCurrent++;
             }
-        }      
+        }
 
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
         {
             UpDataInDatabase();
-            words[iCurrent].status = true;
-            listLearnWords.Remove(listLearnWords[iCurrent]);
+            words[iCurrent].status = false;
+            listRepeatWords.Remove(listRepeatWords[iCurrent]);
             iCurrent++;
             Next_Click(sender, e);
 
@@ -87,11 +88,11 @@ namespace Vocabulary
             {
                 connection.Open();
 
-                string updateQuery = $"UPDATE myVocabDB.words SET status = @newValue WHERE EnglishWord='{listLearnWords[iCurrent].english}'";
+                string updateQuery = $"UPDATE myVocabDB.words SET status = @newValue WHERE EnglishWord='{listRepeatWords[iCurrent].english}'";
 
                 using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
                 {
-                    cmd.Parameters.AddWithValue("@newValue", true);
+                    cmd.Parameters.AddWithValue("@newValue", false);
 
                     int rowsAffected = cmd.ExecuteNonQuery();
 
@@ -105,9 +106,9 @@ namespace Vocabulary
         {
             Window exerciseWindow = new Exercise(words);
             exerciseWindow.Show();
-            LearningWordsWindow.Close();
+            RepeatWordsWindow.Close();
         }
 
-
+        
     }
 }

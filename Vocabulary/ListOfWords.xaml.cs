@@ -43,8 +43,11 @@ namespace Vocabulary
             string newTranscription = newTranscriptionTb.Text;
             string newUkrainian = newUkrainianTb.Text;
             bool newStatus = false;
+            
+            if (newEnglish != "" && newTranscription != "" && newUkrainian != "")
+                InsertDataIntoDatabase(newEnglish, newTranscription, newUkrainian, newStatus);
+            else MessageBox.Show("You need to fill all lines to add new word!");
 
-            InsertDataIntoDatabase(newEnglish, newTranscription, newUkrainian, newStatus);
         }
 
         private void InsertDataIntoDatabase(string newEnglish,string newTranscription,string newUkrainian,bool newStatus)
@@ -57,7 +60,7 @@ namespace Vocabulary
                 {
                     connection.Open();
 
-                    // Приклад вставки даних
+                    // Вставкa даних в БД
                     string query = "INSERT INTO myVocabDB.words (EnglishWord, Transcription, UkrainianWord, Status) VALUES (@Value1, @Value2, @Value3, @Value4)";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {                    
@@ -68,21 +71,12 @@ namespace Vocabulary
 
                         command.ExecuteNonQuery();
                     }
-
-                    MessageBox.Show("Дані успішно вставлені в базу даних.");
                 }
                 catch (Exception ex)
                 {
-                    MessageBox.Show($"Помилка при вставці даних: {ex.Message}");
+                    MessageBox.Show($"An error occurred while adding a word: {ex.Message}" + "\nPlease contact the admin!");
                 }
             }
-        }
-
-        private void Settings_Click(object sender, RoutedEventArgs e)
-        {
-            //Window settings = new Window();
-           // Grid gridSet = new Grid();
-
         }
 
         private void ListOfWordsWindow_Closed(object sender, EventArgs e)

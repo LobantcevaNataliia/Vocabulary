@@ -41,9 +41,9 @@ namespace Vocabulary
 
         private void Repeat_Click(object sender, RoutedEventArgs e)
         {
-            //    Window exercise = new Exercise(listWords, FilePath);
-            //    exercise.Show();
-            //    ExerciseWindow.Hide();
+            Window repeat = new RepeatWords(words);
+            repeat.Show();
+            ExerciseWindow.Hide();
         }
 
         private void ExerciseWindow_Closed(object sender, EventArgs e)

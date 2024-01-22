@@ -5,12 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        Title="Translation" Height="450" Width="600" Closed="TranslationWindow_Closed">
+        Title="Translation" Height="450" Width="600" Closed="TranslationWindow_Closed" Loaded="Window_Loaded">
     <Grid>
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FFCAAFE4" Offset="1"/>
-                <GradientStop Color="#FFA86CDB" Offset="0"/>
+                <GradientStop Color="#B0E0E6" Offset="0"/>
+                <GradientStop Color="#DDA0DD" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
         <Grid.RowDefinitions>
@@ -22,29 +22,37 @@
             <ColumnDefinition Width="*" ></ColumnDefinition>
             <ColumnDefinition Width="*" ></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <Label x:Name="NameOfExercise" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="2" Content="Choose right English translation" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" FontFamily="Rockwell"/>
 
-        <Grid Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
+        <Label x:Name="NameOfExercise" Grid.Row="0" Grid.ColumnSpan="2" Content="Choose right English translation" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="24" FontFamily="Rockwell" Foreground="#FFCE94D7" FontWeight="Bold"/>
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="*"/>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="*" ></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
             </Grid.RowDefinitions>
-            <Label x:Name="Task" Grid.Row="0" Content="Word" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" FontFamily="Elephant" />
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
 
-            <Button Grid.Row="1" x:Name="Var2"   Content="Var2" Click="Var2_Click" Margin="0,0,30,0" HorizontalAlignment="Right" Width="200" Background="#FF7D64BF" FontSize="16" FontFamily="Rockwell"/>
-            <Button Grid.Row="1" x:Name="Var1"   Content="Var1" Click="Var1_Click" HorizontalAlignment="Left" Margin="30,0,0,0" Width="200" Background="#FF7D64BF" FontSize="16" FontFamily="Rockwell"/>
-            <Button Grid.Row="2" x:Name="Var4"   Content="Var4" Click="Var4_Click"  Background="#FF7D64BF" HorizontalAlignment="Right" Margin="0,0,30,0" Width="200" FontSize="16" FontFamily="Rockwell"/>
-            <Button Grid.Row="2" x:Name="Var3"   Content="Var3" Click="Var3_Click"  Background="#FF7D64BF" HorizontalAlignment="Left" Margin="30,0,0,0" Width="200" FontSize="16" FontFamily="Rockwell" />
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="Task" Content="Word" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30" FontFamily="Elephant" Foreground="#FFB932B9"/>
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="ResultSmile" Content="&#x1F60A;" HorizontalAlignment="Center" VerticalAlignment="Top" FontSize="30" FontFamily="Elephant" Foreground="#FFDF1B87" FontWeight="Bold" />
+            <Label Grid.Row="1" Grid.ColumnSpan="2" x:Name="ResultAnswer" Content="Result" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="26" FontFamily="Elephant" Foreground="#FF73A4D1" FontWeight="Bold" />
+            <Label Grid.Row="1" Grid.ColumnSpan="2" x:Name="RightAnswer" Content="RightAnswer" HorizontalAlignment="Center" VerticalAlignment="Bottom" FontSize="24" FontFamily="Elephant" Foreground="#FF73A4D1" />
 
+            <Button Grid.Row="1" Grid.Column="0" x:Name="Var1"   Content="Var1" Click="Var1_Click" Background="{x:Null}" FontSize="28" FontFamily="Rockwell" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,0" Foreground="#FF128492"/>
+            <Button Grid.Row="1" Grid.Column="1" x:Name="Var2"   Content="Var2" Click="Var2_Click" Background="{x:Null}" FontSize="28" FontFamily="Rockwell" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,0" Foreground="#FF128492"/>
+            <Button Grid.Row="2" Grid.Column="1" x:Name="Var4"   Content="Var4" Click="Var4_Click" Background="{x:Null}" FontSize="28" FontFamily="Rockwell" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,0" Foreground="#FF128492"/>
+            <Button Grid.Row="2" Grid.Column="0" x:Name="Var3"   Content="Var3" Click="Var3_Click" Background="{x:Null}" FontSize="28" FontFamily="Rockwell" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,0" Foreground="#FF128492"/>
 
-            <Label x:Name="RightAnswer" Grid.Row="1" Content="Word" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0" IsHitTestVisible="True" Visibility="Hidden" FontSize="18" FontFamily="Verdana"/>
-            <Button Grid.Row="1" x:Name="MarkR" Width="90" Height="30" Content="Define as lerned" Click="MarkR_Click" Background="#FFA86CDB" HorizontalAlignment="Right" Margin="0,0,60,0" Visibility="Hidden" FontSize="16" FontFamily="Rockwell" />
-            <Button Grid.Row="1" x:Name="MarkW" Width="90" Height="30" Content="Learn" Click="MarkW_Click" Background="#FFA86CDB" HorizontalAlignment="Left" Margin="60,0,0,0" Visibility="Hidden" FontFamily="Rockwell" FontSize="16"/>
-            <TextBox x:Name="Answer" Grid.Row="2"  Height="40" TextWrapping="Wrap" Margin="40,22,40,9" MouseDoubleClick="Answer_MouseDoubleClick" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Visibility="Hidden" />
+            <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="CheckAnswer" Content="Check" Click="CheckAnswer_Click" Background="{x:Null}" FontSize="30" FontFamily="Rockwell" HorizontalAlignment="Center" VerticalAlignment="Center" BorderThickness="0,0,0,0" Foreground="#FF128492"  />
+            <TextBox Grid.Row="2" Grid.ColumnSpan="2" x:Name="Answer"  Height="40" TextWrapping="Wrap" Margin="40,0,40,0" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        
         </Grid>
-        <Button Grid.Column="1" Grid.Row="3" x:Name="NextEx" Width="80" Height="30" Content="Next" Click="NextEx_Click"  Background="#FFA86CDB" FontFamily="Rockwell" FontSize="16"/>
-        <Button Grid.Column="0" Grid.Row="3" x:Name="PrivEx" Width="80" Height="30" Content="Privious" Click="PrivEx_Click"  Background="#FFA86CDB" FontFamily="Rockwell" FontSize="16"/>
 
+        <Button Grid.Column="1" Grid.Row="3" x:Name="NextEx" Click="NextEx_Click"  Content="&#x2192;" Foreground="#FF128492" FontSize="34" FontFamily="Segoe UI Symbol" Background="{x:Null}" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Button Grid.Column="0" Grid.Row="3" x:Name="PrivEx" Click="PrivEx_Click"  Content="&#x2190;" Foreground="#FF128492" FontSize="34" FontFamily="Segoe UI Symbol" Background="{x:Null}" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+   
     </Grid>
 </Window>
