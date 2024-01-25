@@ -38,7 +38,7 @@
             </Grid.ColumnDefinitions>
 
             <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="Task" Content="Word" FontSize="30" FontFamily="Engravers MT" Foreground="#FFB932B9" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="ResultSmile" Content="&#x1F60A;" FontSize="30" FontFamily="Engravers MT" FontWeight="Bold" Foreground="#FFDF1B87" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="ResultSmile" Content="&#x1F60A;" FontSize="28" FontFamily="Engravers MT" FontWeight="Bold" Foreground="#FFDF1B87" HorizontalAlignment="Center" VerticalAlignment="Top" />
             <Label Grid.Row="1" Grid.ColumnSpan="2" x:Name="ResultAnswer" Content="Result" FontSize="26" FontFamily="Engravers MT" Foreground="#FF73A4D1" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" />
             <Label Grid.Row="1" Grid.ColumnSpan="2" x:Name="RightAnswer" Content="RightAnswer" FontSize="26" FontFamily="Engravers MT" Foreground="#FF73A4D1" HorizontalAlignment="Center" VerticalAlignment="Bottom" />
 
