@@ -41,9 +41,9 @@ namespace Vocabulary
             if (listRepeatWords.Count() != 0)
             {
                 iCurrent = 0;
-                textBlockEnglish.Text = listRepeatWords[0].english;
-                textBlockTranscription.Text = listRepeatWords[0].transcription;
-                textBlockUkrainian.Text = listRepeatWords[0].ukrainian;
+                labelEnglish.Content = listRepeatWords[0].english;
+                labelTranscription.Content = listRepeatWords[0].transcription;
+                labelUkrainian.Content = listRepeatWords[0].ukrainian;
             }
             else MessageBox.Show("Unfortunately, you don't have learned words yet!");
         }
@@ -52,9 +52,9 @@ namespace Vocabulary
         {
             if (iCurrent > 0)
             {
-                textBlockEnglish.Text = listRepeatWords[iCurrent - 1].english;
-                textBlockTranscription.Text = listRepeatWords[iCurrent - 1].transcription;
-                textBlockUkrainian.Text = listRepeatWords[iCurrent - 1].ukrainian;
+                labelEnglish.Content = listRepeatWords[iCurrent - 1].english;
+                labelTranscription.Content = listRepeatWords[iCurrent - 1].transcription;
+                labelUkrainian.Content = listRepeatWords[iCurrent - 1].ukrainian;
                 iCurrent--;
             }
         }
@@ -63,9 +63,9 @@ namespace Vocabulary
         {
             if (iCurrent < listRepeatWords.Count - 1)
             {
-                textBlockEnglish.Text = listRepeatWords[iCurrent + 1].english;
-                textBlockTranscription.Text = listRepeatWords[iCurrent + 1].transcription;
-                textBlockUkrainian.Text = listRepeatWords[iCurrent + 1].ukrainian;
+                labelEnglish.Content = listRepeatWords[iCurrent + 1].english;
+                labelTranscription.Content = listRepeatWords[iCurrent + 1].transcription;
+                labelUkrainian.Content = listRepeatWords[iCurrent + 1].ukrainian;
                 iCurrent++;
             }
         }

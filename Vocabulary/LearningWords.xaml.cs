@@ -39,9 +39,9 @@ namespace Vocabulary
             if (listLearnWords.Count() != 0)
             {
                 iCurrent = 0;
-                textBlockEnglish.Text = listLearnWords[0].english;
-                textBlockTranscription.Text = listLearnWords[0].transcription;
-                textBlockUkrainian.Text = listLearnWords[0].ukrainian;
+                labelEnglish.Content = listLearnWords[0].english;
+                labelTranscription.Content = listLearnWords[0].transcription;
+                labelUkrainian.Content = listLearnWords[0].ukrainian;
             }
             else MessageBox.Show("Congratulations! You learned all the words on the list.");
         }
@@ -50,9 +50,9 @@ namespace Vocabulary
         {
             if (iCurrent > 0)
             {
-                textBlockEnglish.Text = listLearnWords[iCurrent - 1].english;
-                textBlockTranscription.Text = listLearnWords[iCurrent - 1].transcription;
-                textBlockUkrainian.Text = listLearnWords[iCurrent - 1].ukrainian;
+                labelEnglish.Content = listLearnWords[iCurrent - 1].english;
+                labelTranscription.Content = listLearnWords[iCurrent - 1].transcription;
+                labelUkrainian.Content = listLearnWords[iCurrent - 1].ukrainian;
                 iCurrent--;
             }
 
@@ -62,9 +62,9 @@ namespace Vocabulary
         {
             if (iCurrent < listLearnWords.Count - 1)
             {
-                textBlockEnglish.Text = listLearnWords[iCurrent + 1].english;
-                textBlockTranscription.Text = listLearnWords[iCurrent + 1].transcription;
-                textBlockUkrainian.Text = listLearnWords[iCurrent + 1].ukrainian;
+                labelEnglish.Content = listLearnWords[iCurrent + 1].english;
+                labelTranscription.Content = listLearnWords[iCurrent + 1].transcription;
+                labelUkrainian.Content = listLearnWords[iCurrent + 1].ukrainian;
                 iCurrent++;
             }
         }      

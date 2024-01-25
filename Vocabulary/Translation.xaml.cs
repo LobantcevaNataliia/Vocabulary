@@ -160,7 +160,7 @@ namespace Vocabulary
         public void ShowResult(string userAnswer)
         {
             timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(5);
+            timer.Interval = TimeSpan.FromSeconds(2);
             timer.Tick += Timer_Tick;
 
             if (Equels(indexOfTaskWord, userAnswer))
@@ -208,18 +208,13 @@ namespace Vocabulary
 
         private bool Equels(int i, string str)
         {
-            bool eq;
-
             if (currentExercise == 1 || currentExercise == 2)
-                rightAnswer = words[i].english;
+                rightAnswer = (words[i].english).Trim();
             if (currentExercise == 0 || currentExercise == 3)
-                rightAnswer = words[i].ukrainian;
+                rightAnswer = (words[i].ukrainian).Trim(); 
 
-            if (rightAnswer == str)
-                eq = true;
-            else eq = false;
-
-            return eq;
+            return rightAnswer.Equals(str.Trim(), StringComparison.OrdinalIgnoreCase) && 
+                rightAnswer.Equals(str.Trim(), StringComparison.CurrentCultureIgnoreCase);
         }
 
         private void NextEx_Click(object sender, RoutedEventArgs e)

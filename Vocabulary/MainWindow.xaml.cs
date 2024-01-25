@@ -71,7 +71,7 @@ namespace Vocabulary
             MainWindowWindow.Hide();
         }
 
-        //Метод для переходо до вибору вправ
+        //Метод для переходy до вибору вправ
         private void Exercise_Click(object sender, RoutedEventArgs e)
         {
             Window exercise = new Exercise(words);

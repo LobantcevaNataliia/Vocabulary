@@ -1,56 +1,49 @@
-﻿<Window x:Name="ListOfWordsWindow" x:Class="Vocabulary.ListOfWords"
+﻿<Window x:Class="Vocabulary.ListOfWords"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        Title="ListOfWords" Height="400" Width="500" Loaded="Window_Loaded" Closed="ListOfWordsWindow_Closed">
+        x:Name="ListOfWordsWindow" Title="ListOfWords" Height="400" Width="500" Loaded="Window_Loaded" Closed="ListOfWordsWindow_Closed">
     <Grid>
-        <Grid.Background>
-            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                <GradientStop Color="#FF93F5DB" Offset="0"/>
-                <GradientStop Color="#FFDBF9F1" Offset="1"/>
-            </LinearGradientBrush>
-        </Grid.Background>
-
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
             <RowDefinition Height="3.5*" ></RowDefinition>
         </Grid.RowDefinitions>
+        
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#99ccff" Offset="0"/>
+                <GradientStop Color="#ffcccc" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
 
-        <Grid Grid.Row="0">
+        <Grid Grid.Row="0" Margin="10,10,10,10" Background="#FFFFCCCC" >
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="0.5*" />
                 <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="0.6*" />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="New word - " HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Transcription - " HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Row="2" Grid.Column="0" Content="Translation - " HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <TextBox Grid.Row="0" Grid.Column="1" x:Name="newEnglishTb" Height="23" TextWrapping="Wrap" Text="" Margin="5,5" VerticalAlignment="Bottom"/>
-            <TextBox Grid.Row="1" Grid.Column="1" x:Name="newTranscriptionTb" Height="23" TextWrapping="Wrap" Text="" Margin="5,5" VerticalAlignment="Bottom"/>
-            <TextBox Grid.Row="2" Grid.Column="1" x:Name="newUkrainianTb" Height="23" TextWrapping="Wrap" Text="" Margin="5,5" VerticalAlignment="Bottom"/>
+            <!--<Label Grid.Row="0" Grid.Column="0" Content="New word - " FontSize="14" FontFamily="Engravers MT" Foreground="#FFE00555" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Label Grid.Row="1" Grid.Column="0" Content="Transcription - " FontSize="14" FontFamily="Engravers MT" Foreground="#FFE00555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Label Grid.Row="2" Grid.Column="0" Content="Translation - " FontSize="14" FontFamily="Engravers MT" Foreground="#FFE00555" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
 
-            <Button  Grid.Column="2" Grid.RowSpan="2" x:Name="AddWord" Content="Add Word"  Click="AddWord_Click" HorizontalAlignment="Center" VerticalAlignment="Top" BorderThickness="0,0,0,0" Margin="0,21,0,0" FontSize="22" Background="{x:Null}">
-                <Button.Foreground>
-                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                        <GradientStop Color="#FF0F4446" Offset="0.429"/>
-                        <GradientStop Color="#FF99FAFF" Offset="-1"/>
-                        <GradientStop Color="#FF246063" Offset="0.119"/>
-                    </LinearGradientBrush>
-                </Button.Foreground>
-            </Button>
+            <TextBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="newEnglishTb" Text="Enter a new word..." TextWrapping="WrapWithOverflow" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="0" x:Name="newTranscriptionTb" Text="Enter the transcription of the word..." TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+            <TextBox Grid.Row="1" Grid.Column="1" x:Name="newUkrainianTb" Text="Enter the translation of the word..." TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" />
+
+            <Button  Grid.Row="2" Grid.ColumnSpan="2" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+
         </Grid>
-
-        <DataGrid Grid.Row="1" Name="ListWords" IsReadOnly="True" RowHeaderWidth="0" AutoGenerateColumns="False" AlternatingRowBackground="#FF90D5D9" RowBackground="#FFDDFCF4"
-          HorizontalScrollBarVisibility="Disabled" CanUserSortColumns="True" HorizontalGridLinesBrush="#FF145661" VerticalGridLinesBrush="#FF145661" EnableRowVirtualization="False" >
+          
+        <DataGrid Grid.Row="1" Name="ListWords" IsReadOnly="True" RowHeaderWidth="0" AutoGenerateColumns="False" RowBackground="{x:Null}" 
+           CanUserSortColumns="True" Background="{x:Null}" EnableRowVirtualization="False" FontSize="12" BorderBrush="Coral" BorderThickness="0,0,0,0" FontFamily="Engravers MT" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding id}" Width="*"/>
                 <DataGridTextColumn Header="Word" Binding="{Binding english}" Width="2*"/>
@@ -61,23 +54,13 @@
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">
-                    <Setter Property="Background">
-                        <Setter.Value>
-                            <LinearGradientBrush StartPoint="1,1" EndPoint="1,0">
-                                <GradientStop Color="#FFDDFCF4" Offset="1"/>
-                                <GradientStop Color="#FF90D5D9" Offset="0.119"/>
-                            </LinearGradientBrush>
-                        </Setter.Value>
-                    </Setter>
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="FontSize" Value="18" />
+                    <Setter Property="Foreground" Value="#483D8B" />
+                    <Setter Property="BorderBrush" Value="#2F4F4F" />
+                    <Setter Property="BorderThickness" Value="0,1,1,1" />
                 </Style>
             </DataGrid.ColumnHeaderStyle>
-
-            <DataGrid.Background>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF93F5DB" Offset="0"/>
-                    <GradientStop Color="#FFDBF9F1" Offset="1"/>
-                </LinearGradientBrush>
-            </DataGrid.Background>
         </DataGrid>
 
     </Grid>
