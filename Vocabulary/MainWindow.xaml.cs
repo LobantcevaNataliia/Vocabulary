@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows;
 using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
+using System.Configuration;
+using System.IO;
 
 namespace Vocabulary
 {
@@ -14,6 +16,7 @@ namespace Vocabulary
         }
 
         ObservableCollection<Word> words;
+        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
@@ -24,8 +27,6 @@ namespace Vocabulary
         private void LoadDataFromDatabase()
         {
             words = new ObservableCollection<Word>();
-
-            string connectionString = "server=localhost;user=NataliiaLobantseva;database=myVocabDB;port=3306;password=!23Asdfgh";
 
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -21,6 +22,7 @@ namespace Vocabulary
     /// </summary>
     public partial class RepeatWords : Window
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
         public List<Word> listRepeatWords;
         int iCurrent;
@@ -41,20 +43,27 @@ namespace Vocabulary
             if (listRepeatWords.Count() != 0)
             {
                 iCurrent = 0;
-                labelEnglish.Content = listRepeatWords[0].english;
-                labelTranscription.Content = listRepeatWords[0].transcription;
-                labelUkrainian.Content = listRepeatWords[0].ukrainian;
+                ShowWords(iCurrent);
             }
-            else MessageBox.Show("Unfortunately, you don't have learned words yet!");
+            else
+            {
+                MessageBox.Show("Unfortunately, you don't have learned words yet!");
+                RepeatWordsWindow.Close();
+            }
+        }
+
+        private void ShowWords(int i) 
+        {
+            labelEnglish.Content = listRepeatWords[i].english;
+            labelTranscription.Content = listRepeatWords[i].transcription;
+            labelUkrainian.Content = listRepeatWords[i].ukrainian;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             if (iCurrent > 0)
             {
-                labelEnglish.Content = listRepeatWords[iCurrent - 1].english;
-                labelTranscription.Content = listRepeatWords[iCurrent - 1].transcription;
-                labelUkrainian.Content = listRepeatWords[iCurrent - 1].ukrainian;
+                ShowWords(iCurrent - 1);
                 iCurrent--;
             }
         }
@@ -63,9 +72,7 @@ namespace Vocabulary
         {
             if (iCurrent < listRepeatWords.Count - 1)
             {
-                labelEnglish.Content = listRepeatWords[iCurrent + 1].english;
-                labelTranscription.Content = listRepeatWords[iCurrent + 1].transcription;
-                labelUkrainian.Content = listRepeatWords[iCurrent + 1].ukrainian;
+                ShowWords(iCurrent + 1);
                 iCurrent++;
             }
         }
@@ -73,17 +80,33 @@ namespace Vocabulary
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
         {
             UpDataInDatabase();
-            words[iCurrent].status = false;
+            UpDataInWordsArray();
             listRepeatWords.Remove(listRepeatWords[iCurrent]);
-            iCurrent++;
-            Next_Click(sender, e);
 
+            if (listRepeatWords.Count() != 0)
+            {
+                if (iCurrent == listRepeatWords.Count)
+                    ShowWords(--iCurrent);
+                else ShowWords(iCurrent);
+            }
+            else
+            {
+                RepeatWordsWindow.Close();
+                MessageBox.Show("Unfortunately, you don't have learned words yet!");      
+            }
+        }
+
+        private void UpDataInWordsArray()
+        {
+            for(int i = 0; i < words.Count; i++)
+            {
+                if(words[i].english == listRepeatWords[iCurrent].english)
+                    words[i].status = false;
+            }
         }
 
         private void UpDataInDatabase()
         {
-            string connectionString = "server=localhost;user=NataliiaLobantseva;database=myVocabDB;port=3306;password=!23Asdfgh"; ;
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();

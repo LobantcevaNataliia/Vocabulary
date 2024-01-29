@@ -15,6 +15,7 @@ using System.Text;
 using System.Collections.ObjectModel;
 using MySql.Data;
 using MySql.Data.MySqlClient;
+using System.Configuration;
 
 namespace Vocabulary
 {
@@ -23,6 +24,7 @@ namespace Vocabulary
     /// </summary>
     public partial class ListOfWords : Window
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
 
         public ListOfWords(ObservableCollection<Word> words)
@@ -34,7 +36,6 @@ namespace Vocabulary
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             ListWords.ItemsSource = words;
-
         }
 
         private void AddWord_Click(object sender, RoutedEventArgs e)
@@ -43,17 +44,28 @@ namespace Vocabulary
             string newTranscription = newTranscriptionTb.Text;
             string newUkrainian = newUkrainianTb.Text;
             bool newStatus = false;
-            
-            if (newEnglish != "" && newTranscription != "" && newUkrainian != "")
-                InsertDataIntoDatabase(newEnglish, newTranscription, newUkrainian, newStatus);
+
+            if (!string.IsNullOrEmpty(newEnglish) && !string.IsNullOrEmpty(newTranscription) && !string.IsNullOrEmpty(newUkrainian))
+                InsertDataIntoDatabase(Change(newEnglish.Trim()), newTranscription.Trim(), Change(newUkrainian.Trim()), newStatus);
             else MessageBox.Show("You need to fill all lines to add new word!");
 
+            words.Add(new Word
+            (
+                words.Count + 1,
+                Change(newEnglish.Trim()),
+                newTranscription.Trim(),
+                Change(newUkrainian.Trim()),
+                newStatus
+            ));
+        }
+
+        private string Change(string str)
+        {
+            return char.ToUpper(str[0]) + str.Substring(1).ToLower();
         }
 
         private void InsertDataIntoDatabase(string newEnglish,string newTranscription,string newUkrainian,bool newStatus)
         {
-            string connectionString = "server=localhost;user=NataliiaLobantseva;database=myVocabDB;port=3306;password=!23Asdfgh";
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
@@ -61,13 +73,14 @@ namespace Vocabulary
                     connection.Open();
 
                     // Вставкa даних в БД
-                    string query = "INSERT INTO myVocabDB.words (EnglishWord, Transcription, UkrainianWord, Status) VALUES (@Value1, @Value2, @Value3, @Value4)";
+                    string query = "INSERT INTO myVocabDB.words (WordID, EnglishWord, Transcription, UkrainianWord, Status) VALUES (@Value1, @Value2, @Value3, @Value4, @Value5)";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {                    
-                        command.Parameters.AddWithValue("@Value1", newEnglish);
-                        command.Parameters.AddWithValue("@Value2", newTranscription);
-                        command.Parameters.AddWithValue("@Value3", newUkrainian);
-                        command.Parameters.AddWithValue("@Value4", newStatus);
+                    {
+                        command.Parameters.AddWithValue("@Value1", words.Count +1);
+                        command.Parameters.AddWithValue("@Value2", newEnglish);
+                        command.Parameters.AddWithValue("@Value3", newTranscription);
+                        command.Parameters.AddWithValue("@Value4", newUkrainian);
+                        command.Parameters.AddWithValue("@Value5", newStatus);
 
                         command.ExecuteNonQuery();
                     }
@@ -84,6 +97,21 @@ namespace Vocabulary
             Window mainWindow = new MainWindow();
             mainWindow.Show();
             ListOfWordsWindow.Close();
+        }
+
+        private void newEnglishTb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            newEnglishTb.SelectAll();
+        }
+
+        private void newTranscriptionTb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            newTranscriptionTb.SelectAll();
+        }
+
+        private void newUkrainianTb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            newUkrainianTb.SelectAll();
         }
     }
 }

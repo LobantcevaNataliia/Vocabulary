@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,7 @@ namespace Vocabulary
 {
     public partial class LearningWords : Window
     {
+        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
         public List<Word> listLearnWords;
         int iCurrent;
@@ -39,20 +41,27 @@ namespace Vocabulary
             if (listLearnWords.Count() != 0)
             {
                 iCurrent = 0;
-                labelEnglish.Content = listLearnWords[0].english;
-                labelTranscription.Content = listLearnWords[0].transcription;
-                labelUkrainian.Content = listLearnWords[0].ukrainian;
+                ShowWords(iCurrent);
             }
-            else MessageBox.Show("Congratulations! You learned all the words on the list.");
+            else
+            {
+                MessageBox.Show("Congratulations! You learned all the words on the list.");
+                LearningWordsWindow.Close();
+            }
+        }
+
+        private void ShowWords(int i)
+        {
+            labelEnglish.Content = listLearnWords[i].english;
+            labelTranscription.Content = listLearnWords[i].transcription;
+            labelUkrainian.Content = listLearnWords[i].ukrainian;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
         {
             if (iCurrent > 0)
             {
-                labelEnglish.Content = listLearnWords[iCurrent - 1].english;
-                labelTranscription.Content = listLearnWords[iCurrent - 1].transcription;
-                labelUkrainian.Content = listLearnWords[iCurrent - 1].ukrainian;
+                ShowWords(iCurrent - 1);
                 iCurrent--;
             }
 
@@ -62,9 +71,7 @@ namespace Vocabulary
         {
             if (iCurrent < listLearnWords.Count - 1)
             {
-                labelEnglish.Content = listLearnWords[iCurrent + 1].english;
-                labelTranscription.Content = listLearnWords[iCurrent + 1].transcription;
-                labelUkrainian.Content = listLearnWords[iCurrent + 1].ukrainian;
+                ShowWords(iCurrent + 1);
                 iCurrent++;
             }
         }      
@@ -72,17 +79,34 @@ namespace Vocabulary
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
         {
             UpDataInDatabase();
-            words[iCurrent].status = true;
+            UpDataInWordsArray();
             listLearnWords.Remove(listLearnWords[iCurrent]);
-            iCurrent++;
-            Next_Click(sender, e);
 
+            if (listLearnWords.Count() != 0)
+            {
+                if (iCurrent == listLearnWords.Count)
+                    ShowWords(--iCurrent);
+                else ShowWords(iCurrent);
+            }
+            else
+            {
+                LearningWordsWindow.Close();
+                MessageBox.Show("Congratulations! You learned all the words on the list.");
+            }
+
+        }
+
+        private void UpDataInWordsArray()
+        {
+            for (int i = 0; i < words.Count; i++)
+            {
+                if (words[i].english == listLearnWords[iCurrent].english)
+                    words[i].status = true;
+            }
         }
 
         private void UpDataInDatabase()
         {
-            string connectionString = "server=localhost;user=NataliiaLobantseva;database=myVocabDB;port=3306;password=!23Asdfgh"; ;
-
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 connection.Open();
@@ -99,6 +123,7 @@ namespace Vocabulary
                         MessageBox.Show($"An error occurred while changing a status of word." + "\nPlease contact the admin!");
                 }
             }
+
         }
 
         private void Window_Closed(object sender, EventArgs e)
