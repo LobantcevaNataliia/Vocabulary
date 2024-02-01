@@ -22,13 +22,15 @@ namespace Vocabulary
     {
         string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
+        User user;
         public List<Word> listLearnWords;
         int iCurrent;
 
-        public LearningWords(ObservableCollection<Word> words)
+        public LearningWords(ObservableCollection<Word> words, User user)
         {
             InitializeComponent();
             this.words = words;
+            this.user = user;
         }     
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -128,7 +130,7 @@ namespace Vocabulary
 
         private void Window_Closed(object sender, EventArgs e)
         {
-            Window exerciseWindow = new Exercise(words);
+            Window exerciseWindow = new Exercise(words, user);
             exerciseWindow.Show();
             LearningWordsWindow.Close();
         }

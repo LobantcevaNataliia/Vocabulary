@@ -112,6 +112,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Authorization.xaml.cs">
+      <DependentUpon>Authorization.xaml</DependentUpon>
+    </Compile>
     <Compile Include="RepeatWords.xaml.cs">
       <DependentUpon>RepeatWords.xaml</DependentUpon>
     </Compile>
@@ -121,7 +124,12 @@
     <Compile Include="Translation.xaml.cs">
       <DependentUpon>Translation.xaml</DependentUpon>
     </Compile>
+    <Compile Include="User.cs" />
     <Compile Include="Word.cs" />
+    <Page Include="Authorization.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Exercise.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -195,6 +203,12 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="avatar_woman.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="avatar_man.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

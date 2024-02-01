@@ -26,11 +26,13 @@ namespace Vocabulary
     {
         string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
+        User user;
 
-        public ListOfWords(ObservableCollection<Word> words)
+        public ListOfWords(ObservableCollection<Word> words, User user)
         {
             InitializeComponent();
             this.words = words;
+            this.user = user;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -46,7 +48,9 @@ namespace Vocabulary
             bool newStatus = false;
 
             if (!string.IsNullOrEmpty(newEnglish) && !string.IsNullOrEmpty(newTranscription) && !string.IsNullOrEmpty(newUkrainian))
-                InsertDataIntoDatabase(Change(newEnglish.Trim()), newTranscription.Trim(), Change(newUkrainian.Trim()), newStatus);
+            {
+                InsertWordIntoDatabase(Change(newEnglish.Trim()), newTranscription.Trim(), Change(newUkrainian.Trim()), newStatus);
+            }
             else MessageBox.Show("You need to fill all lines to add new word!");
 
             words.Add(new Word
@@ -64,24 +68,20 @@ namespace Vocabulary
             return char.ToUpper(str[0]) + str.Substring(1).ToLower();
         }
 
-        private void InsertDataIntoDatabase(string newEnglish,string newTranscription,string newUkrainian,bool newStatus)
+        private void InsertWordIntoDatabase(string newEnglish,string newTranscription,string newUkrainian,bool newStatus)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
                 try
                 {
                     connection.Open();
-
-                    // Вставкa даних в БД
-                    string query = "INSERT INTO myVocabDB.words (WordID, EnglishWord, Transcription, UkrainianWord, Status) VALUES (@Value1, @Value2, @Value3, @Value4, @Value5)";
+                    // Вставкa слова в БД
+                    string query = "INSERT INTO myVocabDB.words (EnglishWord, Transcription, UkrainianWord) VALUES (@Value1, @Value2, @Value3)";
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
-                        command.Parameters.AddWithValue("@Value1", words.Count +1);
-                        command.Parameters.AddWithValue("@Value2", newEnglish);
-                        command.Parameters.AddWithValue("@Value3", newTranscription);
-                        command.Parameters.AddWithValue("@Value4", newUkrainian);
-                        command.Parameters.AddWithValue("@Value5", newStatus);
-
+                        command.Parameters.AddWithValue("@Value1", newEnglish);
+                        command.Parameters.AddWithValue("@Value2", newTranscription);
+                        command.Parameters.AddWithValue("@Value3", newUkrainian);
                         command.ExecuteNonQuery();
                     }
                 }
@@ -94,7 +94,7 @@ namespace Vocabulary
 
         private void ListOfWordsWindow_Closed(object sender, EventArgs e)
         {
-            Window mainWindow = new MainWindow();
+            Window mainWindow = new MainWindow(user);
             mainWindow.Show();
             ListOfWordsWindow.Close();
         }

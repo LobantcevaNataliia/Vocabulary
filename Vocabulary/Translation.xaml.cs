@@ -12,16 +12,18 @@ namespace Vocabulary
     public partial class Translation : Window
     {
         ObservableCollection<Word> words;
+        User user;
         DispatcherTimer timer;
         Random random;
 
         int maxExercise = 3, minExercise = 0, currentExercise = 0, indexOfTaskWord;     
         string rightAnswer;
         
-        public Translation(ObservableCollection<Word> words)
+        public Translation(ObservableCollection<Word> words, User user)
         {
             InitializeComponent();
             this.words = words;
+            this.user = user;
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -31,7 +33,7 @@ namespace Vocabulary
 
         private void TranslationWindow_Closed(object sender, EventArgs e)
         {
-            Window exerciseWindow = new Exercise(words);
+            Window exerciseWindow = new Exercise(words, user);
             exerciseWindow.Show();
             TranslationWindow.Close();
         }

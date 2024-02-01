@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        x:Name="TranslationWindow" Title="Translation" Height="400" Width="500" Closed="TranslationWindow_Closed" Loaded="Window_Loaded">
+        x:Name="TranslationWindow" Title="Translation" Height="400" Width="500" Loaded="Window_Loaded" Closed="TranslationWindow_Closed">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"></RowDefinition>
