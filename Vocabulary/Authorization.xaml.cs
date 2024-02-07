@@ -9,6 +9,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Input;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Vocabulary
@@ -18,11 +19,17 @@ namespace Vocabulary
     /// </summary>
     public partial class Authorization : Window
     {
-        public Authorization()
+        public Authorization(string action)
         {
             InitializeComponent();
-        }
 
+            if(action == "LogIn")
+            {
+                UserEmailLabel.Visibility = Visibility.Hidden;
+                UserEmailTextBox.Visibility = Visibility.Hidden;
+            }
+        }
+        
         string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         User user;
 
@@ -38,7 +45,7 @@ namespace Vocabulary
         {
             string userName = UserNameTextBox.Text;
             string userEmail = UserEmailTextBox.Text;
-            string userPassword = HashPassword(UserPasswordTextBox.Text);
+            string userPassword = HashPassword(UserPasswordTextBox.ToString());
 
             UserExists(userName, userEmail, userPassword);
 
@@ -123,7 +130,7 @@ namespace Vocabulary
 
         private void CheckUser(User user, string userEmail, string userPassword)
         {
-            if (user.email == userEmail && user.password == userPassword)
+            if (user.password == userPassword)
             {
                 Window mainWindow = new MainWindow(user);
                 mainWindow.Show();
@@ -133,7 +140,7 @@ namespace Vocabulary
         }
 
         private void SignUp_Click(object sender, RoutedEventArgs e)
-        {
+        { 
             UserEmailLabel.Visibility = Visibility.Visible;
             UserEmailTextBox.Visibility = Visibility.Visible;
         }

@@ -20,10 +20,10 @@
                 <GradientStop Color="#ffffcc" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
-        
-        <Label Grid.Row="0" x:Name="labelEnglish" Content="Get ready!" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Row="1" x:Name="labelUkrainian" Content="This is all words which you learned" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Row="2" x:Name="labelTranscription" Content="Press 'Next' and start repeating!" FontSize="24" FontFamily="Engravers MT" Foreground="#FFF47689" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/> 
+
+        <TextBlock Grid.Row="0" x:Name="textBlockEnglish" Text="Get ready!" TextWrapping="Wrap" TextAlignment="Center" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" x:Name="textBlockUkrainian" Text="This is all words which you learned" TextWrapping="Wrap" TextAlignment="Center" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="2" x:Name="textBlockTranscription" Text="Press 'Next' and start repeating!" TextWrapping="Wrap" TextAlignment="Center" FontSize="24" FontFamily="Engravers MT" Foreground="#FFF47689" VerticalAlignment="Top" HorizontalAlignment="Center"/>
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>
@@ -37,6 +37,5 @@
             <Button Grid.Column="2" x:Name="Next" Content="&#x2192;" Click="Next_Click" FontSize="40" FontFamily="Segoe UI Symbol" Background="{x:Null}" Foreground="#FFF15E74" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
         </Grid>
-        
     </Grid>
 </Window>

@@ -14,7 +14,6 @@ namespace Vocabulary
         {
             InitializeComponent();
             DefaultUser();
-
         }
 
         public MainWindow(User user)
@@ -102,14 +101,6 @@ namespace Vocabulary
 
         }
         
-        //Метод для авторизації
-        private void Auto_Click(object sender, RoutedEventArgs e)
-        {
-            Window auto = new Authorization();
-            auto.Show();
-            MainWindowWindow.Hide();
-        }
-
         //Метод для відображення списку слів
         private void List_Click(object sender, RoutedEventArgs e)
         {
@@ -123,6 +114,25 @@ namespace Vocabulary
         {
             Window exercise = new Exercise(words, user);
             exercise.Show();
+            MainWindowWindow.Hide();
+        }
+
+
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+            Auto("LogIn");
+        }
+
+        private void SignUp_Click(object sender, RoutedEventArgs e)
+        {
+            Auto("SignUp");
+        }
+
+        //Метод для авторизації
+        private void Auto(string action)
+        {
+            Window auto = new Authorization(action);
+            auto.Show();
             MainWindowWindow.Hide();
         }
     }

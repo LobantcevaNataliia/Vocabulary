@@ -1,19 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 using MySql.Data.MySqlClient;
 
 namespace Vocabulary
@@ -24,7 +14,7 @@ namespace Vocabulary
         ObservableCollection<Word> words;
         User user;
         public List<Word> listLearnWords;
-        int iCurrent;
+        int iCurrent, iCurrentword;
 
         public LearningWords(ObservableCollection<Word> words, User user)
         {
@@ -54,9 +44,9 @@ namespace Vocabulary
 
         private void ShowWords(int i)
         {
-            labelEnglish.Content = listLearnWords[i].english;
-            labelTranscription.Content = listLearnWords[i].transcription;
-            labelUkrainian.Content = listLearnWords[i].ukrainian;
+            textBlockEnglish.Text = listLearnWords[i].english;
+            textBlockTranscription.Text = listLearnWords[i].transcription;
+            textBlockUkrainian.Text = listLearnWords[i].ukrainian;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -79,9 +69,9 @@ namespace Vocabulary
         }      
 
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
-        {
-            UpDataInDatabase();
+        {        
             UpDataInWordsArray();
+            UpDataInDatabase();
             listLearnWords.Remove(listLearnWords[iCurrent]);
 
             if (listLearnWords.Count() != 0)
@@ -103,7 +93,10 @@ namespace Vocabulary
             for (int i = 0; i < words.Count; i++)
             {
                 if (words[i].english == listLearnWords[iCurrent].english)
+                {
                     words[i].status = true;
+                    iCurrentword = i;
+                }
             }
         }
 
@@ -113,7 +106,7 @@ namespace Vocabulary
             {
                 connection.Open();
 
-                string updateQuery = $"UPDATE myVocabDB.words SET status = @newValue WHERE EnglishWord='{listLearnWords[iCurrent].english}'";
+                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].id}' AND UserId='{user.id}'";
 
                 using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
                 {

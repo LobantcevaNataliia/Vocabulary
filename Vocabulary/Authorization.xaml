@@ -37,10 +37,10 @@
             <TextBox Text="Enter Username" Name="UserNameTextBox" />
            
             <Label  Content="User Password:" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox Text="Enter Password" Name="UserPasswordTextBox" Margin="0,0,0,10"/>
+            <PasswordBox  Name="UserPasswordTextBox" Margin="0,0,0,10"/>
 
-            <Label Name="UserEmailLabel" Content="User Email:" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center" Visibility="Hidden"/>
-            <TextBox Name="UserEmailTextBox" Text="Enter Email" Margin="0,0,0,10" Visibility="Hidden"/>
+            <Label Name="UserEmailLabel" Content="User Email:" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox Name="UserEmailTextBox" Text="Enter Email" Margin="0,0,0,10" />
             
         </StackPanel>
 

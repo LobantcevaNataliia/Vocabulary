@@ -6,9 +6,9 @@
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
         x:Name ="MainWindowWindow" Title="My Vocabulary" Height="400" Width="500" Loaded="Window_Loaded">
-    <Grid>
+    <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.3*"/>
+            <RowDefinition Height="0.5*"/>
             <RowDefinition Height="3*"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
@@ -16,17 +16,30 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        
+
         <Grid.Background>
             <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
                 <GradientStop Color="#FF94C6F7" Offset="0"/>
                 <GradientStop Color="#FFE5FDFC" Offset="1"/>
             </LinearGradientBrush>
-            
+
         </Grid.Background>
+       
+        <ToolBar Grid.Row="0" Grid.ColumnSpan="2" HorizontalAlignment="Right" Width="70" VerticalAlignment="Top" Background="{x:Null}" FontSize="20" >
+            <DockPanel>
+                <Image  Source="/avatar.png" VerticalAlignment="Top"  />
+                <!--<Label Content="Guest" VerticalAlignment="Bottom"/>-->
+            </DockPanel>
+            <Menu>
+                <MenuItem Name="LogIn" Header="Log in" Click="LogIn_Click" />
+                <MenuItem Name="SignUp" Header="Sign up" Click="SignUp_Click"/>
+            </Menu>
+        </ToolBar>
+        <!--<Button Grid.Row="0" Grid.ColumnSpan="2" x:Name="Auto" Content="You`re on Guest profile. Click if you want to Log in" Click="Auto_Click"  FontSize="20" FontFamily="Engravers MT"  Background="{x:Null}" Foreground="#FF09278B" BorderThickness="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Top"/>-->
+        <!--<Button Grid.Row="0" Grid.Column="1" x:Name="Auto" Content="Log in" Click="Auto_Click" FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF09278B" BorderThickness="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>-->
+
         <Label Grid.Row="1" Grid.ColumnSpan="2" Content="My Vocabulary" FontSize="40" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        
-        <Button Grid.Row="0" Grid.Column="1" x:Name="Auto" Content="Auto" Click="Auto_Click" FontSize="22" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF09278B" BorderThickness="0,0,0,0" HorizontalAlignment="Right" VerticalAlignment="Center"/>
+
         <Button Grid.Row="2" Grid.Column="0" x:Name="List" Content="List of My Words" Click="List_Click" FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="RoyalBlue" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
         <Button Grid.Row="2" Grid.Column="1" x:Name="Exercise" Content="Word exercises" Click="Exercise_Click" FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="RoyalBlue" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 

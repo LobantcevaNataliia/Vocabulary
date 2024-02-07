@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
         x:Name="ListOfWordsWindow" Title="ListOfWords" Height="400" Width="500" Loaded="Window_Loaded" Closed="ListOfWordsWindow_Closed">
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -30,10 +31,6 @@
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <!--<Label Grid.Row="0" Grid.Column="0" Content="New word - " FontSize="14" FontFamily="Engravers MT" Foreground="#FFE00555" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Label Grid.Row="1" Grid.Column="0" Content="Transcription - " FontSize="14" FontFamily="Engravers MT" Foreground="#FFE00555" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Label Grid.Row="2" Grid.Column="0" Content="Translation - " FontSize="14" FontFamily="Engravers MT" Foreground="#FFE00555" HorizontalAlignment="Center" VerticalAlignment="Center"/>-->
-
             <TextBox Grid.Row="0" Grid.ColumnSpan="2" x:Name="newEnglishTb" Text="Enter a new word..." TextWrapping="WrapWithOverflow" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newEnglishTb_MouseDoubleClick" />
             <TextBox Grid.Row="1" Grid.Column="0" x:Name="newTranscriptionTb" Text="Enter the transcription of the word..." TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newTranscriptionTb_MouseDoubleClick"  />
             <TextBox Grid.Row="1" Grid.Column="1" x:Name="newUkrainianTb" Text="Enter the translation of the word..." TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newUkrainianTb_MouseDoubleClick"  />
@@ -41,16 +38,54 @@
             <Button  Grid.Row="2" Grid.ColumnSpan="2" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Top"/>
 
         </Grid>
-          
-        <DataGrid Grid.Row="1" Name="ListWords" IsReadOnly="True" RowHeaderWidth="0" AutoGenerateColumns="False" RowBackground="{x:Null}" 
-           CanUserSortColumns="True" Background="{x:Null}" EnableRowVirtualization="False" FontSize="12" BorderBrush="Coral" BorderThickness="0,0,0,0" FontFamily="Engravers MT" >
+
+        <DataGrid  Grid.Row="1" Name="ListWords" IsReadOnly="True" RowHeaderWidth="0"  AutoGenerateColumns="False" RowBackground="{x:Null}" 
+           CanUserSortColumns="True" Background="{x:Null}" FontSize="12" BorderThickness="0,0,0,0" FontFamily="Engravers MT"  >
             <DataGrid.Columns>
-                <DataGridTextColumn Header="№" Binding="{Binding id}" Width="*"/>
+                <DataGridTextColumn Header="№" Binding="{Binding i}" Width="*" />
                 <DataGridTextColumn Header="Word" Binding="{Binding english}" Width="2*"/>
                 <DataGridTextColumn Header="Transcription" Binding="{Binding transcription}" Width="2*"/>
                 <DataGridTextColumn Header="Translation" Binding="{Binding ukrainian}" Width="2*"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
+
             </DataGrid.Columns>
+            
+            <DataGrid.RowDetailsTemplate>
+                <DataTemplate>
+                    <Border BorderThickness="0" Background="#ffcccc" Padding="10">
+                        <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock FontSize="12" Text="Word: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding english}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock FontSize="12" Text="Transcription: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding transcription}" VerticalAlignment="Center" />
+                            </StackPanel>
+                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock FontSize="12" Text="Translation: " VerticalAlignment="Center" />
+                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding ukrainian}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </StackPanel>
+                    </Border>
+                </DataTemplate>
+            </DataGrid.RowDetailsTemplate>
+            
+
+            <DataGrid.ContextMenu>
+                <ContextMenu>
+                    <MenuItem  Header="Delete" Click="DeleteMenuItem_Click">
+                        <MenuItem.Icon>
+                            <TextBlock FontFamily="Segoe UI Symbol" Text="&#x1F5D1;"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                    <MenuItem  Header="Change status" Click="EditMenuItem_Click">
+                        <MenuItem.Icon>
+                            <TextBlock FontFamily="Segoe UI Symbol" Text="&#x270E;"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </ContextMenu>
+            </DataGrid.ContextMenu>
 
             <DataGrid.ColumnHeaderStyle>
                 <Style TargetType="DataGridColumnHeader">

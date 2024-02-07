@@ -26,7 +26,7 @@ namespace Vocabulary
         ObservableCollection<Word> words;
         User user;
         public List<Word> listRepeatWords;
-        int iCurrent;
+        int iCurrent, iCurrentword;
 
         public RepeatWords(ObservableCollection<Word> words, User user)
         {
@@ -56,9 +56,9 @@ namespace Vocabulary
 
         private void ShowWords(int i) 
         {
-            labelEnglish.Content = listRepeatWords[i].english;
-            labelTranscription.Content = listRepeatWords[i].transcription;
-            labelUkrainian.Content = listRepeatWords[i].ukrainian;
+            textBlockEnglish.Text = listRepeatWords[i].english;
+            textBlockTranscription.Text = listRepeatWords[i].transcription;
+            textBlockUkrainian.Text = listRepeatWords[i].ukrainian;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -81,8 +81,8 @@ namespace Vocabulary
 
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
         {
-            UpDataInDatabase();
             UpDataInWordsArray();
+            UpDataInDatabase();
             listRepeatWords.Remove(listRepeatWords[iCurrent]);
 
             if (listRepeatWords.Count() != 0)
@@ -103,7 +103,11 @@ namespace Vocabulary
             for(int i = 0; i < words.Count; i++)
             {
                 if(words[i].english == listRepeatWords[iCurrent].english)
+                {
                     words[i].status = false;
+                    iCurrentword = i;
+                }
+                    
             }
         }
 
@@ -113,7 +117,7 @@ namespace Vocabulary
             {
                 connection.Open();
 
-                string updateQuery = $"UPDATE myVocabDB.words SET status = @newValue WHERE EnglishWord='{listRepeatWords[iCurrent].english}'";
+                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].id}' AND UserId='{user.id}'";
 
                 using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
                 {

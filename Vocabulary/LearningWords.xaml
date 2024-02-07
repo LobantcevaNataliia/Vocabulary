@@ -21,9 +21,9 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Label Grid.Row="0" x:Name="labelEnglish" Content="Get ready!" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Row="1" x:Name="labelUkrainian" Content="5 new words are waiting for you" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
-        <Label Grid.Row="2" x:Name="labelTranscription" Content="Press 'Next' and start learning!" FontSize="24" FontFamily="Engravers MT" Foreground="#FF66D8AA" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center"/>
+        <TextBlock Grid.Row="0" x:Name="textBlockEnglish" Text="Get ready!" TextWrapping="Wrap" TextAlignment="Center" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="1" x:Name="textBlockUkrainian" Text="5 new words are waiting for you" TextWrapping="Wrap" TextAlignment="Center" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center" />
+        <TextBlock Grid.Row="2" x:Name="textBlockTranscription" Text="Press 'Next' and start learning!" TextWrapping="Wrap" TextAlignment="Center" FontSize="24" FontFamily="Engravers MT" Foreground="#FF66D8AA" VerticalAlignment="Top" HorizontalAlignment="Center" />
 
         <Grid Grid.Row="3">
             <Grid.ColumnDefinitions>

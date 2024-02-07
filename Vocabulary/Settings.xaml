@@ -5,17 +5,36 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
-        Title="Settings" Height="300" Width="300">
+        x:Name="WSettings" Title="Settings" Height="300" Width="300">
     <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="3*"/>
-            <ColumnDefinition Width="5*"/>
-        </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="2*"/>
-            <RowDefinition Height="*"/>
-        </Grid.RowDefinitions>
-        
-        
+        <!--<Expander Width="200" HorizontalContentAlignment="Stretch">
+            <Expander.Header>
+                <BulletDecorator>
+                    <BulletDecorator.Bullet>
+                        <Image Width="75" Source="/avatar_woman.jpg" Height="44"/>
+                    </BulletDecorator.Bullet>
+                </BulletDecorator>
+            </Expander.Header>
+            <Expander.Content>
+                <TextBlock TextWrapping="Wrap">Text</TextBlock>
+            </Expander.Content>
+        </Expander>-->
+
+        <!--<ToolBar HorizontalAlignment="Left" Width="70" VerticalAlignment="Top" Background="{x:Null}" >
+            <DockPanel>
+                --><!--<Image  Source="/avatar_woman.jpg" VerticalAlignment="Top" />--><!--
+                <Label Content="Guest" VerticalAlignment="Bottom"/>
+            </DockPanel>
+            <Menu>
+                <MenuItem Header="Log in"/>
+                <MenuItem Header="Log in"/>
+            </Menu>
+        </ToolBar>
+        <ComboBox Width="70" Height="50" >
+            <ComboBoxItem IsSelected="True">Item 1</ComboBoxItem>
+            <ComboBoxItem>Item 2</ComboBoxItem>
+            <ComboBoxItem>Item 3</ComboBoxItem>
+        </ComboBox>-->
+
     </Grid>
 </Window>
