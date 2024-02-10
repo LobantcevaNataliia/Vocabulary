@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         x:Name="RepeatWordsWindow" Title="Repeating Words" Height="400" Width="500" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,6 +22,9 @@
             </LinearGradientBrush>
         </Grid.Background>
 
+        <ProgressBar Name="progressBarStatus" Minimum="0" Maximum="100" Value="70"  Height="20" Background="#ffcccc" Foreground="#ffffcc" BorderBrush="{x:Null}" VerticalAlignment="Top" />
+        <TextBlock Text="{Binding ElementName=progressBarStatus, Path=Value, StringFormat={}{0:0}%}" Foreground="#FFAC750E" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
         <TextBlock Grid.Row="0" x:Name="textBlockEnglish" Text="Get ready!" TextWrapping="Wrap" TextAlignment="Center" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="1" x:Name="textBlockUkrainian" Text="This is all words which you learned" TextWrapping="Wrap" TextAlignment="Center" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center"/>
         <TextBlock Grid.Row="2" x:Name="textBlockTranscription" Text="Press 'Next' and start repeating!" TextWrapping="Wrap" TextAlignment="Center" FontSize="24" FontFamily="Engravers MT" Foreground="#FFF47689" VerticalAlignment="Top" HorizontalAlignment="Center"/>
@@ -33,7 +37,7 @@
             </Grid.ColumnDefinitions>
 
             <Button Grid.Column="0" x:Name="Previous" Content="&#x2190;" Click="Previous_Click" FontSize="40" FontFamily="Segoe UI Symbol" Background="{x:Null}" Foreground="#FFF15E74" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-            <Button Grid.Column="1" x:Name="ChangeStatus" Content="Mark as unknown" Click="ChangeStatus_Click" FontSize="24" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FFF15E74" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+            <Button Grid.Column="1" x:Name="ChangeStatus" Content="Mark as unknown" Click="ChangeStatus_Click" FontSize="24" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FFF15E74" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,12" />
             <Button Grid.Column="2" x:Name="Next" Content="&#x2192;" Click="Next_Click" FontSize="40" FontFamily="Segoe UI Symbol" Background="{x:Null}" Foreground="#FFF15E74" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center" />
 
         </Grid>

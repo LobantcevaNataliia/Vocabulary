@@ -59,6 +59,7 @@ namespace Vocabulary
             textBlockEnglish.Text = listRepeatWords[i].english;
             textBlockTranscription.Text = listRepeatWords[i].transcription;
             textBlockUkrainian.Text = listRepeatWords[i].ukrainian;
+            progressBarStatus.Value = (i + 1) * 100 / listRepeatWords.Count;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -66,7 +67,7 @@ namespace Vocabulary
             if (iCurrent > 0)
             {
                 ShowWords(iCurrent - 1);
-                iCurrent--;
+                iCurrent--;               
             }
         }
 

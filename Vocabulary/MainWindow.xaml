@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         x:Name ="MainWindowWindow" Title="My Vocabulary" Height="400" Width="500" Loaded="Window_Loaded">
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>

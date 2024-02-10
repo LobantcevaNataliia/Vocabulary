@@ -24,6 +24,6 @@ namespace Vocabulary
             InitializeComponent();
         }
 
-       
+        
     }
 }

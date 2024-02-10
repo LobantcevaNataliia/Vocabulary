@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         x:Name ="AuthorizationWindow" Title="Authorization" Height="300" Width="400" Closed="AuthorizationWindow_Closed">
     <Grid>
         <Grid.RowDefinitions>

@@ -90,17 +90,18 @@ namespace Vocabulary
                                 reader["EnglishWord"].ToString(),
                                 reader["Transcription"].ToString(),
                                 reader["UkrainianWord"].ToString(),
-                                Convert.ToBoolean(reader["Status"])
+                                Convert.ToBoolean(reader["Status"]),
+                                (Level)Enum.Parse(typeof(Level), reader["Level"].ToString())
                             );
 
                             words.Add(word);
                         }
+
                     }
                 }
             }
-
         }
-        
+     
         //Метод для відображення списку слів
         private void List_Click(object sender, RoutedEventArgs e)
         {

@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         x:Name="LearningWordsWindow"  Title="Learning Words" Height="400" Width="500" Loaded="Window_Loaded" Closed="Window_Closed">
     <Grid>
         <Grid.RowDefinitions>
@@ -20,6 +21,9 @@
                 <GradientStop Color="#ffffcc" Offset="1"/>
             </LinearGradientBrush>
         </Grid.Background>
+
+        <ProgressBar Name="progressBarStatus" Minimum="0" Maximum="100" Value="70"  Height="20" Background="#99ffcc" Foreground="#ffffcc" BorderBrush="{x:Null}" VerticalAlignment="Top" />
+        <TextBlock Text="{Binding ElementName=progressBarStatus, Path=Value, StringFormat={}{0:0}%}" Foreground="#FFAC750E" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" />
 
         <TextBlock Grid.Row="0" x:Name="textBlockEnglish" Text="Get ready!" TextWrapping="Wrap" TextAlignment="Center" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center" />
         <TextBlock Grid.Row="1" x:Name="textBlockUkrainian" Text="5 new words are waiting for you" TextWrapping="Wrap" TextAlignment="Center" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center" />

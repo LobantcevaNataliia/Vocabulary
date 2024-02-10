@@ -47,6 +47,7 @@ namespace Vocabulary
             textBlockEnglish.Text = listLearnWords[i].english;
             textBlockTranscription.Text = listLearnWords[i].transcription;
             textBlockUkrainian.Text = listLearnWords[i].ukrainian;
+            progressBarStatus.Value = (i + 1) * 100 / listLearnWords.Count;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
