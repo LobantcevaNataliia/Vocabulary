@@ -154,6 +154,7 @@ namespace Vocabulary
                 ResultAnswer.Text = "You've got this! Mistakes happen.";              
             }
 
+            ResultSmile.Focus();
             RightAnswer.Text = Task.Content + " - " + words[indexOfTaskWord].transcription + " - " + rightAnswer;
             VisibilityOfResult();
             timer.Start();

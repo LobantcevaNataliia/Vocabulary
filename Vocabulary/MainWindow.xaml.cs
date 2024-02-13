@@ -118,21 +118,10 @@ namespace Vocabulary
             MainWindowWindow.Hide();
         }
 
-
-        private void LogIn_Click(object sender, RoutedEventArgs e)
-        {
-            Auto("LogIn");
-        }
-
-        private void SignUp_Click(object sender, RoutedEventArgs e)
-        {
-            Auto("SignUp");
-        }
-
         //Метод для авторизації
-        private void Auto(string action)
+        private void Auto_Click(object sender, RoutedEventArgs e)
         {
-            Window auto = new Authorization(action);
+            Window auto = new Authorization();
             auto.Show();
             MainWindowWindow.Hide();
         }

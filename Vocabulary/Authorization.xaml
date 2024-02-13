@@ -6,11 +6,12 @@
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        x:Name ="AuthorizationWindow" Title="Authorization" Height="300" Width="400" Closed="AuthorizationWindow_Closed">
+        x:Name ="AuthorizationWindow" Title="Authorization" Height="300" Width="350" Closed="AuthorizationWindow_Closed">
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="0.35*"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="0.5*"/>
+            <RowDefinition Height="0.3*"/>
             <RowDefinition Height="0.2*"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
@@ -30,23 +31,47 @@
         <Image Grid.Row="0" Grid.Column="1" Source="/avatar_man.jpg"  
        HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10"/>-->
 
-        <Button Grid.Row="1" Grid.ColumnSpan="2" Content="Log in" HorizontalAlignment="Center" VerticalAlignment="Center" Width="150" Height="40" Background="#4CAF50" Foreground="White" 
-        Click="LoginButton_Click"/>
+        <TextBlock x:Name="TextBlockAuto"  Grid.Row="0" Grid.ColumnSpan="2" Text="Log in into your account" TextWrapping="Wrap"  FontSize="20" FontFamily="Engravers MT" Foreground="#FF0D31A3" HorizontalAlignment="Center" VerticalAlignment="Bottom" TextAlignment="Center" />
+        <!--<Expander x:Name="AddWordsExpander" Panel.ZIndex="1" Grid.Row="1" Grid.ColumnSpan="2" Header="Click to add words" ToolTip="Click to add to your account the most used words to study" VerticalAlignment="Bottom" HorizontalAlignment="Center" ExpandDirection="Up" Background="#FF94C6F7"  >
+            <StackPanel>
+                <Label FontWeight="Bold" Content="Chose which words your wont add" HorizontalAlignment="Left" />
+                <CheckBox Content="Thousand of the most used English words" IsChecked="True"/>
+                <CheckBox Content="The second thousand most used English words"/>
+                <CheckBox Content="The third thousand most used English words"/>
+            </StackPanel>
+        </Expander>-->
+        <Grid Panel.ZIndex="0" Grid.Row="1" Grid.ColumnSpan="2" Margin="50,0,0,0">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="0.4*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.ColumnSpan="2" Margin="10">
-            <Label  Content="Username:" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox Text="Enter Username" Name="UserNameTextBox" />
-           
-            <Label  Content="User Password:" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <PasswordBox  Name="UserPasswordTextBox" Margin="0,0,0,10"/>
+            <Label Grid.Row="0" Grid.Column="0" Content="Enter _username:" Target="{Binding ElementName=UserNameTextBox}" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Bottom"/>
+            <TextBox Grid.Row="0" Grid.Column="1"  Text="" Name="UserNameTextBox" Width="170" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Bottom" />
 
-            <Label Name="UserEmailLabel" Content="User Email:" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
-            <TextBox Name="UserEmailTextBox" Text="Enter Email" Margin="0,0,0,10" />
-            
-        </StackPanel>
+            <Label Grid.Row="2" Grid.Column="0" Name="UserPasswordLabel" Content="Enter _password:" Target="{Binding ElementName=UserPasswordTextBox}" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <PasswordBox Grid.Row="2" Grid.Column="1"  x:Name="UserPasswordBox" Width="170" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <!--<TextBox Grid.Row="1" x:Name="UserPasswordTextBox" Padding="5" Text="Enter your password" Foreground="Gray" GotFocus="UserPasswordTextBox_GotFocus" LostFocus="UserPasswordTextBox_LostFocus" HorizontalAlignment="Left" VerticalAlignment="Top" />-->
+            <!--<RadioButton Grid.Row="1" Content="Show password" Checked="RadioButton_Checked" Unchecked="RadioButton_Unchecked" VerticalAlignment="Bottom"/>-->
 
-        <Button Grid.Row="3" Grid.Column="0" Name="SignUp" Content="Sign up"  Foreground="#FF0D2D95" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0,0,0,0" Background="{x:Null}" Margin="20,0,0,0" Click="SignUp_Click" />
-        <Button Grid.Row="3" Grid.Column="1" Name="ForgotPassword" Content="Forgot password?"  Foreground="#FF0D2D95" VerticalAlignment="Center" HorizontalAlignment="Right" BorderThickness="0,0,0,0" Background="{x:Null}" Margin="0,0,20,0" Click="ForgotPassword_Click"/>
+            <Label Grid.Row="1" Grid.Column="0"  Name="UserEmailLabel" Content="Enter your _email:" Target="{Binding ElementName=UserEmailTextBox}" FontSize="10" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Left" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="UserEmailTextBox" Text="" Width="170" Padding="3" HorizontalAlignment="Left" VerticalAlignment="Center" />
+
+
+        </Grid>
+
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Name="LogIn" Content="Log in" Click="LogIn_Click" FontSize="18" FontFamily="Engravers MT" Width="150" Height="40" Background="#4CAF50" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Name="SignUp" Content="Sign Up" Click="SignUp_Click" FontSize="18" FontFamily="Engravers MT" Width="150" Height="40" Background="#4CAF50" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Name="ResetPassword" Content="Reset Password" Click="ResetPassword_Click" FontSize="18" FontFamily="Engravers MT" Width="150" Height="40" Background="#4CAF50" Foreground="White" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Hidden"/>
+
+        <Button Grid.Row="3" Grid.Column="0" Name="NoAccount"  Content="Don't have an account yet?" Click="NoAccount_Click"  Foreground="#FF0D2D95" VerticalAlignment="Center" HorizontalAlignment="Left" BorderThickness="0" Background="{x:Null}" Margin="10,0,0,0" />
+        <Button Grid.Row="3" Grid.ColumnSpan="2" Name="HaveAccount" Content="Have an account already?" Click="HaveAccount_Click" Foreground="#FF0D2D95" VerticalAlignment="Center" HorizontalAlignment="Center" BorderThickness="0" Background="{x:Null}" Visibility="Hidden" />
+        <Button Grid.Row="3" Grid.Column="1" Name="ForgotPassword" Click="ForgotPassword_Click" Content="Forgot your password?"  Foreground="#FF0D2D95" VerticalAlignment="Center" HorizontalAlignment="Right" BorderThickness="0" Background="{x:Null}" Margin="0,0,10,0" />
 
     </Grid>
 </Window>
