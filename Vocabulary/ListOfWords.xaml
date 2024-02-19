@@ -68,10 +68,10 @@
            CanUserSortColumns="True" Background="{x:Null}" FontSize="12" BorderThickness="0,0,0,0" FontFamily="Engravers MT" ToolTip="Add new words to your Vocabulary." >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding i}" Width="*" />
-                <DataGridTextColumn Header="Word" Binding="{Binding english}" Width="2*"/>
-                <DataGridTextColumn Header="Transcription" Binding="{Binding transcription}" Width="2*"/>
-                <DataGridTextColumn Header="Translation" Binding="{Binding ukrainian}" Width="2*"/>
-                <DataGridTextColumn Header="Status" Binding="{Binding status}" Width="*"/>
+                <DataGridTextColumn Header="Word" Binding="{Binding English}" Width="2*"/>
+                <DataGridTextColumn Header="Transcription" Binding="{Binding Transcription}" Width="2*"/>
+                <DataGridTextColumn Header="Translation" Binding="{Binding Ukrainian}" Width="2*"/>
+                <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
 
             </DataGrid.Columns>
             

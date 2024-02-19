@@ -51,28 +51,28 @@ namespace Vocabulary
                 VisibilityFirstTypeExercise();
                 indexOfWords = CreateArrayOfWords();
 
-                Task.Content = words[indexOfTaskWord].english;
+                Task.Content = words[indexOfTaskWord].English;
                 for (int i = 0; i < 4; i++)
-                    buttons[i].Text = words[indexOfWords[i]].ukrainian;
+                    buttons[i].Text = words[indexOfWords[i]].Ukrainian;
             }
             if (currentExercise == 1)
             {
                 VisibilityFirstTypeExercise();
                 indexOfWords = CreateArrayOfWords();
 
-                Task.Content = words[indexOfTaskWord].ukrainian;
+                Task.Content = words[indexOfTaskWord].Ukrainian;
                 for (int i = 0; i < 4; i++)
-                    buttons[i].Text = words[indexOfWords[i]].english;
+                    buttons[i].Text = words[indexOfWords[i]].English;
             }
             if (currentExercise == 2)
             {
                 VisibilitySecondTypeExercise();
-                Task.Content = words[indexOfTaskWord].ukrainian;
+                Task.Content = words[indexOfTaskWord].Ukrainian;
             }
             if (currentExercise == 3)
             {
                 VisibilitySecondTypeExercise();
-                Task.Content = words[indexOfTaskWord].english;
+                Task.Content = words[indexOfTaskWord].English;
             }
         }
 
@@ -155,7 +155,7 @@ namespace Vocabulary
             }
 
             ResultSmile.Focus();
-            RightAnswer.Text = Task.Content + " - " + words[indexOfTaskWord].transcription + " - " + rightAnswer;
+            RightAnswer.Text = Task.Content + " - " + words[indexOfTaskWord].Transcription + " - " + rightAnswer;
             VisibilityOfResult();
             timer.Start();
         }
@@ -189,9 +189,9 @@ namespace Vocabulary
         private bool Equels(int i, string str)
         {
             if (currentExercise == 1 || currentExercise == 2)
-                rightAnswer = (words[i].english).Trim();
+                rightAnswer = (words[i].English).Trim();
             if (currentExercise == 0 || currentExercise == 3)
-                rightAnswer = (words[i].ukrainian).Trim(); 
+                rightAnswer = (words[i].Ukrainian).Trim(); 
 
             return rightAnswer.Equals(str.Trim(), StringComparison.OrdinalIgnoreCase) && 
                 rightAnswer.Equals(str.Trim(), StringComparison.CurrentCultureIgnoreCase);

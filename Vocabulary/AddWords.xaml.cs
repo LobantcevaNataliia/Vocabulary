@@ -52,7 +52,7 @@ namespace Vocabulary
 
         private void WorkWithNewWords(string newEnglish, string newTranscription, string newUkrainian, bool newStatus)
         {
-            newEnglish = Change(newEnglish.Trim());
+            //newEnglish = Change(newEnglish.Trim());
             newTranscription = newTranscription.Trim();
             newUkrainian = Change(newUkrainian.Trim());
 
@@ -82,7 +82,7 @@ namespace Vocabulary
             bool exist = false;
 
             for (int i = 0; i < words.Count; i++)
-                if (words[i].english == newEnglish)
+                if (words[i].English == newEnglish)
                     exist = true;
 
             return exist;
@@ -141,8 +141,8 @@ namespace Vocabulary
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Value1", user.id);
-                        command.Parameters.AddWithValue("@Value2", word.id);
-                        command.Parameters.AddWithValue("@Value3", word.status);
+                        command.Parameters.AddWithValue("@Value2", word.Id);
+                        command.Parameters.AddWithValue("@Value3", word.Status);
                         command.ExecuteNonQuery();
                     }
                 }

@@ -10,9 +10,11 @@ using System.Windows.Forms;
 
 namespace Vocabulary
 {
-    internal class DatabaseMethods
+    internal static class DatabaseMethods
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
+        static string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
+
+
 
        
     }

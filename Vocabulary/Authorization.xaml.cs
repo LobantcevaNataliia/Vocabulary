@@ -277,7 +277,7 @@ namespace Vocabulary
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Value1", user.id);
-                        command.Parameters.AddWithValue("@Value2", word.id);
+                        command.Parameters.AddWithValue("@Value2", word.Id);
                         command.Parameters.AddWithValue("@Value3", false);
                         command.ExecuteNonQuery();
                     }

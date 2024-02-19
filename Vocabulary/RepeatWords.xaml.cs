@@ -39,7 +39,7 @@ namespace Vocabulary
         {
             listRepeatWords = new List<Word>();
             for (int i = 0; i < words.Count; i++)
-                if (words[i].status)
+                if (words[i].Status)
                     listRepeatWords.Add(words[i]);
 
             if (listRepeatWords.Count() != 0)
@@ -56,9 +56,9 @@ namespace Vocabulary
 
         private void ShowWords(int i) 
         {
-            textBlockEnglish.Text = listRepeatWords[i].english;
-            textBlockTranscription.Text = listRepeatWords[i].transcription;
-            textBlockUkrainian.Text = listRepeatWords[i].ukrainian;
+            textBlockEnglish.Text = listRepeatWords[i].English;
+            textBlockTranscription.Text = listRepeatWords[i].Transcription;
+            textBlockUkrainian.Text = listRepeatWords[i].Ukrainian;
             progressBarStatus.Value = (i + 1) * 100 / listRepeatWords.Count;
         }
 
@@ -103,9 +103,9 @@ namespace Vocabulary
         {
             for(int i = 0; i < words.Count; i++)
             {
-                if(words[i].english == listRepeatWords[iCurrent].english)
+                if(words[i].English == listRepeatWords[iCurrent].English)
                 {
-                    words[i].status = false;
+                    words[i].Status = false;
                     iCurrentword = i;
                 }
                     
@@ -118,7 +118,7 @@ namespace Vocabulary
             {
                 connection.Open();
 
-                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].id}' AND UserId='{user.id}'";
+                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].Id}' AND UserId='{user.id}'";
 
                 using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
                 {

@@ -27,7 +27,7 @@ namespace Vocabulary
         {
             listLearnWords = new List<Word>();
             for (int i = 0; i < words.Count; i++)
-                if (!words[i].status)
+                if (!words[i].Status)
                     listLearnWords.Add(words[i]);
 
             if (listLearnWords.Count() != 0)
@@ -44,9 +44,9 @@ namespace Vocabulary
 
         private void ShowWords(int i)
         {
-            textBlockEnglish.Text = listLearnWords[i].english;
-            textBlockTranscription.Text = listLearnWords[i].transcription;
-            textBlockUkrainian.Text = listLearnWords[i].ukrainian;
+            textBlockEnglish.Text = listLearnWords[i].English;
+            textBlockTranscription.Text = listLearnWords[i].Transcription;
+            textBlockUkrainian.Text = listLearnWords[i].Ukrainian;
             progressBarStatus.Value = (i + 1) * 100 / listLearnWords.Count;
         }
 
@@ -93,9 +93,9 @@ namespace Vocabulary
         {
             for (int i = 0; i < words.Count; i++)
             {
-                if (words[i].english == listLearnWords[iCurrent].english)
+                if (words[i].English == listLearnWords[iCurrent].English)
                 {
-                    words[i].status = true;
+                    words[i].Status = true;
                     iCurrentword = i;
                 }
             }
@@ -107,7 +107,7 @@ namespace Vocabulary
             {
                 connection.Open();
 
-                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].id}' AND UserId='{user.id}'";
+                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].Id}' AND UserId='{user.id}'";
 
                 using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
                 {
@@ -119,7 +119,7 @@ namespace Vocabulary
                         MessageBox.Show($"An error occurred while changing a status of word." + "\nPlease contact the admin!");
                 }
             }
-
+                
         }
 
         private void Window_Closed(object sender, EventArgs e)

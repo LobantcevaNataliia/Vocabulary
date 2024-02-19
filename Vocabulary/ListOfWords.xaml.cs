@@ -31,7 +31,7 @@ namespace Vocabulary
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             for (int i = 1; i <= words.Count; i++)
-                ListWords.Items.Add(new { i, words[i - 1].english, words[i - 1].transcription, words[i - 1].ukrainian, words[i - 1].status });
+                ListWords.Items.Add(new { i, words[i - 1].English, words[i - 1].Transcription, words[i - 1].Ukrainian, words[i - 1].Status });
 
         }
 
@@ -74,7 +74,7 @@ namespace Vocabulary
                 InsertDependenceIntoDatabase(words[words.Count - 1]);
 
 
-                ListWords.Items.Add(new { i = words.Count, words[words.Count - 1].english, words[words.Count - 1].transcription, words[words.Count - 1].ukrainian, words[words.Count - 1].status });
+                ListWords.Items.Add(new { i = words.Count, words[words.Count - 1].English, words[words.Count - 1].Transcription, words[words.Count - 1].Ukrainian, words[words.Count - 1].Status });
             }
             else MessageBox.Show($"The word {newEnglish} already exists!");
 
@@ -92,7 +92,7 @@ namespace Vocabulary
             bool exist = false;
 
             for (int i = 0; i < words.Count; i++)
-                if (words[i].english == newEnglish)
+                if (words[i].English == newEnglish)
                     exist = true;
 
             return exist;
@@ -151,8 +151,8 @@ namespace Vocabulary
                     using (MySqlCommand command = new MySqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@Value1", user.id);
-                        command.Parameters.AddWithValue("@Value2", word.id);
-                        command.Parameters.AddWithValue("@Value3", word.status);
+                        command.Parameters.AddWithValue("@Value2", word.Id);
+                        command.Parameters.AddWithValue("@Value3", word.Status);
                         command.ExecuteNonQuery();
                     }
                 }
@@ -250,16 +250,16 @@ namespace Vocabulary
             // Отримання значення ячейки
             int cellValue = Convert.ToInt16(cellInfo.Item.GetType().GetProperty(cellInfo.Column.SortMemberPath).GetValue(cellInfo.Item, null));
 
-            int id = words[cellValue - 1].id;
+            int id = words[cellValue - 1].Id;
 
             DeleteDependenceFromDatabase(id);
-            if(words[cellValue - 1].level == Level.U)
+            if(words[cellValue - 1].Level == Level.U)
                 DeleteWordFromDatabase(id);
 
             words.RemoveAt(cellValue - 1);
             ListWords.Items.Clear();
             for (int i = 1; i <= words.Count; i++)
-                ListWords.Items.Add(new { i, words[i - 1].english, words[i - 1].transcription, words[i - 1].ukrainian, words[i - 1].status });
+                ListWords.Items.Add(new { i, words[i - 1].English, words[i - 1].Transcription, words[i - 1].Ukrainian, words[i - 1].Status });
 
         }
 
@@ -271,15 +271,15 @@ namespace Vocabulary
             // Отримання значення ячейки
             int cellValue = Convert.ToInt16(cellInfo.Item.GetType().GetProperty(cellInfo.Column.SortMemberPath).GetValue(cellInfo.Item, null));
 
-            int id = words[cellValue - 1].id;
+            int id = words[cellValue - 1].Id;
 
-            if (!words[cellValue - 1].status)
-                words[cellValue - 1].status = true;
-            else words[cellValue - 1].status = false;
+            if (!words[cellValue - 1].Status)
+                words[cellValue - 1].Status = true;
+            else words[cellValue - 1].Status = false;
 
-            ChangeStatusWordInDatabase(id, words[cellValue - 1].status);
-            ListWords.Items[cellValue - 1] = new { i = cellValue, words[cellValue - 1].english, words[cellValue - 1].transcription, words[cellValue - 1].ukrainian, words[cellValue - 1].status };
-            
+            ChangeStatusWordInDatabase(id, words[cellValue - 1].Status);
+            ListWords.Items[cellValue - 1] = new { i = cellValue, words[cellValue - 1].English, words[cellValue - 1].Transcription, words[cellValue - 1].Ukrainian, words[cellValue - 1].Status };
+
         }
 
         private void AddWord_Click(object sender, RoutedEventArgs e)
