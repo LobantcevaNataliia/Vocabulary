@@ -10,8 +10,8 @@
     
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="3.5*" ></RowDefinition>
+            <RowDefinition Height="0.1*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
         </Grid.RowDefinitions>
         
         <Grid.Background>
@@ -21,8 +21,31 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid Grid.Row="0" Margin="10,10,10,10" Background="#FFFFCCCC" >
-            <Grid.RowDefinitions>
+        <Grid Grid.Row="0"  Background="#FFFFCCCC" >
+            <StackPanel Orientation="Horizontal">
+                <Button   x:Name="AddWord" Content="+" Click="AddWord_Click" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF1485F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button   x:Name="DownloadWords" Click="DownloadWords_Click" BorderThickness="0" Background="{x:Null}" >
+                    <Button.Content>
+                        <Image Source="/folder.png" Stretch="Uniform" Width="30" Height="40" />
+                    </Button.Content>
+                    <Button.ToolTip>
+                        <StackPanel>
+                            <TextBlock FontWeight="Bold" FontSize="14" Margin="0,0,0,5">Open file</TextBlock>
+                            <TextBlock>
+                        Search your computer or local network
+                        <LineBreak />
+                        for a file and open it for editing.
+                            </TextBlock>
+                            <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
+                            <WrapPanel>
+                                
+                                <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
+                            </WrapPanel>
+                        </StackPanel>
+                    </Button.ToolTip>
+                </Button>
+            </StackPanel>
+            <!--<Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -30,14 +53,14 @@
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>
+            </Grid.ColumnDefinitions>-->
 
-            <TextBox Grid.Row="0" Grid.Column="0" x:Name="newEnglishTb" Text="Enter a new word..." SpellCheck.IsEnabled="True" Language="en-US" TextWrapping="WrapWithOverflow" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newEnglishTb_MouseDoubleClick" />
+            <!--<TextBox Grid.Row="0" Grid.Column="0" x:Name="newEnglishTb" Text="Enter a new word..." SpellCheck.IsEnabled="True" Language="en-US" TextWrapping="WrapWithOverflow" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newEnglishTb_MouseDoubleClick" />
             <TextBox Grid.Row="1" Grid.Column="0" x:Name="newTranscriptionTb" Text="Enter the transcription of the word..." TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newTranscriptionTb_MouseDoubleClick"  />
             <TextBox Grid.Row="2" Grid.Column="0" x:Name="newUkrainianTb" Text="Enter the translation of the word..." SpellCheck.IsEnabled="True" Language="uk-UA" TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newUkrainianTb_MouseDoubleClick"  />
 
             <Button  Grid.RowSpan="2" Grid.Column="1" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button  Grid.RowSpan="3" Grid.Column="1" x:Name="DownloadsWord" Content="Download Words from file" Click="DownloadWords_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Button  Grid.RowSpan="3" Grid.Column="1" x:Name="DownloadsWord" Content="Download Words from file" Click="DownloadWords_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>-->
 
         </Grid>
        

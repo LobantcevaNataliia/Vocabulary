@@ -127,9 +127,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AddWords.xaml.cs">
+      <DependentUpon>AddWords.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Authorization.xaml.cs">
       <DependentUpon>Authorization.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseMethods.cs" />
     <Compile Include="RepeatWords.xaml.cs">
       <DependentUpon>RepeatWords.xaml</DependentUpon>
     </Compile>
@@ -141,6 +145,10 @@
     </Compile>
     <Compile Include="User.cs" />
     <Compile Include="Word.cs" />
+    <Page Include="AddWords.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Authorization.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -233,6 +241,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="folder.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

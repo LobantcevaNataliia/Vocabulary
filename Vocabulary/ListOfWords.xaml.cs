@@ -35,23 +35,6 @@ namespace Vocabulary
 
         }
 
-        private void AddWord_Click(object sender, RoutedEventArgs e)
-        {
-            string newEnglish = newEnglishTb.Text;
-            string newTranscription = newTranscriptionTb.Text;
-            string newUkrainian = newUkrainianTb.Text;
-            bool newStatus = false;
-
-            if (!string.IsNullOrEmpty(newEnglish) && !string.IsNullOrEmpty(newTranscription) && !string.IsNullOrEmpty(newUkrainian))
-            { 
-                WorkWithNewWords(newEnglish, newTranscription, newUkrainian, newStatus);
-                newEnglishTb.Text = "Enter a new word...";
-                newTranscriptionTb.Text = "Enter the transcription of the word...";
-                newUkrainianTb.Text = "Enter the translation of the word...";
-            }
-            else MessageBox.Show("You need to fill all lines to add new word!");      
-        }
-
         private void DownloadWords_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -89,12 +72,12 @@ namespace Vocabulary
                 InsertWordIntoDatabase(id, newEnglish, newTranscription, newUkrainian);
                 words.Add(new Word(id, newEnglish, newTranscription, newUkrainian, newStatus, Level.U));
                 InsertDependenceIntoDatabase(words[words.Count - 1]);
-                
-                
+
+
                 ListWords.Items.Add(new { i = words.Count, words[words.Count - 1].english, words[words.Count - 1].transcription, words[words.Count - 1].ukrainian, words[words.Count - 1].status });
             }
             else MessageBox.Show($"The word {newEnglish} already exists!");
-            
+
         }
 
         private string Change(string str)
@@ -108,7 +91,7 @@ namespace Vocabulary
         {
             bool exist = false;
 
-            for(int i = 0; i < words.Count; i++)
+            for (int i = 0; i < words.Count; i++)
                 if (words[i].english == newEnglish)
                     exist = true;
 
@@ -130,7 +113,7 @@ namespace Vocabulary
             }
         }
 
-        private void InsertWordIntoDatabase(int id, string newEnglish,string newTranscription,string newUkrainian)
+        private void InsertWordIntoDatabase(int id, string newEnglish, string newTranscription, string newUkrainian)
         {
             using (MySqlConnection connection = new MySqlConnection(connectionString))
             {
@@ -257,20 +240,7 @@ namespace Vocabulary
             ListOfWordsWindow.Close();
         }
 
-        private void newEnglishTb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            newEnglishTb.SelectAll();
-        }
-
-        private void newTranscriptionTb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            newTranscriptionTb.SelectAll();
-        }
-
-        private void newUkrainianTb_MouseDoubleClick(object sender, MouseButtonEventArgs e)
-        {
-            newUkrainianTb.SelectAll();
-        }
+        
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
         {
@@ -310,6 +280,12 @@ namespace Vocabulary
             ChangeStatusWordInDatabase(id, words[cellValue - 1].status);
             ListWords.Items[cellValue - 1] = new { i = cellValue, words[cellValue - 1].english, words[cellValue - 1].transcription, words[cellValue - 1].ukrainian, words[cellValue - 1].status };
             
+        }
+
+        private void AddWord_Click(object sender, RoutedEventArgs e)
+        {
+            Window addWindow = new AddWords(words, user);
+            addWindow.Show();
         }
 
     }
