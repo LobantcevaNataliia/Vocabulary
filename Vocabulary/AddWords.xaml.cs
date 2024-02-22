@@ -22,7 +22,6 @@ namespace Vocabulary
     /// </summary>
     public partial class AddWords : Window
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
         User user;
 
@@ -43,118 +42,74 @@ namespace Vocabulary
             if (!string.IsNullOrEmpty(newEnglish) && !string.IsNullOrEmpty(newTranscription) && !string.IsNullOrEmpty(newUkrainian))
             {
                 WorkWithNewWords(newEnglish, newTranscription, newUkrainian, newStatus);
-                newEnglishTb.Text = "Enter a new word...";
-                newTranscriptionTb.Text = "Enter the transcription of the word...";
-                newUkrainianTb.Text = "Enter the translation of the word...";
+                newEnglishTb.Text = " ";
+                newTranscriptionTb.Text = " ";
+                newUkrainianTb.Text = " ";
             }
             else MessageBox.Show("You need to fill all lines to add new word!");
         }
 
+        private void DownloadWords_Click(object sender, RoutedEventArgs e)
+        {
+            if (checkBoxA.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("A", ref words, user.Id));
+            if (checkBoxB.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("B", ref words, user.Id));
+            if (checkBoxC.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("C", ref words, user.Id));
+          
+           // AuthorizationWindow.Close();
+        }
+
         private void WorkWithNewWords(string newEnglish, string newTranscription, string newUkrainian, bool newStatus)
         {
+            int id = DatabaseMethods.GetIdNewWord();
+            words.Add(new Word(id, newEnglish, newTranscription, newUkrainian, newStatus, Level.U));
+
             //newEnglish = Change(newEnglish.Trim());
-            newTranscription = newTranscription.Trim();
-            newUkrainian = Change(newUkrainian.Trim());
+            //newTranscription = newTranscription.Trim();
+            //newUkrainian = Change(newUkrainian.Trim());
 
-            if (!WordExists(newEnglish))
+            if (!WordExists(words[words.Count - 1].English))
             {
-                int id = GetIdNewWord();
-                InsertWordIntoDatabase(id, newEnglish, newTranscription, newUkrainian);
-                words.Add(new Word(id, newEnglish, newTranscription, newUkrainian, newStatus, Level.U));
-                InsertDependenceIntoDatabase(words[words.Count - 1]);
+                //int id = DatabaseMethods.GetIdNewWord();
+                MessageBox.Show(DatabaseMethods.InsertWordIntoDatabase(words[words.Count - 1]));
+                //words.Add(new Word(id, newEnglish, newTranscription, newUkrainian, newStatus, Level.U));
+                MessageBox.Show(DatabaseMethods.InsertDependenceIntoDatabase(words[words.Count - 1], user.Id));
 
-
-                //ListWords.Items.Add(new { i = words.Count, words[words.Count - 1].english, words[words.Count - 1].transcription, words[words.Count - 1].ukrainian, words[words.Count - 1].status });
+            //    ListOfWords l = new ListOfWords(words,user);
+            //    l.ListWords.Items.Add(new { i = words.Count, words[words.Count - 1].English, words[words.Count - 1].Transcription, words[words.Count - 1].Ukrainian, words[words.Count - 1].Status });
             }
-            else MessageBox.Show($"The word {newEnglish} already exists!");
-
+            else
+            {
+                MessageBox.Show($"The word '{words[words.Count - 1].English}' already exists!");
+                words.RemoveAt(words.Count - 1);
+            }
         }
 
-        private string Change(string str)
-        {
-            if (str.Length > 1)
-                return char.ToUpper(str[0]) + str.Substring(1).ToLower();
-            else return str.ToUpper();
-        }
+        //private string Change(string str)
+        //{
+        //    if (str.Length > 1)
+        //        return char.ToUpper(str[0]) + str.Substring(1).ToLower();
+        //    else return str.ToUpper();
+        //}
 
         private bool WordExists(string newEnglish)
         {
             bool exist = false;
 
-            for (int i = 0; i < words.Count; i++)
+            for (int i = 0; i < words.Count - 1; i++)
                 if (words[i].English == newEnglish)
                     exist = true;
 
             return exist;
         }
 
-        private int GetIdNewWord()
+        private void AddWordsWindow_Closed(object sender, EventArgs e)
         {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-                // 
-                string query = "SELECT MAX(WordID) FROM myVocabDB.words;";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    object result = command.ExecuteScalar();
-                    return Convert.ToInt32(result) + 1;
-                }
-            }
+            Window listOfWordsWindow = new ListOfWords(words,user);
+            listOfWordsWindow.Show();
+            AddWordsWindow.Close();
         }
-
-        private void InsertWordIntoDatabase(int id, string newEnglish, string newTranscription, string newUkrainian)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    // Вставкa слова в БД
-                    string query = "INSERT INTO myVocabDB.words (WordID, EnglishWord, Transcription, UkrainianWord, Level) VALUES (@Value1, @Value2, @Value3, @Value4, @Value5)";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Value1", id);
-                        command.Parameters.AddWithValue("@Value2", newEnglish);
-                        command.Parameters.AddWithValue("@Value3", newTranscription);
-                        command.Parameters.AddWithValue("@Value4", newUkrainian);
-                        command.Parameters.AddWithValue("@Value5", "U");
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while adding a word: {ex.Message}" + "\nPlease contact the admin!");
-                }
-            }
-        }
-
-        private void InsertDependenceIntoDatabase(Word word)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    // Вставкa зв'язку в БД
-                    string query = "INSERT INTO myVocabDB.learnedwords (UserId, WordId, Status) VALUES (@Value1, @Value2, @Value3)";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Value1", user.id);
-                        command.Parameters.AddWithValue("@Value2", word.Id);
-                        command.Parameters.AddWithValue("@Value3", word.Status);
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while adding dependence: {ex.Message}" + "\nPlease contact the admin!");
-                }
-            }
-        }
-
-
-
-
     }
 }

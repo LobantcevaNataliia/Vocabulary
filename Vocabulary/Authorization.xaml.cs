@@ -8,6 +8,7 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Vocabulary
 {
@@ -16,6 +17,9 @@ namespace Vocabulary
     /// </summary>
     public partial class Authorization : Window
     {
+        User user;
+        ObservableCollection<Word> words;
+
         public Authorization()
         {
             InitializeComponent();
@@ -24,10 +28,52 @@ namespace Vocabulary
             UserEmailTextBox.Visibility = Visibility.Hidden;
             
         }
-        
-        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
-        User user;
-        ObservableCollection<Word> words;
+
+        private void LogIn_Click(object sender, RoutedEventArgs e)
+        {
+            string userName = UserNameTextBox.Text;
+            string userPassword = HashPassword(UserPasswordBox.Password); 
+            DatabaseMethods.UserExists(userName, out user);
+            if (user == null)
+                MessageBox.Show("This userName not exist!");
+            else CheckUser(user, userPassword);
+        }
+
+        private void SignUp_Click(object sender, RoutedEventArgs e)
+        {
+            string userName = UserNameTextBox.Text;
+            string userEmail = UserEmailTextBox.Text;
+            string userPassword = HashPassword(UserPasswordBox.Password);
+
+            DatabaseMethods.UserExists(userName, out user);
+
+            if (user == null)
+            {
+                user = new User (DatabaseMethods.GetIdNewUser(), userName, userEmail, userPassword);             
+                MessageBox.Show(DatabaseMethods.AddNewUser(user));
+                
+                Window addWindow = new AddWords(words, user);
+                addWindow.Show();
+                AuthorizationWindow.Close();
+            }
+            else MessageBox.Show("This userName alredy exist!");
+        }
+        string temporaryPassword;
+        private void ResetPassword_Click(object sender, RoutedEventArgs e)
+        {
+            string userName = UserNameTextBox.Text;
+            string userEmail = UserEmailTextBox.Text;
+            DatabaseMethods.UserExists(userName, out user);
+            temporaryPassword = CreateTemporaryPassword();
+
+            if (!DatabaseMethods.ResetPassword(userName, userEmail, temporaryPassword))
+                MessageBox.Show("Check your data");
+            else
+            {
+                MessageBox.Show($"Your Temporary password is: {temporaryPassword}");
+                NewPasswordWindow();
+            }
+        }
 
         private void AuthorizationWindow_Closed(object sender, EventArgs e)
         {
@@ -35,7 +81,6 @@ namespace Vocabulary
             mainWindow.Show();
             AuthorizationWindow.Close();
         }
-
 
         private string HashPassword(string password)
         {
@@ -54,270 +99,159 @@ namespace Vocabulary
             }
         }
 
-        private string CreateTemporeryPassword()
-        {
-
-            return "";
-        }
-
-        private void UserExists(string userName, string userEmail, string userPassword)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT * FROM myVocabDB.Users WHERE UserName = @UserName";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserName", userName);
-
-                    if (command.ExecuteScalar() == null)
-                        AddNewUser(userName, userEmail, userPassword);
-                    else
-                    {
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                user = new User
-                                (
-                                    Convert.ToInt32(reader["UserID"]),
-                                    reader["UserName"].ToString(),
-                                    reader["UserEmail"].ToString(),
-                                    reader["UserPassword"].ToString()
-                                );
-                            }
-                        }
-                        CheckUser(user, userPassword);
-                    }
-                }
-            }
-        }
-
-        private void UserExists(string userName, string userPassword)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT * FROM myVocabDB.Users WHERE UserName = @UserName";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserName", userName);
-
-                    if (command.ExecuteScalar() == null)
-                        MessageBox.Show("Wrong data");
-                    else
-                    {
-                        using (MySqlDataReader reader = command.ExecuteReader())
-                        {
-                            while (reader.Read())
-                            {
-                                user = new User
-                                (
-                                    Convert.ToInt32(reader["UserID"]),
-                                    reader["UserName"].ToString(),
-                                    reader["UserEmail"].ToString(),
-                                    reader["UserPassword"].ToString()
-                                );
-                            }
-                        }
-                        CheckUser(user, userPassword);
-                    }
-                }
-            }
-        }
-
-
-        private void AddNewUser(string userName, string userEmail, string userPassword)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-
-                    // Вставкa даних в БД
-                    string query = "INSERT INTO myVocabDB.users (UserName, UserEmail, UserPassword) VALUES (@Value1, @Value2, @Value3)";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Value1", userName);
-                        command.Parameters.AddWithValue("@Value2", userEmail);
-                        command.Parameters.AddWithValue("@Value3", userPassword);
-
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while adding a word: {ex.Message}" + "\nPlease contact the admin!");
-                }
-            }
-        }
-
         private void CheckUser(User user, string userPassword)
         {
-            if (user.password == userPassword)
+            if (user.Password == userPassword)
             {
                 Window mainWindow = new MainWindow(user);
                 mainWindow.Show();
                 AuthorizationWindow.Close();
+                MessageBox.Show($"The account {user.Name} is logged in!");
             }
-            else MessageBox.Show("Wrong data");
-        }     
-
-        private void SignUp_Click(object sender, RoutedEventArgs e)
-        {
-            string userName = UserNameTextBox.Text;
-            string userEmail = UserEmailTextBox.Text;
-            string userPassword = HashPassword(UserPasswordBox.ToString());
-
-            //UserExists(userName, userEmail, userPassword);
-            
-            
-
+            else MessageBox.Show("Wrong userPassword");
         }
 
-        CheckBox checkBox1 = new CheckBox();
-        CheckBox checkBox2 = new CheckBox();
-        CheckBox checkBox3 = new CheckBox();
-        public void AddWordsWindow()
+        private string CreateTemporaryPassword()
         {
-            Window addWords = new Window();
-            addWords.Height = 300;
-            addWords.Width = 300;
-            addWords.WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            StackPanel stackPanel = new StackPanel();
-            stackPanel.Background = System.Windows.Media.Brushes.Blue;
+            //const string chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+            //Random random = new Random();
 
-            Label label = new Label();
-            label.Content = "Click to add to your account the most used words to study";
-            label.FontWeight = FontWeights.Bold;
-            label.Foreground = System.Windows.Media.Brushes.Aquamarine;
-            label.HorizontalAlignment = HorizontalAlignment.Left;
+            //// Генеруємо рандомний пароль довжиною 8 символів
+            //string temporaryPassword = new string(Enumerable.Repeat(chars, 8)
+            //    .Select(s => s[random.Next(s.Length)]).ToArray());
 
-            CheckBox checkBox1 = new CheckBox();
-            checkBox1.Content = "Thousand of the most used English words";
-            checkBox1.IsChecked = true;
-            CheckBox checkBox2 = new CheckBox();
-            checkBox2.Content = "The second thousand most used English words";
-            CheckBox checkBox3 = new CheckBox();
-            checkBox3.Content = "The third thousand most used English words";
+            //return temporaryPassword;
+
+            return HashPassword(DateTime.Now.ToString()).Substring(0,6);
+        }
+        Window newPassword;
+        TextBox tb1;
+        TextBox tb2;
+        TextBox tb3;
+        private void NewPasswordWindow()
+        {
+            newPassword = new Window();
+            newPassword.Height = 300;
+            newPassword.Width = 400;
+            newPassword.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+
+            Grid myGrid = new Grid();
+            myGrid.Background = System.Windows.Media.Brushes.AliceBlue;//new SolidColorBrush(System.Windows.Media.Color.FromArgb(255, 229, 253, 252));
+            // Define the Columns
+            ColumnDefinition colDef1 = new ColumnDefinition();
+            ColumnDefinition colDef2 = new ColumnDefinition();
+            myGrid.ColumnDefinitions.Add(colDef1);
+            myGrid.ColumnDefinitions.Add(colDef2);
+
+            // Define the Rows
+            RowDefinition rowDef1 = new RowDefinition();
+            RowDefinition rowDef2 = new RowDefinition();
+            RowDefinition rowDef3 = new RowDefinition();
+            RowDefinition rowDef4 = new RowDefinition();
+            myGrid.RowDefinitions.Add(rowDef1);
+            myGrid.RowDefinitions.Add(rowDef2);
+            myGrid.RowDefinitions.Add(rowDef3);
+            myGrid.RowDefinitions.Add(rowDef4);
+
+            Label lb1 = new Label();
+            lb1.Content = "Enter your temporary password";
+            lb1.Foreground = System.Windows.Media.Brushes.DodgerBlue;
+            lb1.HorizontalAlignment = HorizontalAlignment.Left;
+            lb1.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(lb1, 0);
+            Grid.SetColumn(lb1, 0);
+
+            tb1 = new TextBox();
+            tb1.FontSize = 18;
+            tb1.Width = 160;
+            tb1.Padding = new Thickness(4);
+            tb1.HorizontalAlignment = HorizontalAlignment.Left;
+            tb1.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(tb1, 0);
+            Grid.SetColumn(tb1, 1);
+
+            Label lb2 = new Label();
+            lb2.Content = "Enter your new password";
+            lb2.Foreground = System.Windows.Media.Brushes.DodgerBlue;
+            lb2.HorizontalAlignment = HorizontalAlignment.Left;
+            lb2.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(lb2, 1);
+            Grid.SetColumn(lb2, 0);
+
+            tb2 = new TextBox();
+            tb2.FontSize = 18;
+            tb2.Width = 160;
+            tb2.Padding = new Thickness(4);
+            tb2.HorizontalAlignment = HorizontalAlignment.Left;
+            tb2.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(tb2, 1);
+            Grid.SetColumn(tb2, 1);
+
+            Label lb3 = new Label();
+            lb3.Content = "Confirm your new password";
+            lb3.Foreground = System.Windows.Media.Brushes.DodgerBlue;
+            lb3.HorizontalAlignment = HorizontalAlignment.Left;
+            lb3.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(lb3, 2);
+            Grid.SetColumn(lb3, 0);
+
+            tb3 = new TextBox();
+            tb3.FontSize = 18;
+            tb3.Width = 160;
+            tb3.Padding = new Thickness(4);
+            tb3.HorizontalAlignment = HorizontalAlignment.Left;
+            tb3.VerticalAlignment = VerticalAlignment.Center;
+            Grid.SetRow(tb3, 2);
+            Grid.SetColumn(tb3, 1);
 
             Button buttonOk = new Button();
             buttonOk.Content = "Ok";
+            buttonOk.FontSize = 18;
+            buttonOk.Width = 80;
+            buttonOk.Height = 30;
+            buttonOk.Foreground = System.Windows.Media.Brushes.White;
+            buttonOk.Background = System.Windows.Media.Brushes.Green;
+            buttonOk.HorizontalAlignment = HorizontalAlignment.Center;
+            buttonOk.VerticalAlignment = VerticalAlignment.Center;
             buttonOk.Click += ButtonOk_Click;
+            Grid.SetColumnSpan(buttonOk, 2);
+            Grid.SetRow(buttonOk, 3);
 
-            stackPanel.Children.Add(label);
-            stackPanel.Children.Add(checkBox1);
-            stackPanel.Children.Add(checkBox2);
-            stackPanel.Children.Add(checkBox3);
-            stackPanel.Children.Add(buttonOk);
-            addWords.Content = stackPanel;
-            addWords.Show();
+            // Add the TextBlock elements to the Grid Children collection
+            myGrid.Children.Add(tb1);
+            myGrid.Children.Add(tb2);
+            myGrid.Children.Add(tb3);
+            myGrid.Children.Add(lb1);
+            myGrid.Children.Add(lb2);
+            myGrid.Children.Add(lb3);
+            myGrid.Children.Add(buttonOk);
+            newPassword.Content = myGrid;
+            newPassword.Show();
 
         }
 
         private void ButtonOk_Click(object sender, RoutedEventArgs e)
         {
-            if (checkBox1.IsChecked == true)
-                AddWords("A");
-            if (checkBox1.IsChecked == true)
-                AddWords("B");
-            if (checkBox1.IsChecked == true)
-                AddWords("C");
-
-            Window mainWindow = new MainWindow(user);
-            mainWindow.Show();
-            AuthorizationWindow.Close();
-        }
-
-        public void AddWords(string level)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
+            if (temporaryPassword == tb1.Text)
             {
-                connection.Open();
-
-                string query = "SELECT * FROM Users WHERE Level = @UserLevel";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
+                if (tb2.Text == tb3.Text)
                 {
-                    command.Parameters.AddWithValue("@UserLevel", level);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
+                    DatabaseMethods.ResetPassword(user.Name, user.Email, null);
+                    if (DatabaseMethods.UpdatePassword(user.Name, HashPassword(tb2.Text)))
                     {
-                        while (reader.Read())
-                        {
-                            Word word = new Word
-                            (
-                                Convert.ToInt32(reader["WordID"]),
-                                reader["EnglishWord"].ToString(),
-                                reader["Transcription"].ToString(),
-                                reader["UkrainianWord"].ToString(),
-                                Convert.ToBoolean(reader["Status"]),
-                                (Level)Enum.Parse(typeof(Level), reader["Level"].ToString())
-                            );
-                            InsertDependenceIntoDatabase(word);
-                            //words.Add(word);
-                        }
-
+                        MessageBox.Show("Your password changed!");
+                        Window mainWindow = new MainWindow(user);
+                        mainWindow.Show();
+                        AuthorizationWindow.Close();
                     }
+                    else MessageBox.Show("Unfortunately, the password has not been changed. " +
+                        "\n Please try again or contact the admin");
                 }
+                else MessageBox.Show("The new password not confirmed!");
             }
-        }
-        
-        private void InsertDependenceIntoDatabase(Word word)
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                try
-                {
-                    connection.Open();
-                    // Вставкa зв'язку в БД
-                    string query = "INSERT INTO myVocabDB.learnedwords (UserId, WordId, Status) VALUES (@Value1, @Value2, @Value3)";
-                    using (MySqlCommand command = new MySqlCommand(query, connection))
-                    {
-                        command.Parameters.AddWithValue("@Value1", user.id);
-                        command.Parameters.AddWithValue("@Value2", word.Id);
-                        command.Parameters.AddWithValue("@Value3", false);
-                        command.ExecuteNonQuery();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show($"An error occurred while adding dependence: {ex.Message}" + "\nPlease contact the admin!");
-                }
-            }
-        }
+            else MessageBox.Show("Wrong temporary password!");
 
-        private void LogIn_Click(object sender, RoutedEventArgs e)
-        {
-            string userName = UserNameTextBox.Text;
-            string userPassword = HashPassword(UserPasswordBox.ToString());
-
-            UserExists(userName, userPassword);
-        }
-
-        private void ResetPassword_Click(object sender, RoutedEventArgs e)
-        {
-            string userName = UserNameTextBox.Text;
-            string userEmail = UserEmailTextBox.Text;
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT * FROM myVocabDB.Users WHERE UserName = @UserName AND UserEmail = @UserEmail";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserName", userName);
-                    command.Parameters.AddWithValue("@UserEmail", userEmail);
-
-                    if (command.ExecuteScalar() == null)
-                        MessageBox.Show("Check your data");
-                    else
-                        MessageBox.Show($"Your Temporery password is: {CreateTemporeryPassword()}");
-                }
-            }
+            newPassword.Close();
         }
 
         private void ForgotPassword_Click(object sender, RoutedEventArgs e)

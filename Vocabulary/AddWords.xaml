@@ -6,11 +6,10 @@
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        x:Name="AddWordsWindow" Title="Add Words" Height="300" Width="300">
+        x:Name="AddWordsWindow" Title="Add Words" Height="250" Width="300" Closed="AddWordsWindow_Closed" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
-            <RowDefinition Height="0.4*" ></RowDefinition>
         </Grid.RowDefinitions>
 
         <Grid.Background>
@@ -20,7 +19,7 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid Grid.Row="0" Margin="10" Background="#FFFFCCCC" >
+        <Grid x:Name="addWordGrid" Grid.Row="0" Margin="10" Background="#FFFFCCCC" Visibility="Hidden">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*" />
                 <RowDefinition Height="*" />
@@ -43,11 +42,14 @@
             <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             
         </Grid>
-        <StackPanel Grid.Row="1" Margin="10,0,10,5" >
+
+        <StackPanel x:Name="addWordCheckBoxes" Grid.Row="0" Margin="10" Background="#FFFFCCCC" Visibility="Visible" >
             <Label FontWeight="Bold" Content="Chose which words your want add" HorizontalAlignment="Left" Foreground="#FF1883EE" />
-            <CheckBox Content="Thousand of the most used English words"  Foreground="#FF1883EE" />
-            <CheckBox Content="The second thousand most used English words" Foreground="#FF1883EE"/>
-            <CheckBox Content="The third thousand most used English words" Foreground="#FF1883EE"/>
+            <CheckBox x:Name="checkBoxA" Content="Thousand of the most used English words"  Foreground="#FF1883EE" />
+            <CheckBox x:Name="checkBoxB" Content="The second thousand most used English words" Foreground="#FF1883EE"/>
+            <CheckBox x:Name="checkBoxC" Content="The third thousand most used English words" Foreground="#FF1883EE"/>
+            <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="DownloadWords" Content="Download words" Click="DownloadWords_Click"  FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+
         </StackPanel>
     </Grid>
 </Window>

@@ -10,7 +10,6 @@ namespace Vocabulary
 {
     public partial class LearningWords : Window
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
         User user;
         public List<Word> listLearnWords;
@@ -72,7 +71,7 @@ namespace Vocabulary
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
         {        
             UpDataInWordsArray();
-            UpDataInDatabase();
+            MessageBox.Show(DatabaseMethods.ChangeStatusWordInDatabase(words[iCurrentword].Id, true, user.Id));
             listLearnWords.Remove(listLearnWords[iCurrent]);
 
             if (listLearnWords.Count() != 0)
@@ -99,27 +98,6 @@ namespace Vocabulary
                     iCurrentword = i;
                 }
             }
-        }
-
-        private void UpDataInDatabase()
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].Id}' AND UserId='{user.id}'";
-
-                using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
-                {
-                    cmd.Parameters.AddWithValue("@newValue", true);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected < 1)
-                        MessageBox.Show($"An error occurred while changing a status of word." + "\nPlease contact the admin!");
-                }
-            }
-                
         }
 
         private void Window_Closed(object sender, EventArgs e)

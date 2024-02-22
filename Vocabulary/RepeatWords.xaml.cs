@@ -22,7 +22,6 @@ namespace Vocabulary
     /// </summary>
     public partial class RepeatWords : Window
     {
-        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
         ObservableCollection<Word> words;
         User user;
         public List<Word> listRepeatWords;
@@ -83,7 +82,7 @@ namespace Vocabulary
         private void ChangeStatus_Click(object sender, RoutedEventArgs e)
         {
             UpDataInWordsArray();
-            UpDataInDatabase();
+            MessageBox.Show(DatabaseMethods.ChangeStatusWordInDatabase(words[iCurrentword].Id, false, user.Id));
             listRepeatWords.Remove(listRepeatWords[iCurrent]);
 
             if (listRepeatWords.Count() != 0)
@@ -109,26 +108,6 @@ namespace Vocabulary
                     iCurrentword = i;
                 }
                     
-            }
-        }
-
-        private void UpDataInDatabase()
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string updateQuery = $"UPDATE myVocabDB.learnedwords SET status = @newValue WHERE WordId='{words[iCurrentword].Id}' AND UserId='{user.id}'";
-
-                using (MySqlCommand cmd = new MySqlCommand(updateQuery, connection))
-                {
-                    cmd.Parameters.AddWithValue("@newValue", false);
-
-                    int rowsAffected = cmd.ExecuteNonQuery();
-
-                    if (rowsAffected < 1)
-                        MessageBox.Show($"An error occurred while changing a status of word." + "\nPlease contact the admin!");
-                }
             }
         }
 

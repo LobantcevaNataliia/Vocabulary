@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Vocabulary"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        x:Name="ListOfWordsWindow" Title="ListOfWords" Height="400" Width="500" Loaded="Window_Loaded" Closed="ListOfWordsWindow_Closed">
+        x:Name="ListOfWordsWindow" Title="ListOfWords" Height="400" Width="500" Closed="ListOfWordsWindow_Closed">
     
     <Grid>
         <Grid.RowDefinitions>
@@ -72,6 +72,7 @@
                 <DataGridTextColumn Header="Transcription" Binding="{Binding Transcription}" Width="2*"/>
                 <DataGridTextColumn Header="Translation" Binding="{Binding Ukrainian}" Width="2*"/>
                 <DataGridTextColumn Header="Status" Binding="{Binding Status}" Width="*"/>
+                <DataGridTextColumn Header="Level" Binding="{Binding Level}"/>
 
             </DataGrid.Columns>
             
@@ -81,15 +82,15 @@
                         <StackPanel Orientation="Vertical">
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock FontSize="12" Text="Word: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding english}" VerticalAlignment="Center" />
+                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding English}" VerticalAlignment="Center" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock FontSize="12" Text="Transcription: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding transcription}" VerticalAlignment="Center" />
+                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding Transcription}" VerticalAlignment="Center" />
                             </StackPanel>
                             <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
                                 <TextBlock FontSize="12" Text="Translation: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding ukrainian}" VerticalAlignment="Center" />
+                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding Ukrainian}" VerticalAlignment="Center" />
                             </StackPanel>
                         </StackPanel>
                     </Border>

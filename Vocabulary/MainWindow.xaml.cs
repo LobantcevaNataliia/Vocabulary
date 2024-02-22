@@ -10,10 +10,14 @@ namespace Vocabulary
 {
     public partial class MainWindow : Window
     {
+        User user;
+        ObservableCollection<Word> words;
+
         public MainWindow()
         {
             InitializeComponent();
-            DefaultUser();
+            user = DatabaseMethods.GetDefaultUser();
+            DatabaseMethods.LoadDataFromDatabase(user.Id, out words);
         }
 
         public MainWindow(User user)
@@ -21,87 +25,10 @@ namespace Vocabulary
             InitializeComponent();
             if (user != null)
                 this.user = user;
-            else DefaultUser();
+            else user = DatabaseMethods.GetDefaultUser();
+            DatabaseMethods.LoadDataFromDatabase(user.Id, out words);
         }
-
-        User user;
-        ObservableCollection<Word> words;
-        string connectionString = ConfigurationManager.ConnectionStrings["MyDBConnection"].ConnectionString;
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            LoadDataFromDatabase();
-        }
-
-        private void DefaultUser()
-        {
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                string query = "SELECT * FROM Users WHERE UserName = @UserName";
-                using (MySqlCommand command = new MySqlCommand(query, connection))
-                {
-                    command.Parameters.AddWithValue("@UserName", "Guest");
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            user = new User
-                            (
-                                Convert.ToInt32(reader["UserID"]),
-                                reader["UserName"].ToString(),
-                                reader["UserEmail"].ToString(),
-                                reader["UserPassword"].ToString()
-                            );
-                        }
-                    }            
-                }
-            }
-        }
-
-        //Метод для завантаження словника з бази даних
-        private void LoadDataFromDatabase()
-        {
-            words = new ObservableCollection<Word>();
-
-            using (MySqlConnection connection = new MySqlConnection(connectionString))
-            {
-                connection.Open();
-
-                // команда SQL для вибірки слів конкретного користувача
-                string sql = "SELECT myVocabDB.words.*, LearnedWords.Status FROM myVocabDB.words " +
-                             "INNER JOIN myVocabDB.learnedwords ON words.WordId = learnedwords.WordId " +
-                             "WHERE learnedwords.UserId = @UserId";
-
-                using (MySqlCommand command = new MySqlCommand(sql, connection))
-                {
-                    // Додано параметр для ідентифікатора користувача
-                    command.Parameters.AddWithValue("@UserId", user.id);
-
-                    using (MySqlDataReader reader = command.ExecuteReader())
-                    {
-                        while (reader.Read())
-                        {
-                            Word word = new Word
-                            (
-                                Convert.ToInt32(reader["WordID"]),
-                                reader["EnglishWord"].ToString(),
-                                reader["Transcription"].ToString(),
-                                reader["UkrainianWord"].ToString(),
-                                Convert.ToBoolean(reader["Status"]),
-                                (Level)Enum.Parse(typeof(Level), reader["Level"].ToString())
-                            );
-
-                            words.Add(word);
-                        }
-
-                    }
-                }
-            }
-        }
-     
+            
         //Метод для відображення списку слів
         private void List_Click(object sender, RoutedEventArgs e)
         {
