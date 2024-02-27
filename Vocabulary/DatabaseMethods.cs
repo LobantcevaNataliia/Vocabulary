@@ -386,7 +386,7 @@ namespace Vocabulary
 
                     if (rowsAffected < 1)
                         return $"An error occurred while changing the status of word." + "\nPlease contact the admin!";
-                    else return "";
+                    else return "Status changed";
                 }
             }
 

@@ -24,7 +24,7 @@ namespace Vocabulary
     {
         ObservableCollection<Word> words;
         User user;
-        public List<Word> listRepeatWords;
+        public List<Word> fullListRepeatWords, listRepeatWords;
         int iCurrent, iCurrentword;
 
         public RepeatWords(ObservableCollection<Word> words, User user)
@@ -36,10 +36,8 @@ namespace Vocabulary
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            listRepeatWords = new List<Word>();
-            for (int i = 0; i < words.Count; i++)
-                if (words[i].Status)
-                    listRepeatWords.Add(words[i]);
+            CreateFullListWords();
+            listRepeatWords = fullListRepeatWords;
 
             if (listRepeatWords.Count() != 0)
             {
@@ -53,12 +51,19 @@ namespace Vocabulary
             }
         }
 
+        private void Window_Closed(object sender, EventArgs e)
+        {
+            Window exerciseWindow = new Exercise(words, user);
+            exerciseWindow.Show();
+            RepeatWordsWindow.Close();
+        }
+
         private void ShowWords(int i) 
         {
-            textBlockEnglish.Text = listRepeatWords[i].English;
-            textBlockTranscription.Text = listRepeatWords[i].Transcription;
-            textBlockUkrainian.Text = listRepeatWords[i].Ukrainian;
-            progressBarStatus.Value = (i + 1) * 100 / listRepeatWords.Count;
+            showWordUC.textBlockEnglish.Text = listRepeatWords[i].English;
+            showWordUC.textBlockTranscription.Text = listRepeatWords[i].Transcription;
+            showWordUC.textBlockUkrainian.Text = listRepeatWords[i].Ukrainian;
+            showWordUC.progressBarStatus.Value = (i + 1) * 100 / listRepeatWords.Count;
         }
 
         private void Previous_Click(object sender, RoutedEventArgs e)
@@ -106,18 +111,55 @@ namespace Vocabulary
                 {
                     words[i].Status = false;
                     iCurrentword = i;
-                }
-                    
+                }                  
             }
         }
 
-        private void Window_Closed(object sender, EventArgs e)
+        private void CreateFullListWords()
         {
-            Window exerciseWindow = new Exercise(words, user);
-            exerciseWindow.Show();
-            RepeatWordsWindow.Close();
+            fullListRepeatWords = new List<Word>();
+            for (int i = 0; i < words.Count; i++)
+                if (words[i].Status)
+                    fullListRepeatWords.Add(words[i]);
         }
 
-        
+        // Обробка зміни вибраного RadioButton в ShowWordUC
+        private void RadioButton_Checked(object sender, RoutedEventArgs e)
+        {
+            CreateFullListWords();
+            listRepeatWords = new List<Word>();
+
+            if (showWordUC.rBAll.IsChecked == true)
+            {
+                listRepeatWords = fullListRepeatWords;
+            }
+            if (showWordUC.rBMy.IsChecked == true)
+            {
+                if(fullListRepeatWords.Count >= 5)
+                    for (int i = 0; i < 5; i++)
+                      listRepeatWords.Add(fullListRepeatWords[i]);
+                else
+                {
+                    MessageBox.Show("You have less words!");
+                    showWordUC.rBAll.IsChecked = true;
+                }
+            }
+            if (showWordUC.rBUser.IsChecked == true)
+            {
+                if (fullListRepeatWords.Count >= Convert.ToInt16(showWordUC.rBTextUser.Text))
+                    for (int i = 0; i < Convert.ToInt16(showWordUC.rBTextUser.Text); i++)
+                        listRepeatWords.Add(fullListRepeatWords[i]);
+                else
+                {
+                    MessageBox.Show("You have less words!");
+                    showWordUC.rBAll.IsChecked = true;
+                }
+            }
+
+            iCurrent = 0;
+            ShowWords(iCurrent);
+        }
+
+
     }
 }

@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="Vocabulary.ShowWordUC"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Vocabulary"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="500">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <Expander Panel.ZIndex="1"  >
+            <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
+                <RadioButton x:Name="rBAll" Content="All words" Checked="RadioButton_Checked" VerticalContentAlignment="Center" IsChecked="True"/>
+                <RadioButton x:Name="rBMy" Content="5 words" Checked="RadioButton_Checked" VerticalContentAlignment="Center" />
+                <RadioButton x:Name="rBUser" Checked="RadioButton_Checked" VerticalContentAlignment="Center" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox x:Name="rBTextUser" Text="20" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" Width="30" />
+                        <TextBlock Text=" words" VerticalAlignment="Center" />
+                    </StackPanel>
+                </RadioButton>
+            </StackPanel>
+        </Expander>
+        
+        <ProgressBar Name="progressBarStatus" Minimum="0" Maximum="100" Value="70"  Height="20" Background="{x:Null}" Foreground="#ffffcc" BorderBrush="{x:Null}" VerticalAlignment="Top" />
+        <TextBlock Text="{Binding ElementName=progressBarStatus, Path=Value, StringFormat={}{0:0}%}" Foreground="#FFAC750E" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+        <TextBlock Grid.Row="0" x:Name="textBlockEnglish" Text="Get ready!" TextWrapping="Wrap" TextAlignment="Center" FontSize="34" FontFamily="Engravers MT" Foreground="#FFCB6C0E" VerticalAlignment="Bottom" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="1" x:Name="textBlockUkrainian" Text="" TextWrapping="Wrap" TextAlignment="Center" FontSize="26" FontFamily="Engravers MT" Foreground="#FFCB9E0E" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+        <TextBlock Grid.Row="2" x:Name="textBlockTranscription" Text="Press 'Next' and start working!" TextWrapping="Wrap" TextAlignment="Center" FontSize="24" FontFamily="Engravers MT" Foreground="#FFF47689" VerticalAlignment="Top" HorizontalAlignment="Center"/>
+
+
+    </Grid>
+</UserControl>

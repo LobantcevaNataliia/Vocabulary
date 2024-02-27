@@ -142,3 +142,6 @@ D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\D
 D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\Authorization.baml
 D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\AddWords.g.cs
 D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\AddWords.baml
+D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\ShowWordUC.g.cs
+D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\GeneratedInternalTypeHelper.g.cs
+D:\Киця\Myphone_09_11_2023\Файли\Проги\Vocabulary\Vocabulary\obj\Debug\ShowWordUC.baml
