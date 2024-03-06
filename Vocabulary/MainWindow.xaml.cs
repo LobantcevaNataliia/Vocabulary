@@ -5,6 +5,8 @@ using MySql.Data.MySqlClient;
 using System.Collections.ObjectModel;
 using System.Configuration;
 using System.IO;
+using System.Windows.Forms;
+using System.Net;
 
 namespace Vocabulary
 {
@@ -18,6 +20,7 @@ namespace Vocabulary
             InitializeComponent();
             user = DatabaseMethods.GetDefaultUser();
             DatabaseMethods.LoadDataFromDatabase(user.Id, out words);
+
         }
 
         public MainWindow(User user)
@@ -51,6 +54,32 @@ namespace Vocabulary
             Window auto = new Authorization();
             auto.Show();
             MainWindowWindow.Hide();
+        }
+
+        private void Download3000()
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.ShowDialog();
+            words = new ObservableCollection<Word>();
+            
+            using (StreamReader sr = new StreamReader(openFileDialog.FileName, System.Text.Encoding.UTF8))
+            {
+                while (sr.Peek() >= 0)
+                {
+                    string lineCurrent = sr.ReadLine();
+                    string[] newword = lineCurrent.Split('\\');
+                    WorkWithNewWords(newword[0], newword[2], newword[3], (Level)Enum.Parse(typeof(Level), newword[4]));
+
+                }
+            }
+            
+
+            void WorkWithNewWords(string newEnglish, string newTranscription, string newUkrainian, Level newLevel)
+            {
+                int id = DatabaseMethods.GetIdNewWord();
+                words.Add(new Word(id, newEnglish, newTranscription, newUkrainian, false, newLevel));
+                DatabaseMethods.InsertWordIntoDatabase(words[words.Count - 1]);
+            }
         }
     }
 }

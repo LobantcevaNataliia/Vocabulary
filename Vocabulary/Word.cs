@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Vocabulary
 {
-    public enum Level { A, B, C, U }
+    public enum Level { A1, A2, B1, B2, U }
     public class Word
     {
         public int Id { get; set; }
@@ -42,6 +42,8 @@ namespace Vocabulary
             {
                 if (value.Contains(" "))
                     value = value.Trim();
+                if (value.Contains("\t"))
+                    value = value.Replace("\t", "");
                 transcription = value;
             }
         }
@@ -56,6 +58,8 @@ namespace Vocabulary
         {
             if (str.Contains(" "))
                 str = str.Trim();
+            if (str.Contains("\t"))
+                str = str.Replace("\t", "");
             if (str.Length > 1)
                 return char.ToUpper(str[0]) + str.Substring(1).ToLower();
             else return str.ToUpper();

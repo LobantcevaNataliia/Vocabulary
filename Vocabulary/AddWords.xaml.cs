@@ -32,6 +32,13 @@ namespace Vocabulary
             this.user = user;
         }
 
+        private void AddWordsWindow_Closed(object sender, EventArgs e)
+        {
+            Window listOfWordsWindow = new ListOfWords(words, user);
+            listOfWordsWindow.Show();
+            AddWordsWindow.Close();
+        }
+
         private void AddWord_Click(object sender, RoutedEventArgs e)
         {
             string newEnglish = newEnglishTb.Text;
@@ -51,14 +58,14 @@ namespace Vocabulary
 
         private void DownloadWords_Click(object sender, RoutedEventArgs e)
         {
-            if (checkBoxA.IsChecked == true)
-                MessageBox.Show(DatabaseMethods.AddWords("A", ref words, user.Id));
-            if (checkBoxB.IsChecked == true)
-                MessageBox.Show(DatabaseMethods.AddWords("B", ref words, user.Id));
-            if (checkBoxC.IsChecked == true)
-                MessageBox.Show(DatabaseMethods.AddWords("C", ref words, user.Id));
-          
-           // AuthorizationWindow.Close();
+            if (checkBoxA1.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("A1", ref words, user.Id));
+            if (checkBoxA2.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("A2", ref words, user.Id));
+            if (checkBoxB1.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("B1", ref words, user.Id));
+            if (checkBoxB2.IsChecked == true)
+                MessageBox.Show(DatabaseMethods.AddWords("B2", ref words, user.Id));
         }
 
         private void WorkWithNewWords(string newEnglish, string newTranscription, string newUkrainian, bool newStatus)
@@ -87,13 +94,6 @@ namespace Vocabulary
             }
         }
 
-        //private string Change(string str)
-        //{
-        //    if (str.Length > 1)
-        //        return char.ToUpper(str[0]) + str.Substring(1).ToLower();
-        //    else return str.ToUpper();
-        //}
-
         private bool WordExists(string newEnglish)
         {
             bool exist = false;
@@ -105,11 +105,5 @@ namespace Vocabulary
             return exist;
         }
 
-        private void AddWordsWindow_Closed(object sender, EventArgs e)
-        {
-            Window listOfWordsWindow = new ListOfWords(words,user);
-            listOfWordsWindow.Show();
-            AddWordsWindow.Close();
-        }
     }
 }

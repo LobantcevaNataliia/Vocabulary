@@ -13,7 +13,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <Expander Panel.ZIndex="1"  >
+        <Expander x:Name="expander" Panel.ZIndex="1">
             <StackPanel HorizontalAlignment="Left" VerticalAlignment="Top">
                 <RadioButton x:Name="rBAll" Content="All words" Checked="RadioButton_Checked" VerticalContentAlignment="Center" IsChecked="True"/>
                 <RadioButton x:Name="rBMy" Content="5 words" Checked="RadioButton_Checked" VerticalContentAlignment="Center" />

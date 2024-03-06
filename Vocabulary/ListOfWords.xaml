@@ -23,8 +23,10 @@
 
         <Grid Grid.Row="0"  Background="#FFFFCCCC" >
             <StackPanel Orientation="Horizontal">
-                <Button   x:Name="AddWord" Content="+" Click="AddWord_Click" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF1485F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button   x:Name="DownloadWords" Click="DownloadWords_Click" BorderThickness="0" Background="{x:Null}" >
+                <Button x:Name="AddWord" Content="+" Click="AddWord_Click" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF1485F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
+                <Button x:Name="Add3000" Content="☁️" Click="Add3000_Click" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF10E5F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" /> 
+                <!--<Button x:Name="Add3000Word" Content="о" Click="Add3000Word" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF10E5F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
+                <Button x:Name="DownloadWords" Click="DownloadWords_Click"  BorderThickness="0" Background="{x:Null}" >
                     <Button.Content>
                         <Image Source="/folder.png" Stretch="Uniform" Width="30" Height="40" />
                     </Button.Content>
@@ -38,7 +40,6 @@
                             </TextBlock>
                             <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
                             <WrapPanel>
-                                
                                 <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
                             </WrapPanel>
                         </StackPanel>

@@ -27,13 +27,29 @@ namespace Vocabulary
 
         }
 
+        private void ListOfWordsWindow_Closed(object sender, EventArgs e)
+        {
+            Window mainWindow = new MainWindow(user);
+            mainWindow.Show();
+            ListOfWordsWindow.Close();
+        }
+
         private void AddWord_Click(object sender, RoutedEventArgs e)
         {
             AddWords addWindow = new AddWords(words, user);
             addWindow.addWordCheckBoxes.Visibility = Visibility.Hidden;
             addWindow.addWordGrid.Visibility = Visibility.Visible;
             addWindow.Show();
-            ListOfWordsWindow.Close();
+            ListOfWordsWindow.Hide();
+        }
+
+        private void Add3000_Click(object sender, RoutedEventArgs e)
+        {
+            AddWords addWindow = new AddWords(words, user);
+            addWindow.addWordCheckBoxes.Visibility = Visibility.Visible;
+            addWindow.addWordGrid.Visibility = Visibility.Hidden;
+            addWindow.Show();
+            ListOfWordsWindow.Hide();
         }
 
         private void DownloadWords_Click(object sender, RoutedEventArgs e)
@@ -85,12 +101,6 @@ namespace Vocabulary
                 words.RemoveAt(words.Count - 1);
             }
         }
-        //private string Change(string str)
-        //{
-        //    if (str.Length > 1)
-        //        return char.ToUpper(str[0]) + str.Substring(1).ToLower();
-        //    else return str.ToUpper();
-        //}
 
         private bool WordExists(string newEnglish)
         {
@@ -101,13 +111,6 @@ namespace Vocabulary
                     exist = true;
 
             return exist;
-        }
-        
-        private void ListOfWordsWindow_Closed(object sender, EventArgs e)
-        {
-            Window mainWindow = new MainWindow(user);
-            mainWindow.Show();
-            ListOfWordsWindow.Close();
         }
 
         private void DeleteMenuItem_Click(object sender, RoutedEventArgs e)
@@ -148,9 +151,6 @@ namespace Vocabulary
             MessageBox.Show(DatabaseMethods.ChangeStatusWordInDatabase(id, words[cellValue - 1].Status, user.Id));
             ListWords.Items[cellValue - 1] = new { i = cellValue, words[cellValue - 1].English, words[cellValue - 1].Transcription, words[cellValue - 1].Ukrainian, words[cellValue - 1].Status, words[cellValue - 1].Level };
 
-        }
-
-        
-
+        } 
     }
 }

@@ -150,6 +150,7 @@ namespace Vocabulary
 
             iCurrent = 0;
             ShowWords(iCurrent);
+            showWordUC.expander.IsExpanded = false;
         }
 
     }

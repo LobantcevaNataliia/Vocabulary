@@ -45,9 +45,10 @@
 
         <StackPanel x:Name="addWordCheckBoxes" Grid.Row="0" Margin="10" Background="#FFFFCCCC" Visibility="Visible" >
             <Label FontWeight="Bold" Content="Chose which words your want add" HorizontalAlignment="Left" Foreground="#FF1883EE" />
-            <CheckBox x:Name="checkBoxA" Content="Thousand of the most used English words"  Foreground="#FF1883EE" />
-            <CheckBox x:Name="checkBoxB" Content="The second thousand most used English words" Foreground="#FF1883EE"/>
-            <CheckBox x:Name="checkBoxC" Content="The third thousand most used English words" Foreground="#FF1883EE"/>
+            <CheckBox x:Name="checkBoxA1" Content="A1"  Foreground="#FF1883EE" />
+            <CheckBox x:Name="checkBoxA2" Content="A2" Foreground="#FF1883EE"/>
+            <CheckBox x:Name="checkBoxB1" Content="B1" Foreground="#FF1883EE"/>
+            <CheckBox x:Name="checkBoxB2" Content="B2"  Foreground="#FF1883EE" />
             <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="DownloadWords" Content="Download words" Click="DownloadWords_Click"  FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
 
         </StackPanel>

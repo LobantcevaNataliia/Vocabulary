@@ -1,14 +1,9 @@
-﻿using MySql.Data.MySqlClient;
-using System;
+﻿using System;
 using System.Collections.ObjectModel;
-using System.Configuration;
-using System.Drawing;
 using System.Security.Cryptography;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Media;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace Vocabulary
 {
@@ -27,6 +22,13 @@ namespace Vocabulary
             UserEmailLabel.Visibility = Visibility.Hidden;
             UserEmailTextBox.Visibility = Visibility.Hidden;
             
+        }
+
+        private void AuthorizationWindow_Closed(object sender, EventArgs e)
+        {
+            Window mainWindow = new MainWindow(user);
+            mainWindow.Show();
+            AuthorizationWindow.Close();
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
@@ -58,6 +60,7 @@ namespace Vocabulary
             }
             else MessageBox.Show("This userName alredy exist!");
         }
+         
         string temporaryPassword;
         private void ResetPassword_Click(object sender, RoutedEventArgs e)
         {
@@ -73,13 +76,6 @@ namespace Vocabulary
                 MessageBox.Show($"Your Temporary password is: {temporaryPassword}");
                 NewPasswordWindow();
             }
-        }
-
-        private void AuthorizationWindow_Closed(object sender, EventArgs e)
-        {
-            Window mainWindow = new MainWindow(user);
-            mainWindow.Show();
-            AuthorizationWindow.Close();
         }
 
         private string HashPassword(string password)
