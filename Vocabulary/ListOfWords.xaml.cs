@@ -55,8 +55,8 @@ namespace Vocabulary
         private void DownloadWords_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
+            openFileDialog.Filter = "Text files (*.txt)|*.txt|All files (*.*)|*.*";
             openFileDialog.ShowDialog();
-
             try
             {
                 using (StreamReader sr = new StreamReader(openFileDialog.FileName, System.Text.Encoding.UTF8))

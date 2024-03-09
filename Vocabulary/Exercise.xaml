@@ -7,6 +7,17 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         x:Name="ExerciseWindow" Title="Exercise" Height="400" Width="500" Loaded="Window_Loaded" Closed="ExerciseWindow_Closed">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" /> 
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
@@ -24,9 +35,9 @@
 
         <Label Grid.Row="0" Content="Choose an exercise" FontSize="40" FontFamily="Engravers MT" Foreground= "#DB7093" HorizontalAlignment="Center" VerticalAlignment="Center" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
 
-        <Button Grid.Row="1" x:Name="Learn" Content="Learning new words" Click="Learn_Click" FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FFF49194" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
-        <Button Grid.Row="2" x:Name="Repeat" Content="Repetition of learned words" Click="Repeat_Click"  FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF4A84D4" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Row="3" x:Name="Translation" Content="Translation exercises" Click="Translation_Click" FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF1B62C4" BorderThickness="0,0,0,0"  HorizontalAlignment="Center" VerticalAlignment="Top"/>
+        <Button Grid.Row="1" x:Name="Learn" Content="Learning new words" Click="Learn_Click" Foreground="#FFF49194" VerticalAlignment="Bottom"/>
+        <Button Grid.Row="2" x:Name="Repeat" Content="Repetition of learned words" Click="Repeat_Click" Foreground="#FF4A84D4" />
+        <Button Grid.Row="3" x:Name="Translation" Content="Translation exercises" Click="Translation_Click" Foreground="#FF1B62C4" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>

@@ -7,6 +7,29 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         x:Name="ListOfWordsWindow" Title="ListOfWords" Height="400" Width="500" Closed="ListOfWordsWindow_Closed">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="FontSize" Value="30" />
+            <Setter Property="FontWeight" Value="Bold" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="MidnightBlue" />
+        </Style>
+        <Style TargetType="StackPanel">
+            <Setter Property="Orientation" Value="Horizontal" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+        </Style>
+    </Window.Resources>
     
     <Grid>
         <Grid.RowDefinitions>
@@ -21,14 +44,14 @@
             </LinearGradientBrush>
         </Grid.Background>
 
-        <Grid Grid.Row="0"  Background="#FFFFCCCC" >
-            <StackPanel Orientation="Horizontal">
-                <Button x:Name="AddWord" Content="+" Click="AddWord_Click" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF1485F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" />
-                <Button x:Name="Add3000" Content="☁️" Click="Add3000_Click" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF10E5F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" /> 
+        <Grid Grid.Row="0" Background="#FFFFCCCC" >
+            <StackPanel HorizontalAlignment="Left" >
+                <Button x:Name="AddWord" Content="+" Click="AddWord_Click" Foreground="#FF1485F6"  />
+                <Button x:Name="Add3000" Content="☁️" Click="Add3000_Click" Foreground="#FF10E5F6" /> 
                 <!--<Button x:Name="Add3000Word" Content="о" Click="Add3000Word" FontSize="30" FontFamily="Engravers MT"  BorderThickness="0" Background="{x:Null}" FontWeight="Bold" Foreground="#FF10E5F6" Padding="0" HorizontalAlignment="Center" VerticalAlignment="Center" />-->
-                <Button x:Name="DownloadWords" Click="DownloadWords_Click"  BorderThickness="0" Background="{x:Null}" >
+                <Button x:Name="DownloadWords" Click="DownloadWords_Click" >
                     <Button.Content>
-                        <Image Source="/folder.png" Stretch="Uniform" Width="30" Height="40" />
+                        <Image Source="/folder.png" Stretch="Uniform" Width="30" Height="40" RenderTransformOrigin="0.5,0.536" />
                     </Button.Content>
                     <Button.ToolTip>
                         <StackPanel>
@@ -40,33 +63,17 @@
                             </TextBlock>
                             <Border BorderBrush="Silver" BorderThickness="0,1,0,0" Margin="0,8" />
                             <WrapPanel>
-                                <TextBlock FontStyle="Italic">Press F1 for more help</TextBlock>
+                                <TextBlock FontStyle="Italic">For more help...</TextBlock>
                             </WrapPanel>
                         </StackPanel>
                     </Button.ToolTip>
                 </Button>
             </StackPanel>
-            <!--<Grid.RowDefinitions>
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="*" />
-            </Grid.ColumnDefinitions>-->
-
-            <!--<TextBox Grid.Row="0" Grid.Column="0" x:Name="newEnglishTb" Text="Enter a new word..." SpellCheck.IsEnabled="True" Language="en-US" TextWrapping="WrapWithOverflow" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newEnglishTb_MouseDoubleClick" />
-            <TextBox Grid.Row="1" Grid.Column="0" x:Name="newTranscriptionTb" Text="Enter the transcription of the word..." TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newTranscriptionTb_MouseDoubleClick"  />
-            <TextBox Grid.Row="2" Grid.Column="0" x:Name="newUkrainianTb" Text="Enter the translation of the word..." SpellCheck.IsEnabled="True" Language="uk-UA" TextWrapping="Wrap" FontSize="14" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF67B0F9" HorizontalAlignment="Center" VerticalAlignment="Center" TextAlignment="Center" MouseDoubleClick="newUkrainianTb_MouseDoubleClick"  />
-
-            <Button  Grid.RowSpan="2" Grid.Column="1" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-            <Button  Grid.RowSpan="3" Grid.Column="1" x:Name="DownloadsWord" Content="Download Words from file" Click="DownloadWords_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>-->
-
+            
         </Grid>
        
         <DataGrid  Grid.Row="1" Name="ListWords" IsReadOnly="True" RowHeaderWidth="0" AutoGenerateColumns="False" RowBackground="{x:Null}" 
-           CanUserSortColumns="True" Background="{x:Null}" FontSize="12" BorderThickness="0,0,0,0" FontFamily="Engravers MT" ToolTip="Add new words to your Vocabulary." >
+           CanUserSortColumns="True" Background="{x:Null}" FontSize="12" BorderThickness="0,0,0,0" FontFamily="Engravers MT" ToolTip="" >
             <DataGrid.Columns>
                 <DataGridTextColumn Header="№" Binding="{Binding i}" Width="*" />
                 <DataGridTextColumn Header="Word" Binding="{Binding English}" Width="2*"/>
@@ -81,17 +88,17 @@
                 <DataTemplate>
                     <Border BorderThickness="0" Background="#ffcccc" Padding="10">
                         <StackPanel Orientation="Vertical">
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock FontSize="12" Text="Word: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding English}" VerticalAlignment="Center" />
+                            <StackPanel>
+                                <TextBlock Text="Word: " />
+                                <TextBlock Text="{Binding English}" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock FontSize="12" Text="Transcription: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding Transcription}" VerticalAlignment="Center" />
+                            <StackPanel>
+                                <TextBlock Text="Transcription: " />
+                                <TextBlock Text="{Binding Transcription}" />
                             </StackPanel>
-                            <StackPanel Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
-                                <TextBlock FontSize="12" Text="Translation: " VerticalAlignment="Center" />
-                                <TextBlock FontSize="14" Foreground="MidnightBlue" Text="{Binding Ukrainian}" VerticalAlignment="Center" />
+                            <StackPanel>
+                                <TextBlock Text="Translation: " />
+                                <TextBlock Text="{Binding Ukrainian}" />
                             </StackPanel>
                         </StackPanel>
                     </Border>

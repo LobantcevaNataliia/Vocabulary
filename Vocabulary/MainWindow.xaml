@@ -7,6 +7,18 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         x:Name ="MainWindowWindow" Title="My Vocabulary" Height="400" Width="500">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="Foreground" Value="RoyalBlue" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="FontSize" Value="28" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+        </Style>
+    </Window.Resources>
+    
     <Grid x:Name="mainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="0.5*"/>
@@ -26,15 +38,15 @@
 
         </Grid.Background>
 
-        <Button Grid.Row="0" Grid.Column="1" Click="Auto_Click" Background="{x:Null}" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Top">
+        <Button Grid.Row="0" Grid.Column="1" Click="Auto_Click" HorizontalAlignment="Right" VerticalAlignment="Top">
             <Image Source="/avatar.png" ToolTip="Log in/Sign up"/>
                 <!--<TextBlock Text="Log in/Sign up" TextWrapping="Wrap"/>-->
         </Button>
  
         <Label Grid.Row="1" Grid.ColumnSpan="2" Content="My Vocabulary" FontSize="40" FontFamily="Engravers MT" Foreground="#FF1B25C0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
 
-        <Button Grid.Row="2" Grid.Column="0" x:Name="List" Content="List of My Words" Click="List_Click" FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="RoyalBlue" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-        <Button Grid.Row="2" Grid.Column="1" x:Name="Exercise" Content="Word exercises" Click="Exercise_Click" FontSize="28" FontFamily="Engravers MT" Background="{x:Null}" Foreground="RoyalBlue" BorderThickness="0,0,0,0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button Grid.Row="2" Grid.Column="0" x:Name="List" Content="List of My Words" Click="List_Click" />
+        <Button Grid.Row="2" Grid.Column="1" x:Name="Exercise" Content="Word exercises" Click="Exercise_Click" />
 
     </Grid>
 </Window>

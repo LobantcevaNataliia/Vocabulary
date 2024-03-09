@@ -7,6 +7,35 @@
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
         x:Name="AddWordsWindow" Title="Add Words" Height="250" Width="300" Closed="AddWordsWindow_Closed" >
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="FontSize" Value="20" />
+            <Setter Property="Foreground" Value="#FF208DF9" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="FontSize" Value="14" />
+            <Setter Property="Foreground" Value="#FF1883EE" />
+            <Setter Property="Padding" Value="3" />
+            <Setter Property="Margin" Value="15,0" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="FontSize" Value="12" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="Foreground" Value="#FF208DF9" />
+            <Setter Property="Margin" Value="10,0" />
+        </Style>
+    </Window.Resources>
+    
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"></RowDefinition>
@@ -30,16 +59,16 @@
                 <RowDefinition Height="1.5*" />
             </Grid.RowDefinitions>
 
-            <Label Grid.Row="0" Grid.Column="0" Content="Enter a new word" Margin="10,0" FontSize="12" FontFamily="Engravers MT" Foreground="#FF208DF9"/>
-            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="newEnglishTb" SpellCheck.IsEnabled="True" Language="en-US" TextWrapping="Wrap" Margin="15,0" Padding="3" FontSize="14" FontFamily="Engravers MT" Foreground="#FF1883EE" VerticalAlignment="Center" TextAlignment="Center" />
+            <Label Grid.Row="0" Grid.Column="0" Content="Enter a new word" />
+            <TextBox Grid.Row="1" Grid.Column="1"  x:Name="newEnglishTb" SpellCheck.IsEnabled="True" Language="en-US" />
+            
+            <Label Grid.Row="2" Grid.Column="0" Content="Enter the transcription of the word" />
+            <TextBox Grid.Row="3" Grid.Column="1" x:Name="newTranscriptionTb" />
+            
+            <Label Grid.Row="4" Grid.Column="0" Content="Enter the translation of the word"/>
+            <TextBox Grid.Row="5" Grid.Column="1" x:Name="newUkrainianTb"  SpellCheck.IsEnabled="True" Language="uk-UA" />
 
-            <Label Grid.Row="2" Grid.Column="0" Content="Enter the transcription of the word" Margin="10,0" FontSize="12" FontFamily="Engravers MT" Foreground="#FF208DF9"/>
-            <TextBox Grid.Row="3" Grid.Column="1" x:Name="newTranscriptionTb"  TextWrapping="Wrap" Margin="15,0" Padding="3" FontSize="14" FontFamily="Engravers MT" Foreground="#FF1883EE" VerticalAlignment="Center" TextAlignment="Center"   />
-
-            <Label Grid.Row="4" Grid.Column="0" Content="Enter the translation of the word" Margin="10,0" FontSize="12" FontFamily="Engravers MT" Foreground="#FF208DF9"/>
-            <TextBox Grid.Row="5" Grid.Column="1" x:Name="newUkrainianTb"  SpellCheck.IsEnabled="True" Language="uk-UA" TextWrapping="Wrap" Margin="15,0" Padding="3" FontSize="14" FontFamily="Engravers MT"  Foreground="#FF1883EE" TextAlignment="Center" VerticalAlignment="Center" />
-
-            <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="AddWord" Content="Add Word" Click="AddWord_Click" />
             
         </Grid>
 
@@ -49,8 +78,9 @@
             <CheckBox x:Name="checkBoxA2" Content="A2" Foreground="#FF1883EE"/>
             <CheckBox x:Name="checkBoxB1" Content="B1" Foreground="#FF1883EE"/>
             <CheckBox x:Name="checkBoxB2" Content="B2"  Foreground="#FF1883EE" />
-            <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="DownloadWords" Content="Download words" Click="DownloadWords_Click"  FontSize="20" FontFamily="Engravers MT" Background="{x:Null}" Foreground="#FF208DF9" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Bottom"/>
+            <Button  Grid.Row="6" Grid.ColumnSpan="2" x:Name="DownloadWords" Content="Download words" Click="DownloadWords_Click"  VerticalAlignment="Bottom"/>
 
         </StackPanel>
+        
     </Grid>
 </Window>

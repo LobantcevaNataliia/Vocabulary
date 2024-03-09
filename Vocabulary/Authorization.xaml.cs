@@ -37,7 +37,11 @@ namespace Vocabulary
             string userPassword = HashPassword(UserPasswordBox.Password); 
             DatabaseMethods.UserExists(userName, out user);
             if (user == null)
-                MessageBox.Show("This userName not exist!");
+            {
+                Message message = new Message("This userName not exist!");
+                message.Show();
+            }
+                
             else CheckUser(user, userPassword);
         }
 
