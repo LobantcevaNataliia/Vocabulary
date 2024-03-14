@@ -1,0 +1,93 @@
+﻿<Window x:Class="VocabularyDesktop.Translation"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:VocabularyDesktop"
+        mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
+        x:Name="TranslationWindow" Title="Translation" Height="400" Width="500" Loaded="Window_Loaded" Closed="TranslationWindow_Closed">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="Foreground" Value="#FF128492" />
+            <Setter Property="Background" Value="{x:Null}" />
+            <Setter Property="BorderThickness" Value="0" />
+            <Setter Property="Padding" Value="0" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="TextWrapping" Value="Wrap" />
+            <Setter Property="TextAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="FontSize" Value="22" />
+            <Setter Property="Foreground" Value="#FF128492" />
+        </Style>
+        <Style TargetType="Label">
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="FontFamily" Value="Engravers MT" />
+            <Setter Property="Foreground" Value="#FF1B25C0" />
+        </Style>
+    </Window.Resources>
+    
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition Height="*" ></RowDefinition>
+            <RowDefinition Height="0.25*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
+            <ColumnDefinition Width="*" ></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+
+        <Grid.Background>
+            <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                <GradientStop Color="#B0E0E6" Offset="0"/>
+                <GradientStop Color="#DDA0DD" Offset="1"/>
+            </LinearGradientBrush>
+        </Grid.Background>
+
+        <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="NameOfExercise" Content="Choose right English translation" FontSize="24" FontWeight="Bold" Foreground="#FFCA79D7" />
+
+        <Grid Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="0.5*"></RowDefinition>
+                <RowDefinition Height="*" ></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+                <ColumnDefinition Width="*" ></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="Task" Content="Word" FontSize="30" Foreground="#FFB932B9" />
+            <Label Grid.Row="0" Grid.ColumnSpan="2" x:Name="ResultSmile" Content="&#x1F60A;" FontSize="28" FontWeight="Bold" Foreground="#FFDF1B87" VerticalAlignment="Top" />
+            <TextBlock Grid.Row="1" Grid.ColumnSpan="2" x:Name="ResultAnswer" Text="Result" FontSize="26" Foreground="#FF73A4D1" FontWeight="Bold" HorizontalAlignment="Center" VerticalAlignment="Top" />
+            <TextBlock Grid.Row="2" Grid.ColumnSpan="2" x:Name="RightAnswer" Text="RightAnswer" FontSize="26" Foreground="#FF73A4D1" HorizontalAlignment="Center" VerticalAlignment="Top" />
+
+            <Button Grid.Row="1" Grid.Column="0" Click="Var1_Click">
+                <TextBlock x:Name="Var1" Text="Var1" />
+            </Button>
+            <Button Grid.Row="1" Grid.Column="1" Click="Var2_Click">
+                <TextBlock x:Name="Var2" Text="Var2" />
+            </Button>
+            <Button Grid.Row="2" Grid.Column="0" Click="Var3_Click">
+                <TextBlock x:Name="Var3" Text="Var3" />
+            </Button>
+            <Button Grid.Row="2" Grid.Column="1" Click="Var4_Click">
+               <TextBlock x:Name="Var4" Text="Var4" />
+            </Button>
+         
+            <Button Grid.Row="1" Grid.ColumnSpan="2" x:Name="CheckAnswer" Content="Check" Click="CheckAnswer_Click" FontSize="30"/>
+            <TextBox Grid.Row="2" Grid.ColumnSpan="2" x:Name="Answer"  Height="40" Margin="40,0,40,0" TextWrapping="Wrap" FontFamily="Engravers MT" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" />
+        
+        </Grid>
+
+        <Button Grid.Column="1" Grid.Row="3" x:Name="NextEx" Content="&#x2192;" Click="NextEx_Click" FontSize="34" />
+        <Button Grid.Column="0" Grid.Row="3" x:Name="PrivEx" Content="&#x2190;" Click="PrivEx_Click" FontSize="34" />
+   
+    </Grid>
+</Window>
