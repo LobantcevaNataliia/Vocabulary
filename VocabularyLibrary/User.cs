@@ -16,7 +16,7 @@ namespace VocabularyLibrary
 
         public User()
         {
-            Id = 1;
+            Id = 2;
             Name = "";
             Email = "";
             Password = "";

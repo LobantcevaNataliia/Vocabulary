@@ -1,0 +1,63 @@
+﻿@page "/ListOfMyWords"
+@using System.Collections.ObjectModel
+@attribute [StreamRendering]
+
+<PageTitle>ListOfMyWords</PageTitle>
+
+<h1>List Of My Words</h1>
+
+@if (words == null)
+{
+    DatabaseMethods.LoadDataFromDatabase(user.Id, out words);
+    <p><em>Loading...</em></p>
+}
+else
+{
+    
+    <table class="table">
+        <thead>
+            <tr>
+                <th>№</th>
+                <th>English</th>
+                <th>Transcription</th>
+                <th>Ukrainian</th>
+                <th>Status</th>
+                <th>Level</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var word in words)
+            {
+                <tr>
+                    <td>@word.Id</td>
+                    <td>@word.English</td>
+                    <td>@word.Transcription</td>
+                    <td>@word.Ukrainian</td>
+                    <td>@word.Status</td>
+                    <td>@word.Level</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+@code {
+    User user = new User();//DatabaseMethods.GetDefaultUser();
+    Word word1 = new Word();
+    ObservableCollection<Word>? words;
+    
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Simulate asynchronous loading to demonstrate streaming rendering
+        await Task.Delay(500);
+
+        
+
+        
+    }
+
+    
+}
+

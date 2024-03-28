@@ -16,9 +16,9 @@ namespace VocabularyLibrary
 #pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider declaring as nullable.
         {
             Id = 0;
-            English = "";
-            Transcription = "";
-            Ukrainian = "";
+            English = "k";
+            Transcription = "kk";
+            Ukrainian = "kkk";
             Status = false;
             Level = Level.U;
         }

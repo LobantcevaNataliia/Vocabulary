@@ -1,0 +1,147 @@
+﻿@page "/Authorization"
+@using System.Collections.ObjectModel
+@using System.Security.Cryptography
+@using System.Text
+@rendermode InteractiveServer
+
+<PageTitle>Authorization</PageTitle>
+
+<link rel="stylesheet" href="Authorization.razor.css">
+
+<div class="container">
+    <div class="welcome">
+        @if (showSignUp)
+            {
+            <div class="signup">
+                <h1>register</h1>
+                <form autocomplete="off">
+                    <input type="text" placeholder="username" name="userName">
+                    <input type="email" placeholder="email">
+                    <input type="password" placeholder="password">
+                    <input type="password" placeholder="confirm password">
+                    <button class="button submit" @onclick="CreateAccount">create account </button>
+                </form>
+            </div>
+        }
+        else
+        {
+            <div class="signin">
+                <h1>sign in</h1>
+                <form class="more-padding" autocomplete="off">
+                    <input type="text" placeholder="username">
+                    <input type="password" placeholder="password">
+                    <div class="checkbox">
+                        <input type="checkbox" id="remember" /><label for="remember">remember me</label>
+                    </div>
+                    <button class="button submit" @onclick="LogIn">login</button>
+                </form>
+            </div>
+        }
+        
+        @if (showSignUp)
+        {
+            <div class="leftbox">
+                <h2 class="title"><span> My </span><br>Vocabulary</h2>
+                <p class="desc">Language Mastery <span>Starts Here</span></p>
+                <img class="books" src="books1.png">
+                <p class="account">have an account?</p>
+                <button class="button" @onclick="SignIn">sign in</button>
+            </div>
+        }
+        else
+        {
+            <div class="rightbox">
+                <h2 class="title"><span> My </span><br>Vocabulary</h2>
+                <p class="desc">Language Mastery <span>Starts Here</span></p>
+                <img class="books" src="books2.png" />
+                <p class="account">don't have an account?</p>
+                <button class="button" @onclick="SignUp">sign up</button>
+            </div>
+        }
+   
+    </div>
+</div>
+
+@code {
+    private bool showSignUp = false ;
+
+    private void SignUp()
+    {
+        showSignUp = true;
+    }
+
+    private void SignIn()
+    {
+        showSignUp = false;
+    }
+
+    User user = new User();
+    ObservableCollection<Word> words = new ObservableCollection<Word>();
+    string? userName;
+
+    private void LogIn()
+    {
+        // string userName = username;
+        // string userPassword = HashPassword(UserPasswordBox.Password);
+        // DatabaseMethods.UserExists(userName, ref user);
+        // if (user == null)
+        // {
+        //     Message message = new Message("This userName not exist!");
+        //     message.Show();
+        // }
+
+        // else CheckUser(user, userPassword);
+    }
+
+    private void CreateAccount()
+    {
+        // string userName = UserNameTextBox.Text;
+        // string userEmail = UserEmailTextBox.Text;
+        // string userPassword = HashPassword(UserPasswordBox.Password);
+
+        // DatabaseMethods.UserExists(userName, ref user);
+
+        // if (user == null)
+        // {
+        //     user = new User(DatabaseMethods.GetIdNewUser(), userName, userEmail, userPassword);
+        //     MessageBox.Show(DatabaseMethods.AddNewUser(user));
+
+        //     Window addWindow = new AddWords(words, user);
+        //     addWindow.Show();
+        //     AuthorizationWindow.Close();
+        // }
+        // else MessageBox.Show("This userName alredy exist!");
+    }
+
+    private string HashPassword(string password)
+    {
+        using (SHA256 sha256 = SHA256.Create())
+        {
+            byte[] hashedBytes = sha256.ComputeHash(Encoding.UTF8.GetBytes(password));
+
+            // Конвертуємо байти у рядок (hex representation)
+            StringBuilder builder = new StringBuilder();
+            for (int i = 0; i < hashedBytes.Length; i++)
+            {
+                builder.Append(hashedBytes[i].ToString("x2"));
+            }
+
+            return builder.ToString();
+        }
+    }
+
+    private void CheckUser(User user, string userPassword)
+    {
+        // if (user.Password == userPassword)
+        // {
+        //     Window mainWindow = new MainWindow(user);
+        //     mainWindow.Show();
+        //     AuthorizationWindow.Close();
+        //     MessageBox.Show($"The account {user.Name} is logged in!");
+        // }
+        // else MessageBox.Show("Wrong userPassword");
+    }
+
+}
+    
+    
